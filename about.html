@@ -35,38 +35,49 @@
       padding: 2rem;
     }
 
-    .content {
-      background-color: rgba(255, 255, 255, 0.7); /* พื้นหลังโปร่งแสงให้อ่านง่าย */
-      padding: 1rem;
-      border-radius: 300spx;
-      max-width: 1450px;
-      width: 100%;
-    }
-
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 8rem);
-      top: 20%;
-      text-shadow:
-        0 0 5px #fff,
-        0 0 10px #ffd700,
-        0 0 20px #ffa500,
-        0 0 30px #ff8c00,
-        0 0 40px #ff4500;
-      margin-bottom: 1rem;
-    }
-
- h2 {
-  font-size: clamp(1.4rem, 3vw, 2.5rem); /* ลด max size จาก 4rem → 2.5rem */
-  text-shadow: 0 0 5px #fff;
-  margin-bottom: 1rem;
-   
+   .content {
+  background-color: rgba(255, 255, 255, 0.7); /* พื้นหลังโปร่งแสงให้อ่านง่าย */
+  padding: 2rem;
+  border-radius: 20px;         /* ✅ เดิมพิมพ์ผิดเป็น 300spx → แก้เป็น 20px เพื่อให้สมดุลและไม่หลุดกรอบ */
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;              /* ✅ ทำให้กล่อง .content อยู่กึ่งกลางจอแนวนอน */
+  text-align: center;
 }
-    
-  p, .ariya p, .ariya li {
-  font-size: clamp(1.1rem, 2.5vw, 1.8rem); /* ลดให้พอดีกับหน้าจอทุกขนาด */
-  line-height: 1.6;
-  text-shadow: 0 0 5px #fff;
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);  /* ✅ ใช้ clamp รองรับทุกหน้าจอ (มือถือ-คอม) */
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #ffd700,
+    0 0 20px #ffa500,
+    0 0 30px #ff8c00,
+    0 0 40px #ff4500;
   margin-bottom: 1rem;
+  line-height: 1.2;           /* ✅ ปรับ line-height ให้พอดี ไม่ชิดหรือห่างเกินไป */
+}
+
+h2 {
+  font-size: clamp(1.3rem, 3vw, 2.2rem);  /* ✅ รองรับได้ทั้งมือถือ/แท็บเล็ต/เดสก์ท็อป */
+  text-shadow: 0 0 5px #fff;
+  margin-bottom: 1.2rem;
+  line-height: 1.4;
+}
+
+p, .ariya p, .ariya li {
+  font-size: clamp(1rem, 2.3vw, 1.6rem);  /* ✅ ขนาดตัวอักษรพอดีทุกอุปกรณ์ */
+  line-height: 1.7;                      /* ✅ อ่านง่าย สบายตา */
+  text-shadow: 0 0 4px #fff;
+  margin-bottom: 1rem;
+}
+
+.ariya ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.ariya li {
+  margin-bottom: 0.8rem;
 }
 
     .ariya ul {
