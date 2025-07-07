@@ -26,19 +26,22 @@
       min-height: 100vh;
     }
 
-.header h1 {
-  font-size: 5rem;
-  color: white;
-  text-align: center;
-  text-shadow:
+header h1 {
+  font-size: 5rem;                 /* ✅ ขนาดตัวอักษร */
+  position: absolute;              /* ✅ ให้วางตำแหน่งแบบกำหนดเอง */
+  top: 5%;                         /* ✅ ระยะจากขอบบนจอ */
+  left: 50%;                       /* ✅ อยู่ตรงกลางแนวนอน */
+  transform: translateX(-50%);     /* ✅ เลื่อนตัวอักษรให้กึ่งกลางพอดี */
+  color: #fff;                     /* ✅ สีตัวอักษร */
+  text-align: center;              /* ✅ จัดข้อความให้อยู่ตรงกลาง */
+  z-index: 10;                     /* ✅ ให้อยู่ชั้นบนสุด */
+  white-space: nowrap;            /* ✅ ไม่ตัดขึ้นบรรทัดใหม่ */
+  text-shadow:                    /* ✅ เงาสว่างสวยงาม */
     0 0 5px #fff,
     0 0 10px #ffd700,
     0 0 20px #ffa500,
     0 0 30px #ff8c00,
     0 0 40px #ff4500;
-  white-space: normal;
-  word-break: break-word;
-  margin: 0;
 }
     .frame-container {
       position: absolute;
