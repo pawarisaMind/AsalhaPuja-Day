@@ -55,21 +55,19 @@
       margin-bottom: 1rem;
     }
 
-
-    h2 {
-      font-family: sans-serif;
-      font-size: clamp(1.4rem, 4vw, 4rem);
-      text-shadow: 0 0 10px #fff;
-      margin-bottom: 1.5rem;
-    }
-
-    p, .ariya p, .ariya li {
-      font-family: sans-serif;
-      font-size: clamp(1.4rem, 4vw, 4rem);
-      line-height: 1.7;
-      text-shadow: 0 0 5px #fff;
-      margin-bottom: 1rem;
-    }
+ h2 {
+  font-size: clamp(1.4rem, 3vw, 2.5rem); /* ลด max size จาก 4rem → 2.5rem */
+  text-shadow: 0 0 5px #fff;
+  margin-bottom: 1rem;
+   
+}
+    
+  p, .ariya p, .ariya li {
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem); /* ลดให้พอดีกับหน้าจอทุกขนาด */
+  line-height: 1.6;
+  text-shadow: 0 0 5px #fff;
+  margin-bottom: 1rem;
+}
 
     .ariya ul {
       list-style: none;
