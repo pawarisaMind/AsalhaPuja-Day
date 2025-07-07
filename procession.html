@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>เวียนเทียน - ตัวละครของคุณ</title>
   <style>
     @font-face {
@@ -16,7 +17,17 @@
       background: url('images/พื้นหลัง4.gif') no-repeat center center fixed;
       background-size: cover;
       overflow: hidden;
-      height: 100vh;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      text-shadow: 0 0 5px gold;
+      z-index: 3;
+      font-size: 3rem;
+      margin-top: 1rem;
       position: relative;
     }
 
@@ -25,17 +36,17 @@
       bottom: -5.7%;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 1;
       width: 100%;
       height: 100%;
+      z-index: 1;
     }
 
     .character-wrapper {
       position: absolute;
       bottom: 6px;
       right: -200px;
-      z-index: 2;
       animation: walk 10s linear infinite;
+      z-index: 2;
     }
 
     .character-img {
@@ -47,7 +58,23 @@
       position: absolute;
       bottom: 30px;
       left: 50px;
-      width: 1000px;
+      width: 300px;
+      z-index: 3;
+    }
+
+    .wish-box {
+      position: absolute;
+      bottom: 80%;
+      left: 60%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      font-size: 3rem;
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      border: 2px solid gold;
+      text-align: center;
+      white-space: nowrap;
       z-index: 3;
     }
 
@@ -56,31 +83,37 @@
       100% { right: 120vw; }
     }
 
-    h1 {
-      text-align: center;
-      color: white;
-      text-shadow: 0 0 5px gold;
-      z-index: 3;
-      position: relative;
-      font-size: 3rem;
-      margin-top: 1rem;
+    .chant-scroll-box {
+      position: absolute;
+      top: 100px;
+      right: 20px;
+      width: 600px;
+      height: 300px;
+      background: rgba(255,255,255,0.85);
+      border: 2px solid gold;
+      border-radius: 20px;
+      padding: 1rem;
+      font-size: 2rem;
+      color: #333;
+      z-index: 9;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    .wish-box {
-      position: absolute;
-      bottom: 80%;
-      left: 60%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.9);
-      color: #333;
-      font-size: 5.5rem;
-      padding: 1rem 2rem;
-      border-radius: 20px;
-      border: 2px solid gold;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    .chant-scroll-box h2 {
       text-align: center;
-      white-space: nowrap;
-      z-index: 3;
+      color: goldenrod;
+    }
+
+    .chant-content {
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .chant-content p {
+      text-align: center;
+      margin-bottom: 10px;
     }
 
     .circle-timer {
@@ -90,64 +123,43 @@
       z-index: 10;
     }
 
-    .circle-timer svg text {
-      font-family: 'CopyofJunkshopjanchai', sans-serif;
-    }
-
-    /* ✅ กล่องบทสวดเวียนเทียน */
-    .chant-scroll-box {
-      position: absolute;
-      top: 100px;
-      right: 20px;
-      width: 6000px;
-      height: 500px;
-      background: rgba(255, 255, 255, 0.85);
-      border: 2px solid gold;
-      border-radius: 100px;
-      padding: 1rem;
-      font-size: 5rem;
-      color: #333;
-      z-index: 9;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chant-scroll-box h2 {
-      font-size: 5rem;
-      margin-bottom: 0rem;
-      text-align: center;
-      color: goldenrod;
-    }
-
-    .chant-content {
-      overflow-y: auto;
-      flex: 1;
-      padding-right: 5px;
-    }
-
-    .chant-content p {
-      margin-bottom: 10px;
-      line-height: 1.6;
-      text-align: center;
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .wish-box {
+        font-size: 1.5rem;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .chant-scroll-box {
+        width: 90%;
+        height: auto;
+        font-size: 1.5rem;
+      }
+      .flower {
+        width: 150px;
+      }
+      .circle-timer {
+        transform: scale(0.7);
+      }
     }
   </style>
 </head>
 <body>
   <h1>ยินดีต้อนรับสู่การเวียนเทียน</h1>
 
-  <!-- ✅ กล่องบทสวด -->
   <div class="chant-scroll-box">
     <h2>บทสวดเวียนเทียน</h2>
     <div class="chant-content">
-      <p>"อิติปิโส ภะคะวา อะระหัง สัมมาสัมพุทโธ วิชชาจะระณะสัมปันโน สุคะโต โลกะวิทู อะนุตตะโร ปุริสะทัมมะสาระถิ สัตถา เทวะมะนุสสานัง พุทโธ ภะคะวาติ สวากขาโต ภะคะวาตา ธัมโม สันทิฏฐิโก อะกาลิโก เอหิปัสสิโก โอปะนะยิโก ปัจจัตตัง เวทิตัพโพ วิญญูหิติ สุปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ อุชุปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ ญายะปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ สามีจิปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ ยะทิทัง จัตตาริ ปุริสะยุคานิ อัฏฐะ ปุริสะปุคคะลา เอสะ ภะคะวะโต สาวะกะสังโฆ อาหุเนยโย ปาหุเนยโย ทักขิเณยโย อัญชลีกะระณีโย อะนุตตะรัง ปุญญักเขตตัง โลกัสสาติ สาธุ สาธุ สาธุ 🙏</p>
+      <p>อิติปิโส ภะคะวา ... สาธุ สาธุ สาธุ 🙏</p>
     </div>
   </div>
 
   <div id="characterDisplay"></div>
 
-  <!-- ✅ วงกลมจับเวลา -->
   <div class="circle-timer">
     <svg width="300" height="300">
       <circle cx="150" cy="150" r="140" stroke="#444" stroke-width="12" fill="none"/>
@@ -155,11 +167,10 @@
               stroke-dasharray="880" stroke-dashoffset="880"
               transform="rotate(-90 150 150)" />
       <text id="circleTime" x="150" y="160" text-anchor="middle" fill="#99FF33" font-size="60px">0</text>
-      <text id="circleLabel" x="150" y="210" text-anchor="middle" fill="#99FF33" font-size="45px">เดินครบ 3 รอบ</text>
+      <text x="150" y="210" text-anchor="middle" fill="#99FF33" font-size="45px">เดินครบ 3 รอบ</text>
     </svg>
   </div>
 
-  <!-- ✅ เสียงบทสวดเวียนเทียน -->
   <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
 
   <script>
@@ -177,10 +188,7 @@
       'boyjing1': 'boy1.gif',
       'boyjing2': 'boy2.gif',
       'girljing1': 'girl1.gif',
-      'girljing2': 'girl2.gif',
-      'boy2': 'boy2.gif',
-      'girl1': 'girl1.gif',
-      'girl2': 'girl2.gif'
+      'girljing2': 'girl2.gif'
     };
 
     const flowerMap = {
@@ -199,13 +207,11 @@
       container.appendChild(templeImg);
     }
 
-    if (characterData && characterData.character && characterData.name) {
+    if (characterData) {
       const wrapper = document.createElement('div');
       wrapper.className = 'character-wrapper';
-
       const characterImg = document.createElement('img');
-      const characterFile = gifMap[characterData.character] || `${characterData.character}.png`;
-      characterImg.src = `images/${characterFile}`;
+      characterImg.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
       characterImg.className = 'character-img';
       wrapper.appendChild(characterImg);
 
@@ -218,8 +224,7 @@
 
       if (offeringData && offeringData.offering) {
         const flowerImg = document.createElement('img');
-        const flowerFile = flowerMap[offeringData.offering] || offeringData.offering + '.png';
-        flowerImg.src = `images/${flowerFile}`;
+        flowerImg.src = 'images/' + (flowerMap[offeringData.offering] || offeringData.offering);
         flowerImg.className = 'flower';
         wrapper.appendChild(flowerImg);
       }
@@ -227,15 +232,11 @@
       container.appendChild(wrapper);
     }
 
-    // ✅ วงกลมจับเวลา
-    const circleText = document.getElementById("circleTime");
-    const circleProgress = document.getElementById("progressCircle");
-    const circumference = 2 * Math.PI * 140;
-    circleProgress.setAttribute("stroke-dasharray", circumference);
-    circleProgress.setAttribute("stroke-dashoffset", circumference);
-
     let timePassed = 0;
-    let maxTime = 30;
+    const maxTime = 30;
+    const circleProgress = document.getElementById("progressCircle");
+    const circleText = document.getElementById("circleTime");
+    const circumference = 2 * Math.PI * 140;
 
     function updateCircleUI() {
       timePassed++;
@@ -244,15 +245,14 @@
         circleProgress.setAttribute("stroke-dashoffset", offset);
         circleText.textContent = timePassed;
       }
-
       if (timePassed >= maxTime) {
-        clearInterval(circleInterval);
+        clearInterval(timer);
         alert("🙏 ครบ 3 รอบแล้ว สาธุ");
         window.location.href = "page8.html";
       }
     }
 
-    let circleInterval = setInterval(updateCircleUI, 1000);
+    const timer = setInterval(updateCircleUI, 1000);
   </script>
 </body>
 </html>
