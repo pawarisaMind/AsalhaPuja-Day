@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เวียนเทียน - ตัวละครของคุณ</title>
+
+  <!-- ✅ Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'CopyofJunkshopjanchai';
+      src: url('fonts/CopyofJunkshopjanchai.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'CopyofJunkshopjanchai', sans-serif;
+      background: url('images/พื้นหลัง5.gif') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+    }
+
+    .temple-layer {
+      position: absolute;
+      bottom: -5.7%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+    }
+
+    .character-wrapper {
+      position: absolute;
+      bottom: 6px;
+      right: -200px;
+      z-index: 2;
+      animation: walk 10s linear infinite;
+    }
+
+    .character-img {
+      width: auto;
+      height: auto;
+    }
+
+    .flower {
+      position: absolute;
+      bottom: 30px;
+      left: 50px;
+      width: 1000px;
+      z-index: 3;
+    }
+
+    @keyframes walk {
+      0% { right: -200px; }
+      100% { right: 120vw; }
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      text-shadow: 0 0 5px gold;
+      z-index: 3;
+      position: relative;
+      font-size: 10rem;
+      margin-top: 1rem;
+    }
+
+    .wish-box {
+      position: absolute;
+      bottom: 80%;
+      left: 60%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      font-size: 5.5rem;
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      border: 2px solid gold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      white-space: nowrap;
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+  <h1>เวียนเทียนยุคใหม่<br>อยู่ที่ไหนก็เวียนเทียนได้</h1>
+
+  <div id="characterDisplay"></div>
+
+  <script>
+    const characterData = JSON.parse(localStorage.getItem('characterData'));
+    const measure = localStorage.getItem('measureSelected');
+    const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+
+    const gifMap = {
+      'boyjing1': 'boy1.gif',
+      'boyjing2': 'boy2.gif',
+      'girljing1': 'girl1.gif',
+      'girljing2': 'girl2.gif',
+      'boy2': 'boy2.gif',
+      'girl1': 'girl1.gif',
+      'girl2': 'girl2.gif'
+    };
+
+    const flowerMap = {
+      '1.png': 'ดอก1.png',
+      '2.png': 'ดอก2.png',
+      '3.png': 'ดอก3.png',
+      '4.png': 'ดอก4.png'
+    };
+
+    const container = document.getElementById('characterDisplay');
+
+
+    if (characterData && characterData.character && characterData.name) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'character-wrapper';
+
+      const characterImg = document.createElement('img');
+      const characterFile = gifMap[characterData.character] || `${characterData.character}.png`;
+      characterImg.src = `images/${characterFile}`;
+      characterImg.className = 'character-img';
+      wrapper.appendChild(characterImg);
+
+      if (offeringData && offeringData.wish) {
+        const wishBox = document.createElement('div');
+        wishBox.className = 'wish-box';
+        wishBox.innerHTML = `🫗 <strong></strong> ${offeringData.wish} 🙏`;
+        wrapper.appendChild(wishBox);
+      }
+
+      if (offeringData && offeringData.offering) {
+        const flowerImg = document.createElement('img');
+        const flowerFile = flowerMap[offeringData.offering] || offeringData.offering + '.png';
+        flowerImg.src = `images/${flowerFile}`;
+        flowerImg.className = 'flower';
+        wrapper.appendChild(flowerImg);
+      }
+
+      container.appendChild(wrapper);
+    }
+
+    // ✅ บันทึกข้อมูลเข้า Firestore
+    async function saveToFirebase() {
+      try {
+        await db.collection("users").add({
+          character_name: characterData?.name || "ไม่ระบุ",
+          character_type: characterData?.character || "ไม่ระบุ",
+          temple: measure || "ไม่เลือกวัด",
+          offering_type: offeringData?.offering || "ไม่ระบุ",
+          wish: offeringData?.wish || "ไม่มีคำอธิษฐาน",
+          timestamp: new Date().toISOString()
+        });
+        console.log("✅ บันทึกข้อมูลสำเร็จ");
+      } catch (error) {
+        console.error("❌ เกิดข้อผิดพลาดในการบันทึก:", error);
+      }
+    }
+
+    // ✅ เรียกเมื่อโหลดหน้า
+    window.addEventListener("DOMContentLoaded", saveToFirebase);
+  </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เลือกวัด</title>
+  <style>
+    @font-face {
+      font-family: 'CopyofJunkshopjanchai';
+      src: url('fonts/CopyofJunkshopjanchai.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'CopyofJunkshopjanchai', sans-serif;
+      background: url('images/พื้นหลัง3.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 10rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px gold;
+    }
+
+    .measure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 5rem;
+      width: 90%;
+      max-width: 3000px;
+      margin-bottom: 3rem;
+    }
+
+    .measure-card {
+      border: 5px solid transparent;
+      border-radius: 15px;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.3s, border 0.3s;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .measure-card:hover {
+      transform: scale(1.05);
+    }
+
+    .measure-card.selected {
+      border-color: gold;
+      box-shadow: 0 0 15px gold;
+    }
+
+    .measure-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    button {
+      font-size: 5rem;
+      padding: 0.8rem 2rem;
+      border-radius: 20px;
+      background: linear-gradient(to right, #ffd700, #ffa500);
+      border: none;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffa500;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #ffa500, #ff4500);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>เลือกวัด</h1>
+
+  <div class="measure-grid">
+    <div class="measure-card" onclick="selectMeasure(this)" data-measure="วัด1">
+      <img src="images/วัด1.png" alt="วัด1">
+    </div>
+    <div class="measure-card" onclick="selectMeasure(this)" data-measure="วัด2">
+      <img src="images/วัด2.png" alt="วัด2">
+    </div>
+    <div class="measure-card" onclick="selectMeasure(this)" data-measure="วัด3">
+      <img src="images/วัด3.png" alt="วัด3">
+    </div>
+  </div>
+
+  <button onclick="submitForm()">ยืนยัน</button>
+
+  <script>
+    let selectedMeasure = null;
+
+    function selectMeasure(element) {
+      document.querySelectorAll('.measure-card').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedMeasure = element.getAttribute('data-measure');
+    }
+
+    function submitForm() {
+      if (!selectedMeasure) {
+        alert("กรุณาเลือกวัดก่อน");
+        return;
+      }
+
+      // บันทึกชื่อวัดใน localStorage
+      localStorage.setItem('measureSelected', selectedMeasure);
+window.location.href = "page10.html";
+    }
+  </script>
+
+</body>
+</html>

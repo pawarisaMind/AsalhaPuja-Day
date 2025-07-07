@@ -1,0 +1,16 @@
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>คำอธิษฐานของคุณ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>คำอธิษฐานของคุณ</h2>
+  <div id="blessingDisplay"></div>
+  <script>
+    const data = JSON.parse(localStorage.getItem("blessing"));
+    const div = document.getElementById("blessingDisplay");
+    div.innerHTML = `<p><strong>ชื่อ:</strong> ${data?.name || "ไม่ระบุ"}</p><p><strong>คำอธิษฐาน:</strong> ${data?.wish || "ไม่มีคำอธิษฐาน"}</p>`;
+  </script>
+</body>
+</html>
