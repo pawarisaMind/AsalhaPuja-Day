@@ -1,150 +1,123 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>กิจกรรมเวียนเทียน</title>
-
-  <!-- โหลดฟอนต์ FC Minimal จาก Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=FC+Minimal&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <title>เวียนเทียน</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    @font-face {
+      font-family: 'CopyofJunkshopjanchai';
+      src: url('fonts/CopyofJunkshopjanchai.ttf') format('truetype');
     }
 
     body {
-      font-family: 'FC Minimal', sans-serif;
-      background: url('images/bg2.gif') no-repeat center center fixed;
+      margin: 0;
+      padding: 0;
+      font-family: 'CopyofJunkshopjanchai', sans-serif;
+      background: url('images/พื้นหลัง3.gif') no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
-      text-align: center;
-      color: black;
-      padding: 2rem;
+      flex-direction: column;
     }
 
-    .content {
-      background-color: rgba(255, 255, 255, 0.95); /* ชัดเจนขึ้น */
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 900px;
-      width: 100%;
-      margin: 0 auto;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 10vh;
     }
 
-    h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-family: 'FC Minimal', sans-serif;
-      text-shadow:
-        0 0 5px #fff,
-        0 0 10px #ffd700,
-        0 0 20px #ffa500;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
-
-    h2 {
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      font-family: 'FC Minimal', sans-serif;
-      text-shadow: 0 0 5px #fff;
-      margin-bottom: 1rem;
-      line-height: 1.4;
-    }
-
-    p, .ariya p, .ariya li {
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      font-family: 'FC Minimal', sans-serif;
-      line-height: 1.7;
-      text-shadow: 0 0 4px #fff;
-      margin-bottom: 1rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
-
-    .ariya ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-
-    .ariya li {
-      margin-bottom: 0.8rem;
-    }
-
-    .arrow-down {
-      display: inline-block;
-      font-size: clamp(2rem, 8vw, 5rem);
-      color: black;
-      margin-top: 2rem;
+    .menu a {
       text-decoration: none;
-      animation: bounce 2s infinite;
-      transition: transform 0.3s;
     }
 
-    .arrow-down:hover {
-      transform: scale(1.2);
+    .menu h1,
+    .menu h2,
+    .menu h3 {
+      font-size: 9rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem 3rem;
+      background: linear-gradient(to right, #ffe6b785, #ff6e7f8e);
+      border-radius: 50px;
+      color: rgb(247, 247, 247);
+      text-shadow:
+        0 0 5px black,
+        0 0 10px black,
+        0 0 20px black;
+        
+      box-shadow:
+        0 0 10px #fff,
+        0 0 20px #ffd700,
+        0 0 30px #ffa500;
+      animation: glow 2s infinite ease-in-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: max-content;
     }
 
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
+    .menu h1::before {
+      content: "🎭"; /* ไอคอนเลือกคาร์แรคเตอร์ */
+    }
+
+    .menu h2::before {
+      content: "🏯"; /* ไอคอนเลือกวัด */
+    }
+
+    .menu h3::before {
+      content: "🙏"; /* ไอคอนคำอธิษฐาน */
+    }
+
+    .menu h1:hover,
+    .menu h2:hover,
+    .menu h3:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 20px #fff,
+        0 0 40px #ffd700,
+        0 0 60px #ffa500;
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow:
+          0 0 10px #fff,
+          0 0 20px #ffd700,
+          0 0 30px #ffa500;
       }
       50% {
-        transform: translateY(10px);
+        box-shadow:
+          0 0 20px #fff,
+          0 0 30px #ffd700,
+          0 0 50px #ffa500;
+      }
+      100% {
+        box-shadow:
+          0 0 10px #fff,
+          0 0 20px #ffd700,
+          0 0 30px #ffa500;
       }
     }
 
-    @media (max-width: 480px) {
-      .content {
-        padding: 1rem;
-        border-radius: 12px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      h2 {
-        font-size: 1.4rem;
-      }
-
-      p, .ariya p, .ariya li {
-        font-size: 1rem;
+    @media (max-width: 768px) {
+      .menu h1,
+      .menu h2,
+      .menu h3 {
+        font-size: 2.5rem;
+        padding: 0.8rem 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="content">
-    <h1>วันอาสาฬหบูชา</h1>
-    <h2>วันเพ็ญขึ้น 15 ค่ำ เดือน 8</h2>
-    <p>
-      วันสำคัญทางพระพุทธศาสนาที่ระลึกถึงวันที่พระพุทธเจ้าทรงแสดงปฐมเทศนา
-      โปรดพระปัญจวัคคีย์ และเป็นวันที่พระรัตนตรัยครบองค์ 3 คือ พระพุทธ พระธรรม และพระสงฆ์
-    </p>
-    <div class="ariya">
-      <p>
-        ปฐมเทศนาของพระพุทธเจ้า ประกอบด้วยหลักธรรม 4 ประการ เรียกว่า "อริยสัจ 4" ได้แก่:
-      </p>
-      <ul>
-        <li><strong>ทุกข์</strong> คือ สภาพที่ทนได้ยาก สภาพที่ไม่เป็นสุข</li>
-        <li><strong>สมุทัย</strong> คือ เหตุแห่งทุกข์</li>
-        <li><strong>นิโรธ</strong> คือ การดับทุกข์</li>
-        <li><strong>มรรค</strong> คือ ทางไปสู่การดับทุกข์</li>
-      </ul>
-      <p>
-        หลักธรรมอริยสัจ 4 เป็นหัวใจของพระพุทธศาสนา ชี้ให้เห็นความจริงของชีวิต<br>
-        และหนทางแห่งการหลุดพ้นจากทุกข์ คือ "ทางสายกลาง"
-      </p>
-    </div>
+  <div class="menu">
+    <a href="register.html"><h1>เลือกคาร์แลคเตอร์</h1></a>
+    <a href="page9.html"><h2>เลือกวัด</h2></a>
+    <a href="page10.html"><h3>คำอธิษฐาน</h3></a>
   </div>
-  <a href="page6.html" class="arrow-down" aria-label="ไปยังตารางกิจกรรม">></a>
 </body>
 </html>
