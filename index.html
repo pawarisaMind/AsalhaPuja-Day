@@ -42,7 +42,14 @@
       margin-bottom: 4rem; /* ✅ ให้เว้นจากพระพุทธรูปและดวงจันทร์ */
       max-width: 90%;
     }
-
+   .frame-container {
+    position: absolute;
+    bottom: 5%; /* ✅ ระยะห่างจากขอบล่างของหน้าจอ */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 10;
+  }
     .frame-container h2 {
       font-size: clamp(1.2rem, 3vw, 2rem);
       padding: 0.3rem 1.5rem;
