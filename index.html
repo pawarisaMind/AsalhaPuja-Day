@@ -55,16 +55,24 @@
   body {
     background-image: url('images/bg-mainone.gif'); /* หรือภาพที่ต้องการ */
   }
-
   .frame-container {
   position: absolute;
-  bottom: 280px; 
+  bottom: 250px; 
   left: 50%;
   transform: translateX(-50%);
 }
 
   .frame-container h2 {
     font-size: 2.2rem;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
+  body {
+    background-image: url('images/bg-maintwo.gif');
+  }
+
+  .frame-container h2 {
+    font-size: 3rem;
   }
 }
     /* แท็บเล็ตแนวนอน */
