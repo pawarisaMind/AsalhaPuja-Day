@@ -21,8 +21,7 @@
       align-items: center;
       flex-direction: column;
     }
-
-    .menu {
+  .menu {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -34,10 +33,9 @@
       text-decoration: none;
     }
 
-    .menu h1,
-    .menu h2,
-    .menu h3 {
+    .menu h1,.menu h2,.menu h3 {
       font-size: clamp(1.8rem, 5vw, 6rem); /* 👈 ปรับอัตโนมัติตามขนาดหน้าจอ */
+      font-family: 'FCMinimal';
       display: flex;
       align-items: center;
       justify-content: center;
@@ -59,19 +57,6 @@
       width: max-content;
       text-align: center;
     }
-
-    .menu h1::before {
-      content: "🎭";
-    }
-
-    .menu h2::before {
-      content: "🏯";
-    }
-
-    .menu h3::before {
-      content: "🙏";
-    }
-
     .menu h1:hover,
     .menu h2:hover,
     .menu h3:hover {
