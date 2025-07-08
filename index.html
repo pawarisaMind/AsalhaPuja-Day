@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>กิจกรรมเวียนเทียน</title>
-
   <style>
     @font-face {
       font-family: 'CopyofJunkshopjanchai';
@@ -26,37 +25,36 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       text-align: center;
+      padding: 1rem;
     }
 
     h1 {
-      font-size: clamp(1.8rem, 5vw, 4rem);
+      font-size: clamp(1.4rem, 5vw, 3.2rem);
       color: #fff;
-      line-height: 1.4;
       text-shadow:
         0 0 5px #fff,
         0 0 10px #ffd700,
         0 0 20px #ffa500,
         0 0 30px #ff8c00,
         0 0 40px #ff4500;
-      margin-bottom: 2rem;
+      line-height: 1.4;
+      margin-bottom: 4rem; /* ✅ ให้เว้นจากพระพุทธรูปและดวงจันทร์ */
       max-width: 90%;
     }
 
     .frame-container h2 {
-      font-size: clamp(1.3rem, 3vw, 2.5rem);
+      font-size: clamp(1.2rem, 3vw, 2rem);
       padding: 0.3rem 1.5rem;
       color: orange;
       border-radius: 12px;
+      background: rgba(255, 255, 255, 0.5);
       text-shadow:
         0 0 5px white,
         0 0 10px white,
-        0 0 20px white,
-        0 0 30px white;
+        0 0 20px white;
       font-family: 'CopyofJunkshopjanchai', sans-serif;
-      background-color: rgba(255,255,255,0.5);
-      display: inline-block;
+      margin-top: 2rem;
     }
 
     a {
@@ -67,12 +65,13 @@
       h1 {
         font-size: 1.5rem;
         line-height: 1.3;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
       }
 
       .frame-container h2 {
-        font-size: 1.3rem;
-        padding: 0.4rem 1.2rem;
+        font-size: 1.2rem;
+        padding: 0.5rem 1rem;
+        margin-top: 1.5rem;
       }
     }
   </style>
@@ -81,9 +80,7 @@
   <main>
     <h1>เวียนเทียนยุคใหม่<br>อยู่ที่ไหนก็เวียนเทียนได้</h1>
     <div class="frame-container">
-      <a href="about.html">
-        <h2>เวียนเทียนออนไลน์</h2>
-      </a>
+      <a href="about.html"><h2>เวียนเทียนออนไลน์</h2></a>
     </div>
   </main>
 </body>
