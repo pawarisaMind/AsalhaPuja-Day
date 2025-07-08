@@ -29,32 +29,12 @@
       padding: 1rem;
       position: relative;
     }
-
-    h1 {
-      font-size: clamp(1.6rem, 5vw, 3rem);
-      color:  #8B4513;
-      line-height: 1.4;
-      margin-top: 6%; /* ปรับให้ข้อความอยู่ใกล้ดวงจันทร์ */
-      margin-bottom: 2rem;
-      z-index: 10;
-      max-width: 90%;
-    }
-
-    .frame-container {
-      position: absolute;
-      top: 67%; /* อยู่ใต้ดอกบัว */
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      z-index: 10;
-    }
-
     .frame-container h2 {
       font-size: clamp(1.2rem, 3vw, 2.2rem);
       padding: 0.4rem 1.5rem;
       background: rgba(255, 255, 255, 0.6);
       border-radius: 12px;
-      color: orange;
+      color: #8B4513;
       text-shadow:
         0 0 5px white,
         0 0 10px white,
@@ -70,47 +50,36 @@
     /* มือถือแนวตั้ง */
     @media screen and (max-width: 480px) and (orientation: portrait) {
     background-image: url('images/bg-tablet.gif');
-      h1 {
-        font-size: 2.2rem;
-        margin-top: 8%;
-        margin-bottom: 1.5rem;
-      }
       .frame-container {
         top: 88%;
       }
       .frame-container h2 {
-        font-size: 1.8rem;
-        padding: 0.5rem 1rem;
+        font-size: 2.2rem;
+        margin-top: 8%;
+        margin-bottom: 1.5rem;
       }
     }
 
     /* มือถือแนวนอน */
     @media screen and (max-width: 768px) and (orientation: landscape) {
       background-image: url('images/bg-tablet.gif');
-      h1 {
+      .frame-container h2 {
         font-size: 1.6rem;
         margin-top: 5%;
       }
       .frame-container {
         top: 70%;
       }
-      .frame-container h2 {
-        font-size: 1.2rem;
-      }
     }
 
     /* แท็บเล็ตแนวตั้ง */
     @media screen and (min-width: 481px) and (max-width: 1024px) and (orientation: portrait) {
       background-image: url('images/bg-tablet.gif');
-      h1 {
-        font-size: 2.3rem;
-        margin-top: 7%;
-      }
       .frame-container {
         top: 68%;
       }
       .frame-container h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
     }
 
@@ -131,22 +100,17 @@
     /* Desktop */
     @media screen and (min-width: 1025px) {
       background-image: url('images/bg-tablet.gif');
-      h1 {
-        font-size: 3rem;
-        margin-top: 6%;
-      }
       .frame-container {
         top: 67%;
       }
       .frame-container h2 {
-        font-size: 2.2rem;
+        font-size: 3rem;
       }
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>เวียนเทียนออนไลน์</h1>
     <div class="frame-container">
       <a href="about.html"><h2>เริ่มต้นเวียนเทียน</h2></a>
     </div>
