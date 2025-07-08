@@ -1,116 +1,94 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>เวียนเทียน</title>
   <style>
-    @font-face {
-      font-family: 'FCMinimal';
-      src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
-    }
+  @font-face {
+    font-family: 'FCMinimal';
+    src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-    body {
-      font-family: 'FCMinimal', sans-serif;
-      background: url('images/treemain.gif') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 2rem;
-      text-align: center;
-    }
+  body {
+    font-family: 'FCMinimal', sans-serif;
+    background: url('images/treemain.gif') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
+  }
 
-    .menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3rem;
-      width: 100%;
-      max-width: 600px;
-    }
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+    max-width: 600px;
+  }
 
-    .menu a {
-      text-decoration: none;
-      width: 100%;
-    }
+  .menu a {
+    text-decoration: none;
+    width: 100%;
+  }
 
-  .menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* หรือ center ถ้าไม่มี icon */
-  gap: 1rem;
-  background-color: #fce5b6;
-  padding: 1rem 2rem;
-  border-radius: 16px;
-  box-shadow: 5px 5px 0 #c49b46;
-  color: #333;
-  font-size: 2rem;
-  text-decoration: none;
+.menu h1,
+.menu h2,
+.menu h3 {
   font-family: 'FCMinimal', sans-serif;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  color: #4A4A4A;
+  height: 120px; /* หรือปรับตามความสูงที่ต้องการ */
+  display: flex;
+  align-items: center; /* แนวตั้ง */
+  justify-content: center; /* แนวนอน */
+  text-align: center;
+  padding: 0 2rem;
+  border-radius: 16px;
+  background-color: #fce5b6; /* เพิ่มพื้นหลังเพื่อให้เห็นขอบกล่องชัดขึ้น (เลือกตามธีมคุณ) */
+  box-shadow: 5px 5px 0 #c49b46; /* หรือปรับตามของเดิม */
   transition: transform 0.3s ease;
-}
 
-.menu-item img {
-  width: 50px;
-  height: auto;
-}
+  .menu h1:hover,
+  .menu h2:hover,
+  .menu h3:hover {
+    transform: scale(1.05);
+  }
 
-.menu-item span {
-  flex: 1;
-  text-align: left; /* ถ้าต้องการให้ข้อความชิดซ้าย */
-  /* หรือใช้ text-align: center; ถ้าต้องการให้อยู่กลางกล่อง */
-}
-
-.menu-item:hover {
-  transform: scale(1.05);
-}
-    @media (max-width: 480px) {
-      body {
-        background: url('images/treemain-mobile.gif') no-repeat center center fixed;
-        background-size: cover;
-      }
-      .menu {
-        gap: 2rem;
-      }
-      .menu-item {
-        font-size: 1.6rem;
-        padding: 0 1rem;
-      }
-      .menu-item img.icon {
-        width: 40px;
-      }
+  /* ✅ สำหรับหน้าจอมือถือ */
+  @media (max-width: 480px) {
+    body {
+      background: url('images/treemain-mobile.gif') no-repeat center center fixed;
     }
-  </style>
+    .menu {
+      gap: 2rem;
+    }
+  }
+
+  /* ✅ สำหรับแท็บเล็ตแนวตั้ง */
+  @media (min-width: 481px) and (max-width: 1024px) and (orientation: portrait) {
+    body {
+      background: url('images/treemain.gif') no-repeat center center fixed;
+    }
+  }
+</style>
 </head>
 <body>
   <div class="menu">
-    <a href="register.html">
-      <div class="menu-item">
-        <img src="images/8.png" alt="icon" class="icon">
-        <span>เลือกตัวละคร</span>
-      </div>
-    </a>
-    <a href="page9.html">
-      <div class="menu-item">
-        <img src="images/9.png" alt="icon" class="icon">
-        <span>เลือกวัด</span>
-      </div>
-    </a>
-    <a href="page10.html">
-      <div class="menu-item">
-        <img src="images/10.png" alt="icon" class="icon">
-        <span>คำอธิษฐาน</span>
-      </div>
-    </a>
+    <a href="register.html"><h1>เลือกตัวละคร</h1></a>
+    <a href="page9.html"><h2>เลือกวัด</h2></a>
+    <a href="page10.html"><h3>คำอธิษฐาน</h3></a>
   </div>
 </body>
 </html>
