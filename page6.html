@@ -1,123 +1,116 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>เวียนเทียน</title>
-  <style>
-    @font-face {
-      font-family:'FCMinimal';
-      src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
-    }
+  <meta charset="UTF-8">
+  <title>เวียนเทียน</title>
+  <style>
+    @font-face {
+      font-family: 'FCMinimal';
+      src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
+    }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'FCMinimal', sans-serif;
-      background: url('images/พื้นหลัง3.gif') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      flex-direction: column;
-    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'FCMinimal', sans-serif;
+      background: url('images/พื้นหลัง3.gif') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-direction: column;
+    }
 
-    .menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3rem;
-      margin-bottom: 10vh;
-    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+      margin-bottom: 10vh;
+    }
 
-    .menu a {
-      text-decoration: none;
-    }
+    .menu a {
+      text-decoration: none;
+    }
 
-    .menu h1,
-    .menu h2,
-    .menu h3 {
-      font-size: 9rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      justify-content: center;
-      padding: 1rem 3rem;
-      background: linear-gradient(to right, #ffe6b785, #ff6e7f8e);
-      border-radius: 50px;
-      color: rgb(247, 247, 247);
-      text-shadow:
-        0 0 5px black,
-        0 0 10px black,
-        0 0 20px black;
-        
-      box-shadow:
-        0 0 10px #fff,
-        0 0 20px #ffd700,
-        0 0 30px #ffa500;
-      animation: glow 2s infinite ease-in-out;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      width: max-content;
-    }
+    .menu h1,
+    .menu h2,
+    .menu h3 {
+      font-size: clamp(1.8rem, 5vw, 6rem); /* 👈 ปรับอัตโนมัติตามขนาดหน้าจอ */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem 3rem;
+      background: linear-gradient(to right, #ffe6b785, #ff6e7f8e);
+      border-radius: 50px;
+      color: rgb(247, 247, 247);
+      text-shadow:
+        0 0 5px black,
+        0 0 10px black,
+        0 0 20px black;
+      box-shadow:
+        0 0 10px #fff,
+        0 0 20px #ffd700,
+        0 0 30px #ffa500;
+      animation: glow 2s infinite ease-in-out;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: max-content;
+      text-align: center;
+    }
 
-    .menu h1::before {
-      content: "🎭"; /* ไอคอนเลือกคาร์แรคเตอร์ */
-    }
+    .menu h1::before {
+      content: "🎭";
+    }
 
-    .menu h2::before {
-      content: "🏯"; /* ไอคอนเลือกวัด */
-    }
+    .menu h2::before {
+      content: "🏯";
+    }
 
-    .menu h3::before {
-      content: "🙏"; /* ไอคอนคำอธิษฐาน */
-    }
+    .menu h3::before {
+      content: "🙏";
+    }
 
-    .menu h1:hover,
-    .menu h2:hover,
-    .menu h3:hover {
-      transform: scale(1.05);
-      box-shadow:
-        0 0 20px #fff,
-        0 0 40px #ffd700,
-        0 0 60px #ffa500;
-    }
+    .menu h1:hover,
+    .menu h2:hover,
+    .menu h3:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 20px #fff,
+        0 0 40px #ffd700,
+        0 0 60px #ffa500;
+    }
 
-    @keyframes glow {
-      0% {
-        box-shadow:
-          0 0 10px #fff,
-          0 0 20px #ffd700,
-          0 0 30px #ffa500;
-      }
-      50% {
-        box-shadow:
-          0 0 20px #fff,
-          0 0 30px #ffd700,
-          0 0 50px #ffa500;
-      }
-      100% {
-        box-shadow:
-          0 0 10px #fff,
-          0 0 20px #ffd700,
-          0 0 30px #ffa500;
-      }
-    }
+    @keyframes glow {
+      0% {
+        box-shadow:
+          0 0 10px #fff,
+          0 0 20px #ffd700,
+          0 0 30px #ffa500;
+      }
+      50% {
+        box-shadow:
+          0 0 20px #fff,
+          0 0 30px #ffd700,
+          0 0 50px #ffa500;
+      }
+      100% {
+        box-shadow:
+          0 0 10px #fff,
+          0 0 20px #ffd700,
+          0 0 30px #ffa500;
+      }
+    }
 
-    @media (max-width: 768px) {
-      .menu h1,
-      .menu h2,
-      .menu h3 {
-        font-size: 2.5rem;
-        padding: 0.8rem 2rem;
-      }
-    }
-  </style>
+    /* ไม่จำเป็นต้องใช้ media query หากใช้ clamp() แล้ว */
+  </style>
 </head>
 <body>
-  <div class="menu">
-    <a href="register.html"><h1>เลือกตัวละคร</h1></a>
-    <a href="page9.html"><h2>เลือกวัด</h2></a>
-    <a href="page10.html"><h3>คำอธิษฐาน</h3></a>
-  </div>
+  <div class="menu">
+    <a href="register.html"><h1>เลือกตัวละคร</h1></a>
+    <a href="page9.html"><h2>เลือกวัด</h2></a>
+    <a href="page10.html"><h3>คำอธิษฐาน</h3></a>
+  </div>
 </body>
 </html>
