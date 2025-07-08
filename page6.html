@@ -18,7 +18,7 @@
 
     body {
       font-family: 'FCMinimal', sans-serif;
-      background: url('images/twomain.gif') no-repeat center center fixed;
+      background: url('images/treemain.gif') no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -43,30 +43,36 @@
       width: 100%;
     }
 
-    .menu-item {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 1rem;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      color: #4A4A4A;
-      height: 120px;
-      padding: 0 2rem;
-      border-radius: 16px;
-      background-color: #fce5b6;
-      box-shadow: 5px 5px 0 #c49b46;
-      transition: transform 0.3s ease;
-    }
+  .menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* หรือ center ถ้าไม่มี icon */
+  gap: 1rem;
+  background-color: #fce5b6;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  box-shadow: 5px 5px 0 #c49b46;
+  color: #333;
+  font-size: 2rem;
+  text-decoration: none;
+  font-family: 'FCMinimal', sans-serif;
+  transition: transform 0.3s ease;
+}
 
-    .menu-item:hover {
-      transform: scale(1.05);
-    }
+.menu-item img {
+  width: 50px;
+  height: auto;
+}
 
-    .menu-item img.icon {
-      width: 60px;
-      height: auto;
-    }
+.menu-item span {
+  flex: 1;
+  text-align: left; /* ถ้าต้องการให้ข้อความชิดซ้าย */
+  /* หรือใช้ text-align: center; ถ้าต้องการให้อยู่กลางกล่อง */
+}
 
+.menu-item:hover {
+  transform: scale(1.05);
+}
     @media (max-width: 480px) {
       body {
         background: url('images/treemain-mobile.gif') no-repeat center center fixed;
