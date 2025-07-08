@@ -56,10 +56,9 @@
 .frame-container h2 {
   font-size: clamp(1.3rem, 3vw, 2.5rem); /* ✅ ยืดหยุ่นตามจอ */
   padding: 0.3rem 1.5rem;
-  background: white;
   color: orange;
   border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  text-shadow: 0 0 8px rgba(0,0,0,0.2);
   font-family: 'CopyofJunkshopjanchai', sans-serif;
 }
 
@@ -67,11 +66,6 @@
     @media (max-width: 480px) {
       .frame-container {
         top: 75%;
-      }
-
-      header h1 {
-        white-space: normal; /* ให้ขึ้นบรรทัดใหม่ถ้าจอแคบ */
-        padding: 0 1rem;
       }
     }
   </style>
