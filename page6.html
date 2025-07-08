@@ -5,67 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>เวียนเทียน</title>
   <style>
-    @font-face {
-      font-family: 'FCMinimal';
-      src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
-    }
+  @font-face {
+    font-family: 'FCMinimal';
+    src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
+  }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  body {
+    font-family: 'FCMinimal', sans-serif;
+    background: url('images/treemain.gif') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .menu a {
+    text-decoration: none;
+    width: 100%;
+  }
+
+  .menu h1,
+  .menu h2,
+  .menu h3 {
+    font-family: 'FCMinimal', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: #4A4A4A;
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .menu h1:hover,
+  .menu h2:hover,
+  .menu h3:hover {
+    transform: scale(1.05);
+  }
+
+  /* ✅ สำหรับหน้าจอมือถือ */
+  @media (max-width: 480px) {
     body {
-      font-family: 'FCMinimal', sans-serif;
-      background: url('images/treemain.gif') no-repeat center center fixed;
+      background: url('images/treemain-mobile.gif') no-repeat center center fixed;
       background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      padding: 2rem;
-      text-align: center;
     }
 
     .menu {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3rem;
-      width: 100%;
-      max-width: 600px;
+      gap: 2rem;
     }
+  }
 
-    .menu a {
-      text-decoration: none;
-      width: 100%;
+  /* ✅ สำหรับแท็บเล็ตแนวตั้ง */
+  @media (min-width: 481px) and (max-width: 1024px) and (orientation: portrait) {
+    body {
+      background: url('images/treemain.gif') no-repeat center center fixed;
+      background-size: cover;
     }
-
-    .menu h1,
-    .menu h2,
-    .menu h3 {
-      font-family: 'FCMinimal', sans-serif;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      color: #4A4A4A;
-      padding: 1rem 2rem;
-      border-radius: 16px;
-      transition: transform 0.3s ease;
-    }
-
-    .menu h1:hover,
-    .menu h2:hover,
-    .menu h3:hover {
-      transform: scale(1.05);
-    }
-
-    @media (max-width: 480px) {
-      .menu {
-        gap: 2rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <div class="menu">
