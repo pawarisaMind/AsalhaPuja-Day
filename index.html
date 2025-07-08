@@ -27,10 +27,11 @@
       align-items: center;
       text-align: center;
       padding: 1rem;
+      position: relative;
     }
 
     h1 {
-      font-size: clamp(1.4rem, 5vw, 3.2rem);
+      font-size: clamp(1.6rem, 5vw, 3rem);
       color: #fff;
       text-shadow:
         0 0 5px #fff,
@@ -39,46 +40,116 @@
         0 0 30px #ff8c00,
         0 0 40px #ff4500;
       line-height: 1.4;
-      margin-bottom: 4rem; /* ✅ ให้เว้นจากพระพุทธรูปและดวงจันทร์ */
+      margin-bottom: 4rem;
       max-width: 100%;
+      z-index: 10;
     }
-   .frame-container {
-  position: absolute;
-  top: 67%; /* ✅ ปรับให้อยู่ใต้ดอกบัว */
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  z-index: 10;
-}
 
-.frame-container h2 {
-  font-size: clamp(1.2rem, 3vw, 2.2rem);
-  padding: 0.4rem 1.5rem;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 12px;
-  color: orange;
-  font-family: 'CopyofJunkshopjanchai', sans-serif;
-  text-shadow:
-    0 0 5px white,
-    0 0 10px white,
-    0 0 20px white;
-  margin: 0;
-}
+    .frame-container {
+      position: absolute;
+      top: 67%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10;
+    }
+
+    .frame-container h2 {
+      font-size: clamp(1.2rem, 3vw, 2.2rem);
+      padding: 0.4rem 1.5rem;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      color: orange;
+      font-family: 'CopyofJunkshopjanchai', sans-serif;
+      text-shadow:
+        0 0 5px white,
+        0 0 10px white,
+        0 0 20px white;
+      margin: 0;
+    }
+
     a {
       text-decoration: none;
     }
 
-    @media (max-width: 480px) {
+    /* 📱 มือถือแนวตั้ง */
+    @media screen and (max-width: 480px) and (orientation: portrait) {
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         line-height: 1.3;
         margin-bottom: 2rem;
       }
 
+      .frame-container {
+        top: 72%;
+      }
+
+      .frame-container h2 {
+        font-size: 1.1rem;
+        padding: 0.4rem 1rem;
+      }
+    }
+
+    /* 📱 มือถือแนวนอน */
+    @media screen and (max-width: 768px) and (orientation: landscape) {
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+      }
+
+      .frame-container {
+        top: 70%;
+      }
+
       .frame-container h2 {
         font-size: 1.2rem;
-        padding: 0.5rem 1rem;
-        margin-top: 1.5rem;
+      }
+    }
+
+    /* 📲 แท็บเล็ตแนวตั้ง */
+    @media screen and (min-width: 481px) and (max-width: 1024px) and (orientation: portrait) {
+      h1 {
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+      }
+
+      .frame-container {
+        top: 67%;
+      }
+
+      .frame-container h2 {
+        font-size: 1.4rem;
+        padding: 0.5rem 1.2rem;
+      }
+    }
+
+    /* 📲 แท็บเล็ตแนวนอน */
+    @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .frame-container {
+        top: 66%;
+      }
+
+      .frame-container h2 {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* 💻 Desktop */
+    @media screen and (min-width: 1025px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      .frame-container {
+        top: 67%;
+      }
+
+      .frame-container h2 {
+        font-size: 2.2rem;
       }
     }
   </style>
