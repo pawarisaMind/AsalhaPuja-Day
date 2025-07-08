@@ -1,177 +1,149 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>กิจกรรมเวียนเทียน</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>กิจกรรมเวียนเทียน</title>
 
-  <style>
-    @font-face {
-      font-family: 'CopyofJunkshopjanchai';
-      src: url('fonts/CopyofJunkshopjanchai.ttf') format('truetype');
-    }
+  <style>
+    @font-face {
+      font-family: 'FCMinimal';
+      src: url('fonts/FC Minimal Regular.ttf') format('truetype');
+    }
 
-    @font-face {
-      font-family: 'TunaDemo';
-      src: url('fonts/TunaDemo.ttf') format('truetype');
-    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    body {
+      font-family: 'FCMinimal', sans-serif;
+      background: url('images/พื้นหลัง2.gif') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: black;
+      padding: 2rem;
+    }
 
-    body {
-      font-family: 'CopyofJunkshopjanchai', sans-serif;
-      background: url('images/พื้นหลัง2.gif') no-repeat center center fixed;
-      background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: black;
-      padding: 2rem;
-    }
+    .content {
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
 
- .content {
-      background-color: rgba(255, 255, 255, 0.7);
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 900px;
-      width: 100%;
-      margin: 0 auto;
-      text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #ffd700,
+        0 0 20px #ffa500;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
 
-    h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      text-shadow:
-        0 0 5px #fff,
-        0 0 10px #ffd700,
-        0 0 20px #ffa500;
-      margin-bottom: 1rem;
-      line-height: 1.3;
-    }
+    h2 {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      text-shadow: 0 0 5px #fff;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
 
-    h2 {
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      text-shadow: 0 0 5px #fff;
-      margin-bottom: 1rem;
-      line-height: 1.4;
-    }
+    p, .ariya p, .ariya li {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      line-height: 1.7;
+      text-shadow: 0 0 4px #fff;
+      margin-bottom: 1rem;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
 
-    p, .ariya p, .ariya li {
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      line-height: 1.7;
-      text-shadow: 0 0 4px #fff;
-      margin-bottom: 1rem;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
+    .ariya ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
 
-    .ariya ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
+    .ariya li {
+      margin-bottom: 0.8rem;
+    }
 
-    .ariya li {
-      margin-bottom: 0.8rem;
-    }
+    .arrow-down {
+      display: inline-block;
+      font-size: clamp(2rem, 8vw, 5rem);
+      color: black;
+      margin-top: 2rem;
+      text-decoration: none;
+      animation: bounce 2s infinite;
+      transition: transform 0.3s;
+    }
 
-    .arrow-down {
-      display: inline-block;
-      font-size: clamp(2rem, 8vw, 5rem);
-      color: black;
-      margin-top: 2rem;
-      text-decoration: none;
-      animation: bounce 2s infinite;
-      transition: transform 0.3s;
-    }
+    .arrow-down:hover {
+      transform: scale(1.2);
+    }
 
-    .arrow-down:hover {
-      transform: scale(1.2);
-    }
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(10px);
+      }
+    }
 
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(10px);
-      }
-    }
+    @media (max-width: 480px) {
+      .content {
+        padding: 1rem;
+        border-radius: 12px;
+      }
 
-    @media (max-width: 480px) {
-      .content {
-        padding: 1rem;
-        border-radius: 12px;
-      }
+      h1 {
+        font-size: 1.8rem;
+      }
 
-      h1 {
-        font-size: 1.8rem;
-      }
+      h2 {
+        font-size: 1.4rem;
+      }
 
-      h2 {
-        font-size: 1.4rem;
-      }
-
-      p, .ariya p, .ariya li {
-        font-size: 1rem;
-      }
-    }
-.arrow-down {
-  display: inline-block;
-  font-size: 10rem;
-  color: black;
-  margin-top: 2rem;
-  text-decoration: none;
-  animation: bounce 2s infinite;
-  transition: transform 0.3s;
-}
-
-.arrow-down:hover {
-  transform: scale(1.2);
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-}
-
-  </style>
+      p, .ariya p, .ariya li {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="content">
-    <h1>วันอาสาฬหบูชา</h1>
-    <h2>วันเพ็ญขึ้น 15 ค่ำ เดือน 8</h2>
-    <p>
-      วันสำคัญทางพระพุทธศาสนาที่ระลึกถึงวันที่พระพุทธเจ้าทรงแสดงปฐมเทศนา
-      โปรดพระปัญจวัคคีย์ และเป็นวันที่พระรัตนตรัยครบองค์ 3 คือ พระพุทธ พระธรรม และพระสงฆ์
-    </p>
-    <div class="ariya">
-      <p>
-        ปฐมเทศนาของพระพุทธเจ้า ประกอบด้วยหลักธรรม 4 ประการ เรียกว่า "อริยสัจ 4" ได้แก่:
-      </p>
-      <ul>
-        <li><strong>ทุกข์</strong> คือ สภาพที่ทนได้ยาก สภาพที่ไม่เป็นสุข</li>
-        <li><strong>สมุทัย</strong> คือ เหตุแห่งทุกข์</li>
-        <li><strong>นิโรธ</strong> คือ การดับทุกข์</li>
-        <li><strong>มรรค</strong> คือ ทางไปสู่การดับทุกข์</li>
-      </ul>
-      <p>
-        หลักธรรมอริยสัจ 4 เป็นหัวใจของพระพุทธศาสนา ชี้ให้เห็นความจริงของชีวิต<br>
-        และหนทางแห่งการหลุดพ้นจากทุกข์ คือ "ทางสายกลาง"
-      </p>
-    </div>
-  </div>
-  <a href="page6.html" class="arrow-down" aria-label="ไปยังตารางกิจกรรม">></a>
+  <div class="content">
+    <h1>วันอาสาฬหบูชา</h1>
+    <h2>วันเพ็ญขึ้น 15 ค่ำ เดือน 8</h2>
+    <p>
+      วันสำคัญทางพระพุทธศาสนาที่ระลึกถึงวันที่พระพุทธเจ้าทรงแสดงปฐมเทศนา
+      โปรดพระปัญจวัคคีย์ และเป็นวันที่พระรัตนตรัยครบองค์ 3 คือ พระพุทธ พระธรรม และพระสงฆ์
+    </p>
+    <div class="ariya">
+      <p>
+        ปฐมเทศนาของพระพุทธเจ้า ประกอบด้วยหลักธรรม 4 ประการ เรียกว่า "อริยสัจ 4" ได้แก่:
+      </p>
+      <ul>
+        <li><strong>ทุกข์</strong> คือ สภาพที่ทนได้ยาก สภาพที่ไม่เป็นสุข</li>
+        <li><strong>สมุทัย</strong> คือ เหตุแห่งทุกข์</li>
+        <li><strong>นิโรธ</strong> คือ การดับทุกข์</li>
+        <li><strong>มรรค</strong> คือ ทางไปสู่การดับทุกข์</li>
+      </ul>
+      <p>
+        หลักธรรมอริยสัจ 4 เป็นหัวใจของพระพุทธศาสนา ชี้ให้เห็นความจริงของชีวิต<br>
+        และหนทางแห่งการหลุดพ้นจากทุกข์ คือ "ทางสายกลาง"
+      </p>
+    </div>
+  </div>
+  <a href="page6.html" class="arrow-down" aria-label="ไปยังตารางกิจกรรม">></a>
 </body>
 </html>
