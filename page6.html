@@ -67,22 +67,27 @@
     transform: scale(1.05);
   }
 
-  /* ✅ สำหรับหน้าจอมือถือ */
-  @media (max-width: 480px) {
-    body {
-      background: url('images/tree3.gif') no-repeat center center fixed;
-    }
-    .menu {
-      gap: 2rem;
-    }
+ /* มือถือแนวตั้ง */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  body {
+    background-image: url('images/tree3.gif'); /* หรือภาพที่ต้องการ */
   }
+}
+@media screen and (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
+  body {
+    background-image: url('images/tree1.gif');
+  }
+}
+    /* แท็บเล็ตแนวนอน */
+    @media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+      body {
+        background-image: url('images/tree1.gif');
+      }
+      .frame-container h2 {
+        font-size: 3rem;
+      }
+    }
 
-  /* ✅ สำหรับแท็บเล็ตแนวตั้ง */
-  @media (min-width: 481px) and (max-width: 1024px) and (orientation: portrait) {
-    body {
-      background: url('images/treemain.gif') no-repeat center center fixed;
-    }
-  }
 </style>
 </head>
 <body>
