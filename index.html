@@ -26,57 +26,53 @@
       min-height: 100vh;
     }
 
-header h1 {
-  font-size: 4rem;                 /* ✅ ขนาดตัวอักษร */
-  position: absolute;              /* ✅ ให้วางตำแหน่งแบบกำหนดเอง */
-  top: 5%;                         /* ✅ ระยะจากขอบบนจอ */
-  left: 50%;                       /* ✅ อยู่ตรงกลางแนวนอน */
-  transform: translateX(-50%);     /* ✅ เลื่อนตัวอักษรให้กึ่งกลางพอดี */
-  color: #fff;                     /* ✅ สีตัวอักษร */
-  text-align: center;              /* ✅ จัดข้อความให้อยู่ตรงกลาง */
-  z-index: 10;                     /* ✅ ให้อยู่ชั้นบนสุด */
-  white-space: nowrap;            /* ✅ ไม่ตัดขึ้นบรรทัดใหม่ */
-  text-shadow:                    /* ✅ เงาสว่างสวยงาม */
-    0 0 5px #fff,
-    0 0 10px #ffd700,
-    0 0 20px #ffa500,
-    0 0 30px #ff8c00,
-  
-}
+    header h1 {
+      font-size: clamp(2rem, 6vw, 4.5rem); /* 📱 มือถือ ~ 💻 Desktop */
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      text-align: center;
+      z-index: 10;
+      white-space: nowrap;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #ffd700,
+        0 0 20px #ffa500,
+        0 0 30px #ff8c00;
+    }
+
     .frame-container {
       position: absolute;
-      top: 90%;
+      top: 85%;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
       width: max-content;
       text-align: center;
     }
-   .frame-container h2 {
-      position: relative;
-      z-index: 2;
-      font-size: 2rem;
+
+    .frame-container h2 {
+      font-size: clamp(1.5rem, 5vw, 3rem);
       color: rgb(241, 130, 4);
       font-family: 'CopyofJunkshopjanchai', sans-serif;
       padding: 0 20px;
       text-shadow:
         0 0 5px white,
         0 0 10px white,
-        0 0 20px white,
-        0 0 30px white,
-        0 0 40px white;
+        0 0 20px white;
     }
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.5rem;
-      }
 
+    /* 👉 ปรับเพิ่มเติมสำหรับมือถือ */
+    @media (max-width: 480px) {
       .frame-container {
-        top: 78%;
+        top: 75%;
       }
 
-      .frame-container h2 {
-        font-size: 2.5rem;
+      header h1 {
+        white-space: normal; /* ให้ขึ้นบรรทัดใหม่ถ้าจอแคบ */
+        padding: 0 1rem;
       }
     }
   </style>
