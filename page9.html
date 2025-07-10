@@ -69,13 +69,17 @@
     }
 
     .temple-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      margin-bottom: 2rem;
-      justify-items: end;
-    }
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
     .temple {
       width: 160px;
       height: 160px;
@@ -139,11 +143,9 @@
       <div class="temple" onclick="selectTemple(this)" data-temple="วัดสะพานสูง">
         <img src="images/wat3.png" alt="วัดสะพานสูง">
       </div>
-      <div class="temple" onclick="selectTemple(this)" data-temple="วัดชลอ">
-        <img src="images/wat4.png" alt="วัดชลอ">
-      </div>
     </div>
 
+    <div class="button-container">
     <button onclick="submitForm()">ยืนยัน</button>
   </div>
 
