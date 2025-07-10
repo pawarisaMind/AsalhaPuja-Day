@@ -38,17 +38,21 @@
       box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
     
-    .sidebar a {
-      font-size: 2rem;
-      color: #333;
-      text-decoration: none;
-      padding: 0.8rem 1.2rem;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
-
+   .sidebar a {
+  display: flex;                 /* จัดให้อยู่กลางด้วย flex */
+  align-items: center;          /* กึ่งกลางแนวตั้ง */
+  justify-content: center;      /* กึ่งกลางแนวนอน */
+  width: 180px;                 /* กำหนดความกว้างให้เท่ากันทุกปุ่ม */
+  height: 60px;                 /* กำหนดความสูงให้เท่ากันทุกปุ่ม */
+  font-size: 1.5rem;
+  color: #333;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  box-sizing: border-box;       /* รวม padding ในขนาดกรอบ */
+}
     .sidebar a:hover {
       background: #ffd700;
       color: white;
