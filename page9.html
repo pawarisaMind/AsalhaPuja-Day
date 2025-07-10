@@ -73,14 +73,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
       flex-wrap: wrap;
       margin-bottom: 2rem;
     }
 
     .temple {
-      width: 160px;
-      height: 160px;
+      flex: 1 1 30%;
+      max-width: 200px;
+      aspect-ratio: 1 / 1;
       object-fit: contain;
       background: #fff;
       border-radius: 15px;
@@ -107,7 +108,15 @@
       width: 100%;
       height: auto;
       object-fit: contain;
+      border-radius: 10px;
     }
+    /* ✅ สำหรับหน้าจอเล็ก เช่น มือถือ */
+    @media (max-width: 768px) {
+    .temple {
+    flex: 1 1 80%;
+    max-width: 300px;
+    }
+   }
 
     .button-container {
       width: 100%;
