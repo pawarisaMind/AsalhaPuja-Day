@@ -99,11 +99,12 @@
       border-color: gold;
       box-shadow: 0 0 15px gold;
     }
-
-    .offering-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
+.offering-card img {
+  width: 70%;           /* ปรับจาก 100% → เหลือ 70% เพื่อให้เล็กลง */
+  height: auto;
+  object-fit: contain;  /* ช่วยให้รูปไม่บิดเบี้ยว */
+  border-radius: 10px;
+}
 
     .input-area {
       display: flex;
