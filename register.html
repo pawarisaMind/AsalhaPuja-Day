@@ -159,6 +159,11 @@
   /*box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
   background: white;*/
 }
+@media screen and (max-width: 768px) {
+  #preview {
+    display: none;
+  }
+}
   </style>
 </head>
 <body>
@@ -206,6 +211,12 @@
   // ใช้ภาพพิเศษจาก data-preview
   const previewSrc = el.getAttribute('data-preview');
   const previewImg = document.getElementById('preview-img');
+     if (window.innerWidth > 768) {
+    previewImg.src = previewSrc;
+    previewImg.style.display = 'block';
+  } else {
+    previewImg.style.display = 'none'; // ซ่อนไว้ในมือถือ
+  }
   previewImg.src = previewSrc;
   previewImg.style.display = 'block';
 }
