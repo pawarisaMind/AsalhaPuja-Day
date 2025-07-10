@@ -212,17 +212,26 @@
       const mainWrapper = document.createElement('div');
       mainWrapper.className = 'main-character';
 
+       if (offeringData?.wish) {
+        const wishBox = document.createElement('div');
+        wishBox.className = 'wish-box';
+        wishBox.textContent = offeringData.wish;
+        mainWrapper.appendChild(wishBox);
+
       const charImg = document.createElement('img');
       charImg.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
       charImg.className = 'character-img';
       mainWrapper.appendChild(charImg);
 
-      if (offeringData?.wish) {
-        const wishBox = document.createElement('div');
-        wishBox.className = 'wish-box';
-        wishBox.textContent = offeringData.wish;
-        mainWrapper.appendChild(wishBox);
       }
+
+       // ตัวละครนิ่ง (png)
+  const charKey = gifMap[characterData.character]; // เช่น boy1.gif
+  const pngSrc = pngMap[charKey]; // เช่น boyjing1.png
+  const charImg = document.createElement('img');
+  charImg.src = 'images/' + (pngSrc || characterData.character + '.png');
+  charImg.className = 'character-img';
+  mainWrapper.appendChild(charImg);
 
       if (offeringData?.offering) {
         const flowerImg = document.createElement('img');
