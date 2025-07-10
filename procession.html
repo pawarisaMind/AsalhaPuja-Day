@@ -20,11 +20,11 @@
     }
 
     body {
-  background: url('images/View1.png') no-repeat center center fixed;
-  background-size: cover;
-  min-height: 100vh;
-  position: relative;
-}
+      background: url('images/View1.png') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      position: relative;
+    }
 
     h1 {
       text-align: center;
@@ -169,50 +169,8 @@
       border-color: #fff;
     }
 
-    /* มือถือแนวตั้ง */
-@media screen and (max-width: 480px) and (orientation: portrait) {
-  body {
- const measureImages = {
-      'วัดบัวขวัญ': 'images/วัดยักษ์โทร.png',
-      'วัดกู้': 'images/วัดกู้เต็มโทร1.png',
-      'วัดสะพานสูง': 'images/วัดสะพานโทร.png',
-    };
-    bac
-}
-
-/* แท็บเล็ตแนวตั้ง */
-@media screen and (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
-  body {
-    const measureImages = {
-      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
-      'วัดกู้': 'images/วัดกู้เต็ม.png',
-      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
-    };
-    bac
-}
-
-/* แท็บเล็ตแนวนอน */
-@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  body {
-   const measureImages = {
-      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
-      'วัดกู้': 'images/วัดกู้เต็ม.png',
-      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
-    };
-    bac
-}
-
-/* เดสก์ท็อป */
-@media screen and (min-width: 1025px) {
-  body {
-     const measureImages = {
-      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
-      'วัดกู้': 'images/วัดกู้เต็ม.png',
-      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
-    };
-    background-attachment: fixed;
-  }
-}
+    /* ปรับขนาดตัวหนังสือและองค์ประกอบอื่นสำหรับมือถือ */
+    @media screen and (max-width: 480px) and (orientation: portrait) {
       .wish-box {
         font-size: 1.2rem;
         width: 90%;
@@ -268,6 +226,24 @@
   <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
 
   <script>
+    // แผนที่ภาพพื้นหลังตามชื่อวัด
+    const measureImages = {
+      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
+      'วัดกู้': 'images/วัดกู้เต็ม.png',
+      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
+    };
+
+    // ฟังก์ชันเปลี่ยนภาพพื้นหลังตามที่เลือก
+    function updateBackground(temple) {
+      const body = document.body;
+      const bgImage = measureImages[temple] || 'images/View1.png';
+      body.style.backgroundImage = `url('${bgImage}')`;
+      body.style.backgroundRepeat = 'no-repeat';
+      body.style.backgroundPosition = 'center center';
+      body.style.backgroundAttachment = 'fixed';
+      body.style.backgroundSize = 'cover';
+    }
+
     const characterData = JSON.parse(localStorage.getItem('characterData'));
     const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
@@ -277,6 +253,10 @@
       const templeData = JSON.parse(templeDataString);
       measure = templeData.temple;
     }
+
+    // เรียกเปลี่ยนภาพพื้นหลังตามวัดที่เลือก
+    updateBackground(measure);
+
     const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
