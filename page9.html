@@ -68,12 +68,13 @@
       position: relative;
     }
 
-    .temple-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+    .offering-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ดอกไม้ 4 ชิ้นเรียงแนวนอน */
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  justify-content: center;  /* ✅ จัดแนวนอนให้อยู่กลาง */
+  align-items: center;       /* ✅ จัดแนวตั้งให้อยู่กลาง (ถ้าสูงเท่ากันจะเห็นผล) */
 }
 .button-container {
   width: 100%;
