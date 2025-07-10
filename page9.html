@@ -38,6 +38,20 @@
       gap: 2rem;
       box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
+        /* มือถือ: ซ่อน sidebar เดิม แล้วใช้แถบแนวนอนแทน */
+@media (max-width: 768px) {
+  .sidebar {
+    flex-direction: row;               /* มือถือ: เรียงปุ่มแนวนอน */
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: space-around;
+    padding: 1rem;
+    z-index: 999;
+  }
+}
 
     .sidebar a {
       display: flex;
@@ -53,20 +67,15 @@
       box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
       transition: 0.3s;
     }
-    /* มือถือ: ซ่อน sidebar เดิม แล้วใช้แถบแนวนอนแทน */
+    /* มือถือ: ปรับขนาดปุ่มให้กว้างขึ้น และฟอนต์เล็กลงนิดหน่อย */
 @media (max-width: 768px) {
-  .sidebar {
-    flex-direction: row;               /* มือถือ: เรียงปุ่มแนวนอน */
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    justify-content: space-around;
-    padding: 1rem;
-    z-index: 999;
+  .sidebar a {
+    width: 100px;
+    height: 50px;
+    font-size: 1.1rem;
   }
 }
+
 
     .sidebar a:hover {
       background: #ffd700;
