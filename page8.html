@@ -160,24 +160,31 @@
       container.appendChild(wrapper);
     }
 
-    // ✅ บันทึกข้อมูลเข้า Firestore
-    async function saveToFirebase() {
-      try {
-        await db.collection("users").add({
-          character_name: characterData?.name || "ไม่ระบุ",
-          character_type: characterData?.character || "ไม่ระบุ",
-          temple: measure || "ไม่เลือกวัด",
-          offering_type: offeringData?.offering || "ไม่ระบุ",
-          wish: offeringData?.wish || "ไม่มีคำอธิษฐาน",
-          timestamp: new Date().toISOString()
-        });
-        console.log("✅ บันทึกข้อมูลสำเร็จ");
-      } catch (error) {
-        console.error("❌ เกิดข้อผิดพลาดในการบันทึก:", error);
-      }
-    }
+   async function saveToGoogleSheetSimple() {
+  const url = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec"; // 🔁 วาง URL API ของเอ็ง
 
-    window.addEventListener("DOMContentLoaded", saveToFirebase);
+  const payload = {
+    name: characterData?.name || "ไม่ระบุชื่อ",
+    wish: offeringData?.wish || "ไม่มีคำอวยพร"
+  };
+
+  try {
+    await fetch(url, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+    console.log("✅ ส่งชื่อและคำอวยพรสำเร็จ");
+  } catch (error) {
+    console.error("❌ เกิดปัญหา:", error);
+  }
+}
+window.addEventListener("DOMContentLoaded", () => {
+  saveToGoogleSheetSimple();
+});
   </script>
 </body>
 </html>
