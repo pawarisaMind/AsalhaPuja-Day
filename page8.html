@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>เวียนเทียน - ตัวละครของคุณ</title>
-
   <style>
     @font-face {
       font-family: 'FCMinimal';
@@ -40,29 +39,27 @@
 
     .character-img {
       height: auto;
-      max-height: 300px;
+      max-height: 280px;
     }
 
     .flower {
-      position: absolute;
-      bottom: 30px;
-      left: 50px;
-      width: 300px;
+      width: 100px;
+      margin-top: -30px;
       z-index: 3;
     }
 
     .wish-box {
       background: rgba(255, 255, 255, 0.9);
       color: #333;
-      font-size: 2rem;
-      padding: 1rem 2rem;
+      font-size: 1.5rem;
+      padding: 0.6rem 1.2rem;
       border-radius: 20px;
       border: 2px solid gold;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       text-align: center;
       white-space: nowrap;
       font-family: 'FCMinimal', sans-serif;
-      margin-top: 10px;
+      margin-bottom: 0.4rem;
     }
 
     @keyframes walk {
@@ -78,8 +75,7 @@
   <script>
     const characterDisplay = document.getElementById('characterDisplay');
 
-    // Map ไฟล์ gif กับตัวละคร
-  const gifMap = {
+    const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
       girlred: 'girl1.gif',
@@ -87,13 +83,12 @@
     };
 
     const flowerMap = {
-      'flower1.png': 'ดอก1.png',
-      'flower2.png': 'ดอก2.png',
-      'flower3.png': 'ดอก3.png',
-      'flower4.png': 'ดอก4.png',
+      'ดอก1': 'flower1.png',
+      'ดอก2': 'flower2.png',
+      'ดอก3': 'flower3.png',
+      'ดอก4': 'flower4.png',
     };
 
-    // 🔁 API ที่ส่งข้อมูลทั้งหมดเป็น JSON
     const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
 
     async function loadCharacters() {
@@ -105,21 +100,36 @@
           const wrapper = document.createElement('div');
           wrapper.className = 'character-wrapper';
           wrapper.style.animationDelay = `${index * 2}s`;
-          wrapper.style.right = `-${100 + (index * 100)}px`;
+          wrapper.style.right = `-${100 + (index * 80)}px`;
 
-          // สุ่มตัวละคร
+          // ตัวละคร gif
           const characterFile = gifMap[item.character] || 'boy1.gif';
-          const img = document.createElement('img');
-          img.src = `images/${characterFile}`;
-          img.className = 'character-img';
-          wrapper.appendChild(img);
+          const charImg = document.createElement('img');
+          charImg.src = `images/${characterFile}`;
+          charImg.className = 'character-img';
 
           // กล่องคำอธิษฐาน
           const wishBox = document.createElement('div');
           wishBox.className = 'wish-box';
-          wishBox.innerHTML = `🙏 ${item.name} : ${item.wish}`;
-          wrapper.appendChild(wishBox);
+          wishBox.innerHTML = `🙏 ${item.name}: ${item.wish}`;
 
+          // ดอกไม้
+          const flowerFile = flowerMap[item.offering] || 'flower1.png';
+          const flowerImg = document.createElement('img');
+          flowerImg.src = `images/${flowerFile}`;
+          flowerImg.className = 'flower';
+
+          // รวมทุกอย่าง
+          const inner = document.createElement('div');
+          inner.style.display = 'flex';
+          inner.style.flexDirection = 'column';
+          inner.style.alignItems = 'center';
+
+          inner.appendChild(wishBox);
+          inner.appendChild(charImg);
+          inner.appendChild(flowerImg);
+
+          wrapper.appendChild(inner);
           characterDisplay.appendChild(wrapper);
         });
       } catch (err) {
