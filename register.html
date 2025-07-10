@@ -203,8 +203,8 @@
   </div>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
-  <script>
-      const firebaseConfig = {
+<script>
+  const firebaseConfig = {
     apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
     authDomain: "asalhapuja-day.firebaseapp.com",
     databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -213,50 +213,46 @@
     messagingSenderId: "776082602779",
     appId: "1:776082602779:web:76551ef38442ed8d9b1be"
   };
-firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
-    let selectedCharacter = null;
 
-   function selectCharacter(el) {
-  document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedCharacter = el.getAttribute('data-character');
+  let selectedCharacter = null;
 
-  // ใช้ภาพพิเศษจาก data-preview
-  const previewSrc = el.getAttribute('data-preview');
-  const previewImg = document.getElementById('preview-img');
-     if (window.innerWidth > 768) {
-    previewImg.src = previewSrc;
-    previewImg.style.display = 'block';
-  } else {
-    previewImg.style.display = 'none'; // ซ่อนไว้ในมือถือ
-  }
-  previewImg.src = previewSrc;
-  previewImg.style.display = 'block';
-}
-function submitForm() {
-  const name = document.getElementById('name').value.trim();
-  if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
-  if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
+  function selectCharacter(el) {
+    document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCharacter = el.getAttribute('data-character');
 
-  const data = { character: selectedCharacter, name };
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(response => {
-    if (response.status === "success") {
-      localStorage.setItem('characterData', JSON.stringify(data));
-      window.location.href = "page9.html";
+    const previewSrc = el.getAttribute('data-preview');
+    const previewImg = document.getElementById('preview-img');
+    if (window.innerWidth > 768) {
+      previewImg.src = previewSrc;
+      previewImg.style.display = 'block';
     } else {
-      alert("เกิดข้อผิดพลาด: " + response.message);
+      previewImg.style.display = 'none';
     }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-  });
-}
+  }
+  window.selectCharacter = selectCharacter;
 
-  </script>
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
+    if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
+
+    const data = { character: selectedCharacter, name };
+
+    db.ref("characters").push(data)
+      .then(() => {
+        localStorage.setItem('characterData', JSON.stringify(data));
+        window.location.href = "page9.html";
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+      });
+  }
+  window.submitForm = submitForm;
+</script>
+
 </body>
 </html>
