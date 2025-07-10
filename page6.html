@@ -61,19 +61,17 @@
   transition: transform 0.3s ease;
   margin-left: 60px;
 }
-    @media screen and (min-width: 1025px) {
-  .menu h1,
-  .menu h2,
-  .menu h3 {
-    margin-left: 60px;
-  }
-}
+   .menu h1:hover,
+  .menu h2:hover,
+  .menu h3:hover {
+    transform: scale(1.05);
   }
 
  /* มือถือแนวตั้ง */
 @media screen and (max-width: 480px) and (orientation: portrait) {
   body {
     background-image: url('images/treeno(9).png'); /* หรือภาพที่ต้องการ */
+      margin-left: 60px;
   }
 }
 @media screen and (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
@@ -88,6 +86,7 @@
       }
       .frame-container h2 {
         font-size: 3rem;
+        
       }
     }
 
