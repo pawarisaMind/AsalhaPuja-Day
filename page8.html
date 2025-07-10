@@ -250,6 +250,28 @@
 
       otherArea.appendChild(otherWrapper);
     });
+    // ส่งข้อมูลไปยังฐานข้อมูล
+if (characterData && templeData && offeringData) {
+  fetch('save_page8.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      character: characterData.character,
+      name: characterData.name,
+      temple: templeData.temple,
+      offering: offeringData.offering,
+      wish: offeringData.wish
+    })
+  })
+  .then(res => res.json())
+  .then(response => {
+    console.log("📦 ส่งข้อมูล page8:", response);
+  })
+  .catch(err => {
+    console.error("❌ ส่งข้อมูล page8 ล้มเหลว:", err);
+  });
+}
+
   </script>
 </body>
 </html>
