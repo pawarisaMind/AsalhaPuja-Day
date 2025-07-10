@@ -9,7 +9,7 @@
       font-family: 'FCMinimal';
       src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
     }
-    
+
     * {
       margin: 0;
       padding: 0;
@@ -27,46 +27,46 @@
     }
 
     .sidebar {
-  width: 210px;
-  min-width: 210px;
-  height: 100vh;
-  background: rgba(255,255,255,0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 1rem;
-  gap: 2rem;
-  box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-}
+      width: 210px;
+      min-width: 210px;
+      height: 100vh;
+      background: rgba(255,255,255,0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      gap: 2rem;
+      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+    }
 
     .sidebar a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 180px;
-  height: 60px;
-  font-size: 1.5rem;
-  color: #333;
-  text-decoration: none;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transition: 0.3s;
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 60px;
+      font-size: 1.5rem;
+      color: #333;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
 
     .sidebar a:hover {
       background: #ffd700;
       color: white;
     }
 
-      .main {
+    .main {
       flex: 1;
       padding: 3rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center; /* ปรับให้วัดอยู่ตรงกลางหน้าจอ */
+      align-items: center;
       position: relative;
     }
 
@@ -91,17 +91,11 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       transition: transform 0.3s;
       display: flex;
-      flex-direction: column; /* ✅ เพิ่มบรรทัดนี้ให้เรียงจากบนลงล่าง */
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       border: 3px solid transparent;
     }
-    .temple-name {
-  margin-top: 0.5rem;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #333;
-}
 
     .temple:hover {
       transform: scale(1.05);
@@ -118,66 +112,56 @@
       object-fit: contain;
       border-radius: 10px;
     }
+
+    .temple-name {
+      margin-top: 0.5rem;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .button-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .confirm-btn {
+      font-family: 'FCMinimal';
+      font-size: 2rem;
+      padding: 0.8rem 2rem;
+      background: #ffa500;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .confirm-btn:hover {
+      background: #ff6600;
+    }
+
+    /* Responsive สำหรับมือถือ */
     @media (max-width: 768px) {
-  .temple {
-    flex: 1 1 80%;
-    max-width: 300px;
-  }
+      .temple {
+        flex: 1 1 80%;
+        max-width: 300px;
+      }
 
-  .button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        z-index: 999;
+      }
 
-  button {
-    font-family: 'FCMinimal';
-    font-size: 2rem;
-    padding: 0.8rem 2rem;
-    background: #ffa500;
-    border: none;
-    border-radius: 20px;
-    color: white;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  button:hover {
-    background: #ff6600;
-  }
-
-      .confirm-btn {
-  font-family: 'FCMinimal';
-  font-size: 2rem;
-  padding: 0.8rem 2rem;
-  background: #ffa500;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.confirm-btn:hover {
-  background: #ff6600;
-}
-      .confirm-btn {
-  font-family: 'FCMinimal';
-  font-size: 2rem;
-  padding: 0.8rem 2rem;
-  background: #ffa500;
-  border: none;
-  border-radius: 20px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.confirm-btn:hover {
-  background: #ff6600;
-}
-
+      .main {
+        margin-left: 210px; /* เพื่อเว้นที่ sidebar ไม่ทับเนื้อหา */
+      }
+    }
   </style>
 </head>
 <body>
@@ -202,10 +186,12 @@
         <img src="images/พื้นโปร่งวัดสะพานสูง444.png" alt="วัดสะพานสูง">
         <div class="temple-name">วัดสะพานสูง</div>
       </div>
+    </div>
+
     <div class="button-container">
-  <button class="confirm-btn" onclick="submitForm()">ยืนยัน</button>
-</div>
-</div>
+      <button class="confirm-btn" onclick="submitForm()">ยืนยัน</button>
+    </div>
+  </div>
 
   <script>
     let selectedTemple = null;
