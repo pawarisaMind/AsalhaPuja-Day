@@ -227,22 +227,37 @@
 
   <script>
     // แผนที่ภาพพื้นหลังตามชื่อวัด
-    const measureImages = {
-      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
-      'วัดกู้': 'images/วัดกู้เต็ม.png',
-      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
-    };
+  const measureImages = {
+  'วัดบัวขวัญ': {
+    desktop: 'images/วัดยักษ์เต็ม.png',
+    mobile: 'images/วัดยักษ์โทร.png'
+  },
+  'วัดกู้': {
+    desktop: 'images/วัดกู้เต็ม.png',
+    mobile: 'images/วัดกู้เต็มโทร1.png'
+  },
+  'วัดสะพานสูง': {
+    desktop: 'images/วัดสะพานเต็ม.png',
+    mobile: 'images/วัดสะพานโทร.png'
+  }
+};
 
     // ฟังก์ชันเปลี่ยนภาพพื้นหลังตามที่เลือก
-    function updateBackground(temple) {
-      const body = document.body;
-      const bgImage = measureImages[temple] || 'images/View1.png';
-      body.style.backgroundImage = `url('${bgImage}')`;
-      body.style.backgroundRepeat = 'no-repeat';
-      body.style.backgroundPosition = 'center center';
-      body.style.backgroundAttachment = 'fixed';
-      body.style.backgroundSize = 'cover';
-    }
+  function updateBackground(temple) {
+  const isMobile = window.innerWidth <= 480; // หรือจะเช็คแบบละเอียดก็ได้
+  const imageSet = measureImages[temple];
+
+  if (!imageSet) return;
+
+  const imageToShow = isMobile ? imageSet.mobile : imageSet.desktop;
+
+  document.body.style.backgroundImage = `url('${imageToShow}')`;
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundPosition = 'center center';
+  document.body.style.backgroundAttachment = 'fixed';
+  document.body.style.backgroundSize = 'cover';
+}
+
 
     const characterData = JSON.parse(localStorage.getItem('characterData'));
     const templeDataString = localStorage.getItem('templeData');
