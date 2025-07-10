@@ -225,40 +225,41 @@
 
   <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
 
-  <script>
-    // แผนที่ภาพพื้นหลังตามชื่อวัด
+<script>
   const measureImages = {
-  'วัดบัวขวัญ': {
-    desktop: 'images/วัดยักษ์เต็ม.png',
-    mobile: 'images/วัดยักษ์โทร.png'
-  },
-  'วัดกู้': {
-    desktop: 'images/วัดกู้เต็ม.png',
-    mobile: 'images/วัดกู้เต็มโทร1.png'
-  },
-  'วัดสะพานสูง': {
-    desktop: 'images/วัดสะพานเต็ม.png',
-    mobile: 'images/วัดสะพานโทร.png'
-  }
-};
+    'วัดบัวขวัญ': {
+      desktop: 'images/วัดยักษ์เต็ม.png',
+      mobile: 'images/วัดยักษ์โทร.png'
+    },
+    'วัดกู้': {
+      desktop: 'images/วัดกู้เต็ม.png',
+      mobile: 'images/วัดกู้เต็มโทร1.png'
+    },
+    'วัดสะพานสูง': {
+      desktop: 'images/วัดสะพานเต็ม.png',
+      mobile: 'images/วัดสะพานโทร.png'
+    }
+  };
 
-    // ฟังก์ชันเปลี่ยนภาพพื้นหลังตามที่เลือก
+  const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
+
   function updateBackground(temple) {
-  const isMobile = window.innerWidth <= 480; // หรือจะเช็คแบบละเอียดก็ได้
-  const imageSet = measureImages[temple];
+    if (!temple || !measureImages[temple]) return;
+    const isMobile = window.innerWidth <= 480;
+    const imgSrc = isMobile ? measureImages[temple].mobile : measureImages[temple].desktop;
 
-  if (!imageSet) return;
+    document.body.style.backgroundImage = `url('${imgSrc}')`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center center';
+    document.body.style.backgroundAttachment = 'fixed';
+    document.body.style.backgroundSize = 'cover';
+  }
 
-  const imageToShow = isMobile ? imageSet.mobile : imageSet.desktop;
-
-  document.body.style.backgroundImage = `url('${imageToShow}')`;
-  document.body.style.backgroundRepeat = 'no-repeat';
-  document.body.style.backgroundPosition = 'center center';
-  document.body.style.backgroundAttachment = 'fixed';
-  document.body.style.backgroundSize = 'cover';
-}
-    const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
+  async function init() {
+    // รอโหลดข้อมูลจาก API (ถ้าต้องใช้)
     const res = await fetch(sheetAPI);
+    const dataFromAPI = await res.json();
+
     const characterData = JSON.parse(localStorage.getItem('characterData'));
     const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
@@ -269,7 +270,6 @@
       measure = templeData.temple;
     }
 
-    // เรียกเปลี่ยนภาพพื้นหลังตามวัดที่เลือก
     updateBackground(measure);
 
     const gifMap = {
@@ -289,8 +289,9 @@
     const container = document.getElementById('characterDisplay');
 
     if (measure && measureImages[measure]) {
+      const isMobile = window.innerWidth <= 480;
       const templeImg = document.createElement('img');
-      templeImg.src = measureImages[measure];
+      templeImg.src = isMobile ? measureImages[measure].mobile : measureImages[measure].desktop;
       templeImg.className = 'temple-layer';
       container.appendChild(templeImg);
     }
@@ -342,10 +343,14 @@
     }
 
     const timer = setInterval(updateCircleUI, 1000);
+  }
 
-    function skipToPage() {
-      window.location.href = 'page8.html';
-    }
-  </script>
+  function skipToPage() {
+    window.location.href = 'page8.html';
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+</script>
+
 </body>
 </html>
