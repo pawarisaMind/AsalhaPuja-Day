@@ -58,72 +58,65 @@
       color: white;
     }
 
-    .main {
-      flex: 1;
-      padding: 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
-      position: relative;
-    }
-
     .temple-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
+
+.temple {
+  width: 160px;
+  height: 160px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid transparent;
+}
+
+.temple:hover {
+  transform: scale(1.05);
+}
+
+.temple.selected {
+  border-color: gold;
+  box-shadow: 0 0 15px gold;
+}
+
+.temple img {
+  width: 100%; /* ปรับให้เหมาะกับกล่อง */
+  height: auto;
+  object-fit: contain;
+}
+
 .button-container {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 1rem; /* เพิ่มระยะห่างด้านบน */
 }
-    .temple {
-      width: 160px;
-      height: 160px;
-      background: #fff;
-      border-radius: 15px;
-      padding: 1rem;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: transform 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 3px solid transparent;
-    }
 
-    .temple:hover {
-      transform: scale(1.05);
-    }
+button {
+  font-family: 'FCMinimal';
+  font-size: 2rem;
+  padding: 0.8rem 2rem;
+  background: #ffa500;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-    .temple.selected {
-      border-color: gold;
-      box-shadow: 0 0 15px gold;
-    }
-
-    .temple img {
-      width: 200px;
-    }
-
-    button {
-      font-family: 'FCMinimal';
-      font-size: 2rem;
-      padding: 0.8rem 2rem;
-      background: #ffa500;
-      border: none;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background: #ff6600;
-    }
+button:hover {
+  background: #ff6600;
+}
   </style>
 </head>
 <body>
