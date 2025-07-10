@@ -223,16 +223,26 @@
   <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
 
   <script>
+    // ดึงข้อมูล character, วัด, สิ่งของ จาก localStorage
     const characterData = JSON.parse(localStorage.getItem('characterData'));
-    const measure = localStorage.getItem('measureSelected');
+    const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
+    // ดึงชื่อวัดจาก templeData (ถ้ามี)
+    let measure = null;
+    if (templeDataString) {
+      const templeData = JSON.parse(templeDataString);
+      measure = templeData.temple;
+    }
+
+    // ภาพพื้นหลังของแต่ละวัด
     const measureImages = {
-      วัดบัวขวัญ : 'images/View1111.png',
-      วัดกู้ : 'images/พื้นโปร่งแสงวัดกู้223.png',
-      วัดสะพานสูง : 'images/พื้นโปร่งวัดสะพานสูง444.png',
+      'วัดบัวขวัญ': 'images/View1111.png',
+      'วัดกู้': 'images/พื้นโปร่งแสงวัดกู้223.png',
+      'วัดสะพานสูง': 'images/พื้นโปร่งวัดสะพานสูง444.png',
     };
 
+    // ตัวละคร gif
     const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
@@ -240,6 +250,7 @@
       girlblue: 'girl2.gif',
     };
 
+    // ดอกไม้
     const flowerMap = {
       'flower1.png': 'ดอก1.png',
       'flower2.png': 'ดอก2.png',
@@ -249,6 +260,7 @@
 
     const container = document.getElementById('characterDisplay');
 
+    // แสดงภาพพื้นหลังวัดถ้ามีข้อมูล
     if (measure && measureImages[measure]) {
       const templeImg = document.createElement('img');
       templeImg.src = measureImages[measure];
@@ -256,14 +268,17 @@
       container.appendChild(templeImg);
     }
 
+    // แสดงตัวละคร ถ้ามีข้อมูล
     if (characterData) {
       const wrapper = document.createElement('div');
       wrapper.className = 'character-wrapper';
+
       const characterImg = document.createElement('img');
       characterImg.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
       characterImg.className = 'character-img';
       wrapper.appendChild(characterImg);
 
+      // แสดงคำอธิษฐาน ถ้ามี
       if (offeringData && offeringData.wish) {
         const wishBox = document.createElement('div');
         wishBox.className = 'wish-box';
@@ -271,6 +286,7 @@
         wrapper.appendChild(wishBox);
       }
 
+      // แสดงดอกไม้ ถ้ามี
       if (offeringData && offeringData.offering) {
         const flowerImg = document.createElement('img');
         flowerImg.src = 'images/' + (flowerMap[offeringData.offering] || offeringData.offering);
@@ -281,8 +297,9 @@
       container.appendChild(wrapper);
     }
 
+    // ตัวจับเวลาวงกลม
     let timePassed = 0;
-    const maxTime = 30;
+    const maxTime = 30; // วินาที
     const circleProgress = document.getElementById('progressCircle');
     const circleText = document.getElementById('circleTime');
     const circumference = 2 * Math.PI * 140;
