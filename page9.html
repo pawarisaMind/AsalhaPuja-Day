@@ -53,6 +53,20 @@
       box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
       transition: 0.3s;
     }
+    /* มือถือ: ซ่อน sidebar เดิม แล้วใช้แถบแนวนอนแทน */
+@media (max-width: 768px) {
+  .sidebar {
+    flex-direction: row;               /* มือถือ: เรียงปุ่มแนวนอน */
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: space-around;
+    padding: 1rem;
+    z-index: 999;
+  }
+}
 
     .sidebar a:hover {
       background: #ffd700;
