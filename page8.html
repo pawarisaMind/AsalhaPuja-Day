@@ -11,31 +11,65 @@
 
     body {
       font-family: 'FCMinimal', sans-serif;
-      background: url('images/ppi.png') no-repeat center center fixed;
+      background: no-repeat center center fixed;
       background-size: cover;
       color: #333;
       margin: 0;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #temple-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #character-group {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .character {
+      position: absolute;
+      bottom: 0;
+      width: 80px;
+      animation: walk 10s linear infinite;
+    }
+
+    @keyframes walk {
+      0% { transform: translateX(-100px); }
+      100% { transform: translateX(120vw); }
+    }
+
+    #main-character {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      height: 300px;
     }
 
     .result-container {
-      background: rgba(255, 255, 255, 0.8);
+      position: relative;
+      background: rgba(255, 255, 255, 0.85);
       padding: 2rem;
       border-radius: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       text-align: center;
       max-width: 800px;
       width: 100%;
-    }
-
-    .result-container img {
-      max-width: 200px;
-      height: auto;
-      margin: 1rem;
+      margin: 2rem auto;
+      z-index: 3;
     }
 
     .section-title {
@@ -50,11 +84,6 @@
       margin-top: 1rem;
     }
 
-    #capture-area {
-      position: relative;
-      padding: 1rem;
-    }
-
     button {
       font-family: 'FCMinimal';
       font-size: 1.5rem;
@@ -65,7 +94,9 @@
       color: white;
       cursor: pointer;
       transition: 0.3s;
-      margin-top: 1rem;
+      margin: 1rem;
+      z-index: 3;
+      position: relative;
     }
 
     button:hover {
@@ -74,18 +105,15 @@
   </style>
 </head>
 <body>
+  <div id="temple-bg"></div>
+  <div id="character-group"></div>
+  <img id="main-character" src="" alt="ตัวละครของคุณ">
 
   <div class="result-container" id="capture-area">
     <h1>เวียนเทียนเสมือนสำเร็จแล้ว 🎉</h1>
 
     <div>
-      <div class="section-title">ตัวละครของคุณ</div>
-      <img id="character-img" src="" alt="ตัวละคร">
-    </div>
-
-    <div>
       <div class="section-title">วัดที่คุณเลือก</div>
-      <img id="temple-img" src="" alt="วัด">
       <div id="temple-name" class="wish-text"></div>
     </div>
 
@@ -101,51 +129,74 @@
   </div>
 
   <button onclick="downloadImage()">📸 แชร์ภาพ / บันทึก</button>
+  <button onclick="shareToFacebook()">📤 แชร์ไปยัง Facebook</button>
+  <button onclick="shareToLine()">📤 แชร์ไปยัง LINE</button>
 
-  <!-- html2canvas สำหรับแคปหน้าจอ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    // โหลดข้อมูลจาก localStorage
     const charData = JSON.parse(localStorage.getItem('charData'));
     const templeData = JSON.parse(localStorage.getItem('templeData'));
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-    // ใส่ข้อมูลตัวละคร
     if (charData && charData.image) {
-      document.getElementById('character-img').src = charData.image;
+      document.getElementById('main-character').src = charData.image;
     }
 
-    // ใส่ข้อมูลวัด
     if (templeData && templeData.temple) {
       const name = templeData.temple;
       document.getElementById('temple-name').textContent = name;
 
-      // รูปวัด
       const templeImages = {
         "วัดบัวขวัญ": "images/View1111.png",
         "วัดกู้": "images/พื้นโปร่งแสงวัดกู้223.png",
         "วัดสะพานสูง": "images/พื้นโปร่งวัดสะพานสูง444.png"
       };
-      document.getElementById('temple-img').src = templeImages[name] || '';
+      const bgImage = templeImages[name] || '';
+      document.getElementById('temple-bg').style.backgroundImage = `url('${bgImage}')`;
     }
 
-    // ใส่ข้อมูลดอกไม้ธูปเทียนและคำอธิษฐาน
     if (offeringData) {
       const imgPath = `images/flower${offeringData.offering.replace("ดอก", "")}.png`;
       document.getElementById('offering-img').src = imgPath;
       document.getElementById('wish-text').textContent = offeringData.wish;
     }
 
-    // ฟังก์ชันแคปหน้าจอแล้วบันทึกภาพ
+    // โหลดตัวละครจาก Google Sheet (แก้ URL เป็น Script ของคุณเอง)
+    const sheetURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+    fetch(sheetURL)
+      .then(res => res.json())
+      .then(data => {
+        const group = document.getElementById('character-group');
+        data.forEach(p => {
+          if (p.status !== 'เสร็จแล้ว') {
+            const img = document.createElement('img');
+            img.src = p.image_url;
+            img.className = 'character';
+            img.style.left = `${Math.random() * 90}vw`;
+            img.style.animationDuration = `${8 + Math.random() * 5}s`;
+            group.appendChild(img);
+          }
+        });
+      });
+
     function downloadImage() {
-      html2canvas(document.getElementById("capture-area")).then(canvas => {
+      html2canvas(document.body).then(canvas => {
         const link = document.createElement("a");
         link.download = "เวียนเทียนของฉัน.png";
         link.href = canvas.toDataURL("image/png");
         link.click();
       });
     }
-  </script>
 
+    function shareToFacebook() {
+      alert("ยังไม่ได้เชื่อมระบบ Facebook API โปรดติดตั้ง SDK หรือลิงก์แชร์แบบ URL");
+    }
+
+    function shareToLine() {
+      const text = encodeURIComponent("ฉันเวียนเทียนเสร็จแล้วทางออนไลน์! มาร่วมเวียนเทียนด้วยกันนะ");
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://social-plugins.line.me/lineit/share?url=${url}&text=${text}`, '_blank');
+    }
+  </script>
 </body>
 </html>
