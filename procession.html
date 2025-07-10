@@ -227,36 +227,35 @@
 
 <script>
   const measureImages = {
-    'วัดบัวขวัญ': {
-      desktop: 'images/วัดยักษ์เต็ม.png',
-      mobile: 'images/วัดยักษ์โทร.png'
-    },
-    'วัดกู้': {
-      desktop: 'images/วัดกู้เต็ม.png',
-      mobile: 'images/วัดกู้เต็มโทร1.png'
-    },
-    'วัดสะพานสูง': {
-      desktop: 'images/วัดสะพานเต็ม.png',
-      mobile: 'images/วัดสะพานโทร.png'
-    }
-  };
+  'วัดบัวขวัญ': {
+    desktop: 'images/วัดยักษ์เต็ม.png',
+    mobile: 'images/วัดยักษ์โทร.png'
+  },
+  'วัดกู้': {
+    desktop: 'images/วัดกู้เต็ม.png',
+    mobile: 'images/วัดกู้เต็มโทร1.png'
+  },
+  'วัดสะพานสูง': {
+    desktop: 'images/วัดสะพานเต็ม.png',
+    mobile: 'images/วัดสะพานโทร.png'
+  }
+};
 
+function updateBackground(temple) {
+  if (!temple || !measureImages[temple]) return;
+  const isMobile = window.innerWidth <= 480;
+  const imgSrc = isMobile ? measureImages[temple].mobile : measureImages[temple].desktop;
+
+  document.body.style.backgroundImage = `url('${imgSrc}')`;
+  document.body.style.backgroundRepeat = 'no-repeat';
+  document.body.style.backgroundPosition = 'center center';
+  document.body.style.backgroundAttachment = 'fixed';
+  document.body.style.backgroundSize = 'cover';
+}
   const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
 
-  function updateBackground(temple) {
-    if (!temple || !measureImages[temple]) return;
-    const isMobile = window.innerWidth <= 480;
-    const imgSrc = isMobile ? measureImages[temple].mobile : measureImages[temple].desktop;
-
-    document.body.style.backgroundImage = `url('${imgSrc}')`;
-    document.body.style.backgroundRepeat = 'no-repeat';
-    document.body.style.backgroundPosition = 'center center';
-    document.body.style.backgroundAttachment = 'fixed';
-    document.body.style.backgroundSize = 'cover';
-  }
-
   async function init() {
-    // รอโหลดข้อมูลจาก API (ถ้าต้องใช้)
+    // รอโหลดข้อมูลจาก API
     const res = await fetch(sheetAPI);
     const dataFromAPI = await res.json();
 
@@ -289,9 +288,8 @@
     const container = document.getElementById('characterDisplay');
 
     if (measure && measureImages[measure]) {
-      const isMobile = window.innerWidth <= 480;
       const templeImg = document.createElement('img');
-      templeImg.src = isMobile ? measureImages[measure].mobile : measureImages[measure].desktop;
+      templeImg.src = measureImages[measure];
       templeImg.className = 'temple-layer';
       container.appendChild(templeImg);
     }
@@ -350,7 +348,7 @@
   }
 
   window.addEventListener('DOMContentLoaded', init);
-</script>
 
-</body>
-</html>
+  // ฟังก์ชัน updateBackground ต้องอยู่ข้างบนหรือแยกออกมา
+  // โค้ด updateBackground ตามที่มีในโค้ดของเอ็ง
+</script>
