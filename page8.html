@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>เวียนเทียน - ตัวละครของคุณ</title>
+  <title>เวียนเทียนเสมือนสำเร็จ</title>
   <style>
     @font-face {
       font-family: 'FCMinimal';
@@ -10,180 +10,142 @@
     }
 
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'FCMinimal', sans-serif;
-      background: url('images/พื้นหลัง5.gif') no-repeat center center fixed;
+      background: url('images/ppi.png') no-repeat center center fixed;
       background-size: cover;
-      overflow: hidden;
-      height: 100vh;
-      position: relative;
-    }
-
-    h1 {
-      text-align: center;
-      color: white;
-      text-shadow: 0 0 5px gold;
-      font-size: 3rem;
-      margin-top: 1rem;
-      position: relative;
-      z-index: 3;
-    }
-
-    .character-wrapper {
-      position: absolute;
-      bottom: 6px;
-      z-index: 2;
-      animation: walk 15s linear infinite;
-    }
-
-    .character-img {
-      height: auto;
-      max-height: 280px;
-    }
-
-    .flower {
-      width: 100px;
-      margin-top: -30px;
-      z-index: 3;
-    }
-
-    .wish-box {
-      background: rgba(255, 255, 255, 0.9);
       color: #333;
-      font-size: 1.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 20px;
-      border: 2px solid gold;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      text-align: center;
-      white-space: nowrap;
-      font-family: 'FCMinimal', sans-serif;
-      margin-bottom: 0.4rem;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
-    @keyframes walk {
-      0% { right: -300px; }
-      100% { right: 120vw; }
+    .result-container {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .result-container img {
+      max-width: 200px;
+      height: auto;
+      margin: 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin: 1rem 0 0.5rem;
+      color: #555;
+    }
+
+    .wish-text {
+      font-size: 1.5rem;
+      color: #222;
+      margin-top: 1rem;
+    }
+
+    #capture-area {
+      position: relative;
+      padding: 1rem;
+    }
+
+    button {
+      font-family: 'FCMinimal';
+      font-size: 1.5rem;
+      padding: 0.5rem 2rem;
+      background: #ffa500;
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background: #ff6600;
     }
   </style>
 </head>
 <body>
-  <h1>เวียนเทียนยุคใหม่<br>อยู่ที่ไหนก็เวียนเทียนได้</h1>
-  <div id="characterDisplay"></div>
 
+  <div class="result-container" id="capture-area">
+    <h1>เวียนเทียนเสมือนสำเร็จแล้ว 🎉</h1>
+
+    <div>
+      <div class="section-title">ตัวละครของคุณ</div>
+      <img id="character-img" src="" alt="ตัวละคร">
+    </div>
+
+    <div>
+      <div class="section-title">วัดที่คุณเลือก</div>
+      <img id="temple-img" src="" alt="วัด">
+      <div id="temple-name" class="wish-text"></div>
+    </div>
+
+    <div>
+      <div class="section-title">ดอกไม้ธูปเทียนที่คุณเลือก</div>
+      <img id="offering-img" src="" alt="ดอกไม้ธูปเทียน">
+    </div>
+
+    <div>
+      <div class="section-title">คำอธิษฐานของคุณ</div>
+      <div id="wish-text" class="wish-text"></div>
+    </div>
+  </div>
+
+  <button onclick="downloadImage()">📸 แชร์ภาพ / บันทึก</button>
+
+  <!-- html2canvas สำหรับแคปหน้าจอ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
-    const characterDisplay = document.getElementById('characterDisplay');
+    // โหลดข้อมูลจาก localStorage
+    const charData = JSON.parse(localStorage.getItem('charData'));
+    const templeData = JSON.parse(localStorage.getItem('templeData'));
+    const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-    const gifMap = {
-      boyblue: 'boy1.gif',
-      boybrow: 'boy2.gif',
-      girlred: 'girl1.gif',
-      girlblue: 'girl2.gif',
-    };
-
-    const flowerMap = {
-      'ดอก1': 'flower1.png',
-      'ดอก2': 'flower2.png',
-      'ดอก3': 'flower3.png',
-      'ดอก4': 'flower4.png',
-    };
-
-    const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
-
-    // อ่านค่าของผู้ใช้จาก localStorage
-    const myCharacter = {
-      name: localStorage.getItem('myName') || 'ฉันเอง',
-      wish: localStorage.getItem('myWish') || 'ขอให้โชคดี',
-      character: localStorage.getItem('myCharacter') || 'boyblue',
-      offering: localStorage.getItem('myFlower') || 'ดอก1'
-    };
-
-    function showMyCharacter(character) {
-      const wrapper = document.createElement('div');
-      wrapper.style.position = 'absolute';
-      wrapper.style.bottom = '20px';
-      wrapper.style.left = '50%';
-      wrapper.style.transform = 'translateX(-50%)';
-      wrapper.style.zIndex = '10'; // อยู่ด้านหน้าสุด
-
-      const charImg = document.createElement('img');
-      charImg.src = `images/${gifMap[character.character] || 'boy1.gif'}`;
-      charImg.className = 'character-img';
-
-      const wishBox = document.createElement('div');
-      wishBox.className = 'wish-box';
-      wishBox.innerHTML = `🌟 ${character.name}: ${character.wish}`;
-
-      const flowerImg = document.createElement('img');
-      flowerImg.src = `images/${flowerMap[character.offering] || 'flower1.png'}`;
-      flowerImg.className = 'flower';
-
-      const inner = document.createElement('div');
-      inner.style.display = 'flex';
-      inner.style.flexDirection = 'column';
-      inner.style.alignItems = 'center';
-
-      inner.appendChild(wishBox);
-      inner.appendChild(charImg);
-      inner.appendChild(flowerImg);
-
-      wrapper.appendChild(inner);
-      document.body.appendChild(wrapper);
+    // ใส่ข้อมูลตัวละคร
+    if (charData && charData.image) {
+      document.getElementById('character-img').src = charData.image;
     }
 
-    async function loadCharacters() {
-      try {
-        const res = await fetch(sheetAPI);
-        const data = await res.json();
+    // ใส่ข้อมูลวัด
+    if (templeData && templeData.temple) {
+      const name = templeData.temple;
+      document.getElementById('temple-name').textContent = name;
 
-        data.forEach((item, index) => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'character-wrapper';
-          wrapper.style.animationDelay = `${index * 2}s`;
-          wrapper.style.right = `-${100 + (index * 80)}px`;
-
-          // ตัวละคร gif
-          const characterFile = gifMap[item.character] || 'boy1.gif';
-          const charImg = document.createElement('img');
-          charImg.src = `images/${characterFile}`;
-          charImg.className = 'character-img';
-
-          // กล่องคำอธิษฐาน
-          const wishBox = document.createElement('div');
-          wishBox.className = 'wish-box';
-          wishBox.innerHTML = `🙏 ${item.name}: ${item.wish}`;
-
-          // ดอกไม้
-          const flowerFile = flowerMap[item.offering] || 'flower1.png';
-          const flowerImg = document.createElement('img');
-          flowerImg.src = `images/${flowerFile}`;
-          flowerImg.className = 'flower';
-
-          // รวมทุกอย่าง
-          const inner = document.createElement('div');
-          inner.style.display = 'flex';
-          inner.style.flexDirection = 'column';
-          inner.style.alignItems = 'center';
-
-          inner.appendChild(wishBox);
-          inner.appendChild(charImg);
-          inner.appendChild(flowerImg);
-
-          wrapper.appendChild(inner);
-          characterDisplay.appendChild(wrapper);
-        });
-
-        // 👉 เพิ่มตัวเราหลังโหลดตัวอื่นเสร็จ
-        showMyCharacter(myCharacter);
-
-      } catch (err) {
-        console.error("⚠️ โหลดข้อมูลล้มเหลว:", err);
-        showMyCharacter(myCharacter); // แสดงตัวเราด้วยแม้โหลดล้มเหลว
-      }
+      // รูปวัด
+      const templeImages = {
+        "วัดบัวขวัญ": "images/View1111.png",
+        "วัดกู้": "images/พื้นโปร่งแสงวัดกู้223.png",
+        "วัดสะพานสูง": "images/พื้นโปร่งวัดสะพานสูง444.png"
+      };
+      document.getElementById('temple-img').src = templeImages[name] || '';
     }
 
-    window.addEventListener("DOMContentLoaded", loadCharacters);
+    // ใส่ข้อมูลดอกไม้ธูปเทียนและคำอธิษฐาน
+    if (offeringData) {
+      const imgPath = `images/flower${offeringData.offering.replace("ดอก", "")}.png`;
+      document.getElementById('offering-img').src = imgPath;
+      document.getElementById('wish-text').textContent = offeringData.wish;
+    }
+
+    // ฟังก์ชันแคปหน้าจอแล้วบันทึกภาพ
+    function downloadImage() {
+      html2canvas(document.getElementById("capture-area")).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "เวียนเทียนของฉัน.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
   </script>
+
 </body>
 </html>
