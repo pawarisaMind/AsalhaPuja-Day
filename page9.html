@@ -91,10 +91,17 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       transition: transform 0.3s;
       display: flex;
+      flex-direction: column; /* ✅ เพิ่มบรรทัดนี้ให้เรียงจากบนลงล่าง */
       align-items: center;
       justify-content: center;
       border: 3px solid transparent;
     }
+    .temple-name {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+}
     @media (max-width: 768px) {
   .temple {
     flex: 1 1 80%;                  /* ให้ใช้พื้นที่ประมาณ 80% ของแถว */
@@ -123,13 +130,6 @@
     flex: 1 1 80%;
     max-width: 300px;
     }
-}
-    .temple-name {
-  margin-top: 0.5rem;
-  text-align: center;
-  font-size: 1.2rem;
-  color: #333;
-}
 
     .button-container {
       width: 100%;
