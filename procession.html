@@ -225,7 +225,8 @@
 
   <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
 
-<script>
+  <script>
+    // แผนที่ภาพพื้นหลังตามชื่อวัด
   const measureImages = {
   'วัดบัวขวัญ': {
     desktop: 'images/วัดยักษ์เต็ม.png',
@@ -241,24 +242,21 @@
   }
 };
 
-function updateBackground(temple) {
-  if (!temple || !measureImages[temple]) return;
-  const isMobile = window.innerWidth <= 480;
-  const imgSrc = isMobile ? measureImages[temple].mobile : measureImages[temple].desktop;
+    // ฟังก์ชันเปลี่ยนภาพพื้นหลังตามที่เลือก
+  function updateBackground(temple) {
+  const isMobile = window.innerWidth <= 480; // หรือจะเช็คแบบละเอียดก็ได้
+  const imageSet = measureImages[temple];
 
-  document.body.style.backgroundImage = `url('${imgSrc}')`;
+  if (!imageSet) return;
+
+  const imageToShow = isMobile ? imageSet.mobile : imageSet.desktop;
+
+  document.body.style.backgroundImage = `url('${imageToShow}')`;
   document.body.style.backgroundRepeat = 'no-repeat';
   document.body.style.backgroundPosition = 'center center';
   document.body.style.backgroundAttachment = 'fixed';
   document.body.style.backgroundSize = 'cover';
 }
-  const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
-
-  async function init() {
-    // รอโหลดข้อมูลจาก API
-    const res = await fetch(sheetAPI);
-    const dataFromAPI = await res.json();
-
     const characterData = JSON.parse(localStorage.getItem('characterData'));
     const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
@@ -269,6 +267,7 @@ function updateBackground(temple) {
       measure = templeData.temple;
     }
 
+    // เรียกเปลี่ยนภาพพื้นหลังตามวัดที่เลือก
     updateBackground(measure);
 
     const gifMap = {
@@ -341,14 +340,10 @@ function updateBackground(temple) {
     }
 
     const timer = setInterval(updateCircleUI, 1000);
-  }
 
-  function skipToPage() {
-    window.location.href = 'page8.html';
-  }
-
-  window.addEventListener('DOMContentLoaded', init);
-
-  // ฟังก์ชัน updateBackground ต้องอยู่ข้างบนหรือแยกออกมา
-  // โค้ด updateBackground ตามที่มีในโค้ดของเอ็ง
-</script>
+    function skipToPage() {
+      window.location.href = 'page8.html';
+    }
+  </script>
+</body>
+</html> 
