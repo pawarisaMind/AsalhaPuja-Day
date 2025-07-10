@@ -55,23 +55,23 @@
     }
 
     .main {
-  flex: 1;
-  padding: 3rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-end; /* เปลี่ยนจาก center เป็น flex-end เพื่อดันไปขวา */
-}
+      flex: 1;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-.characters {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
-  justify-items: end; /* ดันแต่ละตัวในกริดไปทางขวา */
-}
+    .characters {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+      justify-items: center;
+    }
 
-  .character {
+    .character {
       background: #fff;
       border-radius: 15px;
       padding: 1rem;
@@ -83,8 +83,9 @@
     .character:hover {
       transform: scale(1.05);
     }
-      .character.selected {
-      border-color: gold;
+
+    .character.selected {
+      border: 3px solid gold;
       box-shadow: 0 0 15px gold;
     }
 
@@ -97,6 +98,7 @@
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
+      margin-top: 2rem;
     }
 
     input[type="text"] {
@@ -123,6 +125,18 @@
 
     button:hover {
       background: #ff6600;
+    }
+
+    #selected-character-display {
+      display: none;
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    #selected-character-display img {
+      width: 200px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
   </style>
 </head>
@@ -153,6 +167,11 @@
       <input type="text" id="name" placeholder="กรอกชื่อตัวละครของคุณ">
       <button onclick="submitForm()">ยืนยัน</button>
     </div>
+
+    <!-- รูปเพิ่มเติมเมื่อเลือก girlblue -->
+    <div id="selected-character-display">
+      <img id="selected-image" src="" alt="selected character">
+    </div>
   </div>
 
   <script>
@@ -162,12 +181,23 @@
       document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
       el.classList.add('selected');
       selectedCharacter = el.getAttribute('data-character');
+
+      const displayDiv = document.getElementById('selected-character-display');
+      const imageEl = document.getElementById('selected-image');
+
+      if (selectedCharacter === 'girlblue') {
+        imageEl.src = 'images/girl2jing.png'; // เปลี่ยนเป็น path รูปจริงของเอ็ง
+        displayDiv.style.display = 'block';
+      } else {
+        displayDiv.style.display = 'none';
+      }
     }
 
     function submitForm() {
       const name = document.getElementById('name').value.trim();
       if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
       if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
+
       const data = { character: selectedCharacter, name };
       localStorage.setItem('characterData', JSON.stringify(data));
       window.location.href = "page9.html";
