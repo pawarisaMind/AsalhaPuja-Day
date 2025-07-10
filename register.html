@@ -222,15 +222,36 @@
   previewImg.src = previewSrc;
   previewImg.style.display = 'block';
 }
+function submitForm() {
+  const name = document.getElementById('name').value.trim();
+  if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
+  if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
 
-    function submitForm() {
-      const name = document.getElementById('name').value.trim();
-      if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
-      if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
-      const data = { character: selectedCharacter, name };
+  const data = { character: selectedCharacter, name };
+
+  // 🔽 ส่งข้อมูลไปยัง PHP
+  fetch('save_character.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(response => {
+    if (response.status === "success") {
       localStorage.setItem('characterData', JSON.stringify(data));
       window.location.href = "page9.html";
+    } else {
+      alert("เกิดข้อผิดพลาด: " + response.message);
     }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+  });
+}
+
   </script>
 </body>
 </html>
