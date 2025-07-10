@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>เวียนเทียน - ตัวละครของคุณ</title>
   <style>
     @font-face {
@@ -31,6 +31,45 @@
       position: relative;
     }
 
+    /* ปรับ chant-scroll-box ให้อยู่กลางหน้าจอ ถัดลงจาก h1 */
+    .chant-scroll-box {
+      position: relative; /* ไม่ใช้ absolute */
+      margin: 1rem auto 0 auto; /* เว้นช่วงบนจาก h1 และกึ่งกลาง */
+      width: 90vw;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid gold;
+      border-radius: 20px;
+      padding: 1rem;
+      font-size: 2rem;
+      color: #333;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      z-index: 9;
+    }
+
+    .chant-scroll-box h2 {
+      width: 100%;
+      background: gold;
+      color: #333;
+      margin: 0 0 1rem 0;
+      padding: 0.5rem 0;
+      border-radius: 15px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .chant-content {
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .chant-content p {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
     .temple-layer {
       position: absolute;
       bottom: -5.7%;
@@ -50,7 +89,7 @@
     }
 
     .character-img {
-      width: auto;
+      width: 80px;
       height: auto;
     }
 
@@ -67,7 +106,7 @@
       bottom: 80%;
       left: 60%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       color: #333;
       font-size: 3rem;
       padding: 1rem 2rem;
@@ -79,41 +118,12 @@
     }
 
     @keyframes walk {
-      0% { right: -200px; }
-      100% { right: 120vw; }
-    }
-
-    .chant-scroll-box {
-      position: absolute;
-      top: 100px;
-      right: 20px;
-      width: 600px;
-      height: 300px;
-      background: rgba(255,255,255,0.85);
-      border: 2px solid gold;
-      border-radius: 20px;
-      padding: 1rem;
-      font-size: 2rem;
-      color: #333;
-      z-index: 9;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chant-scroll-box h2 {
-      text-align: center;
-      color: goldenrod;
-    }
-
-    .chant-content {
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .chant-content p {
-      text-align: center;
-      margin-bottom: 10px;
+      0% {
+        right: -200px;
+      }
+      100% {
+        right: 120vw;
+      }
     }
 
     .circle-timer {
@@ -161,10 +171,19 @@
 
   <div class="circle-timer">
     <svg width="300" height="300">
-      <circle cx="150" cy="150" r="140" stroke="#444" stroke-width="12" fill="none"/>
-      <circle id="progressCircle" cx="150" cy="150" r="140" stroke="#99FF33" stroke-width="12" fill="none"
-              stroke-dasharray="880" stroke-dashoffset="880"
-              transform="rotate(-90 150 150)" />
+      <circle cx="150" cy="150" r="140" stroke="#444" stroke-width="12" fill="none" />
+      <circle
+        id="progressCircle"
+        cx="150"
+        cy="150"
+        r="140"
+        stroke="#99FF33"
+        stroke-width="12"
+        fill="none"
+        stroke-dasharray="880"
+        stroke-dashoffset="880"
+        transform="rotate(-90 150 150)"
+      />
       <text id="circleTime" x="150" y="160" text-anchor="middle" fill="#99FF33" font-size="60px">0</text>
       <text x="150" y="210" text-anchor="middle" fill="#99FF33" font-size="45px">เดินครบ 3 รอบ</text>
     </svg>
@@ -178,23 +197,23 @@
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
     const measureImages = {
-      'วัด1': 'images/วัดone.png',
-      'วัด2': 'images/วัดtree.png',
-      'วัด3': 'images/วัดtwo.png'
+      วัด1: 'images/วัดone.png',
+      วัด2: 'images/วัดtree.png',
+      วัด3: 'images/วัดtwo.png',
     };
 
     const gifMap = {
-      'boyblue': 'boy1.gif',
-      'boybrow': 'boy2.gif',
-      'girlred': 'girl1.gif',
-      'girlblue': 'girl2.gif'
+      boyblue: 'boy1.gif',
+      boybrow: 'boy2.gif',
+      girlred: 'girl1.gif',
+      girlblue: 'girl2.gif',
     };
 
     const flowerMap = {
       'flower1.png': 'ดอก1.png',
       'flower2.png': 'ดอก2.png',
       'flower3.png': 'ดอก3.png',
-      'flower4.png': 'ดอก4.png'
+      'flower4.png': 'ดอก4.png',
     };
 
     const container = document.getElementById('characterDisplay');
@@ -233,21 +252,21 @@
 
     let timePassed = 0;
     const maxTime = 30;
-    const circleProgress = document.getElementById("progressCircle");
-    const circleText = document.getElementById("circleTime");
+    const circleProgress = document.getElementById('progressCircle');
+    const circleText = document.getElementById('circleTime');
     const circumference = 2 * Math.PI * 140;
 
     function updateCircleUI() {
       timePassed++;
       if (timePassed <= maxTime) {
         const offset = circumference - (circumference * timePassed) / maxTime;
-        circleProgress.setAttribute("stroke-dashoffset", offset);
+        circleProgress.setAttribute('stroke-dashoffset', offset);
         circleText.textContent = timePassed;
       }
       if (timePassed >= maxTime) {
         clearInterval(timer);
-        alert("🙏 ครบ 3 รอบแล้ว สาธุ");
-        window.location.href = "page8.html";
+        alert('🙏 ครบ 3 รอบแล้ว สาธุ');
+        window.location.href = 'page8.html';
       }
     }
 
