@@ -9,13 +9,7 @@
       font-family: 'FCMinimal';
       src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'FCMinimal', sans-serif;
       background: url('images/ppi.png') no-repeat center center fixed;
@@ -25,10 +19,8 @@
       flex-direction: row;
       color: #333;
     }
-
     .sidebar {
       width: 210px;
-      height: 100vh; /* สูงเต็มหน้าจอ */
       background: rgba(255,255,255,0.6);
       display: flex;
       flex-direction: column;
@@ -38,27 +30,24 @@
       gap: 2rem;
       box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
-    
-   .sidebar a {
-  display: flex;                 /* จัดให้อยู่กลางด้วย flex */
-  align-items: center;          /* กึ่งกลางแนวตั้ง */
-  justify-content: center;      /* กึ่งกลางแนวนอน */
-  width: 180px;                 /* กำหนดความกว้างให้เท่ากันทุกปุ่ม */
-  height: 60px;                 /* กำหนดความสูงให้เท่ากันทุกปุ่ม */
-  font-size: 1.5rem;
-  color: #333;
-  text-decoration: none;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transition: 0.3s;
-  box-sizing: border-box;       /* รวม padding ในขนาดกรอบ */
-}
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 60px;
+      font-size: 1.5rem;
+      color: #333;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
     .sidebar a:hover {
       background: #ffd700;
       color: white;
     }
-
     .main {
       flex: 1;
       padding: 3rem;
@@ -67,9 +56,7 @@
       justify-content: center;
       align-items: flex-end;
       position: relative;
-      
     }
-
     .characters {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -77,41 +64,33 @@
       margin-bottom: 2rem;
       justify-items: end;
     }
-
-  .character {
-  width: 160px;              /* ความกว้างของกล่อง */
-  height: 160px;             /* ความสูง = ความกว้าง → จัตุรัส */
-  background: #fff;
-  border-radius: 15px;
-  padding: 1rem;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-  display: flex;             /* จัดภาพให้อยู่กลางกล่อง */
-  align-items: center;
-  justify-content: center;
-}
-
+    .character {
+      width: 160px;
+      height: 160px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .character:hover {
       transform: scale(1.05);
     }
-
     .character.selected {
       border: 3px solid gold;
       box-shadow: 0 0 15px gold;
     }
-
-    .character img {
-      width: 200px;
-    }
-
+    .character img { width: 200px; }
     .input-area {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;
     }
-
     input[type="text"] {
       font-family: 'FCMinimal';
       font-size: 2.2rem;
@@ -120,7 +99,6 @@
       border: 2px solid #ffa500;
       width: 350px;
     }
-
     button {
       font-family: 'FCMinimal';
       font-size: 2rem;
@@ -130,42 +108,27 @@
       border-radius: 20px;
       color: white;
       cursor: pointer;
-      /*box-shadow: 0 0 10px #ffa500;*/
       transition: background 0.3s;
     }
-
-    button:hover {
-      background: #ff6600;
+    button:hover { background: #ff6600; }
+    #preview {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1000;
     }
-
-    /* เพิ่มส่วนแสดงภาพตรงกลาง */
-#preview {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 1000;
-  /*background: rgba(255, 255, 255, 0.7); /* กล่องมีพื้นหลังจางๆ */
-  padding: 1rem;
-  border-radius: 15px;
-  /*box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);*/
-}
-
-#preview img {
-  width: 400px;      /* ปรับตามที่ต้องการ */
-  height: auto;
-  display: none;
-  border: 4px solid #fff;
-  border-radius: 20px;
-  /*box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-  background: white;*/
-}
-@media screen and (max-width: 768px) {
-  #preview {
-    display: none;
-  }
-}
+    #preview img {
+      width: 400px;
+      height: auto;
+      display: none;
+      border: 4px solid #fff;
+      border-radius: 20px;
+    }
+    @media screen and (max-width: 768px) {
+      #preview { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -177,9 +140,9 @@
 
   <div class="main">
     <div class="characters">
-    <div class="character" onclick="selectCharacter(this)" data-character="boyblue" data-preview="images/boyjing1.png">
-    <img src="images/boyblue.png" alt="ชาย1">
-    </div>
+      <div class="character" onclick="selectCharacter(this)" data-character="boyblue" data-preview="images/boyjing1.png">
+        <img src="images/boyblue.png" alt="ชาย1">
+      </div>
       <div class="character" onclick="selectCharacter(this)" data-character="girlred" data-preview="images/girljing2.png">
         <img src="images/girlred.png" alt="หญิง1">
       </div>
@@ -196,62 +159,62 @@
       <button onclick="submitForm()">ยืนยัน</button>
     </div>
 
-    <!-- ส่วนแสดงรูปตรงกลาง -->
     <div id="preview">
       <img id="preview-img" src="" alt="Preview">
     </div>
   </div>
 
+  <!-- ✅ Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
   <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
+      authDomain: "asalhapuja-day.firebaseapp.com",
+      databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "asalhapuja-day",
+      storageBucket: "asalhapuja-day.appspot.com",
+      messagingSenderId: "776082602779",
+      appId: "1:776082602779:web:76551ef38442ed8d9b1be"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
     let selectedCharacter = null;
 
-   function selectCharacter(el) {
-  document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedCharacter = el.getAttribute('data-character');
+    function selectCharacter(el) {
+      document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedCharacter = el.getAttribute('data-character');
 
-  // ใช้ภาพพิเศษจาก data-preview
-  const previewSrc = el.getAttribute('data-preview');
-  const previewImg = document.getElementById('preview-img');
-     if (window.innerWidth > 768) {
-    previewImg.src = previewSrc;
-    previewImg.style.display = 'block';
-  } else {
-    previewImg.style.display = 'none'; // ซ่อนไว้ในมือถือ
-  }
-  previewImg.src = previewSrc;
-  previewImg.style.display = 'block';
-}
-function submitForm() {
-  const name = document.getElementById('name').value.trim();
-  if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
-  if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
-
-  const data = { character: selectedCharacter, name };
-
-  // 🔽 ส่งข้อมูลไปยัง PHP
-  fetch('save_character.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(response => {
-    if (response.status === "success") {
-      localStorage.setItem('characterData', JSON.stringify(data));
-      window.location.href = "page9.html";
-    } else {
-      alert("เกิดข้อผิดพลาด: " + response.message);
+      const previewSrc = el.getAttribute('data-preview');
+      const previewImg = document.getElementById('preview-img');
+      if (window.innerWidth > 768) {
+        previewImg.src = previewSrc;
+        previewImg.style.display = 'block';
+      } else {
+        previewImg.style.display = 'none';
+      }
     }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-  });
-}
 
+    function submitForm() {
+      const name = document.getElementById('name').value.trim();
+      if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
+      if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
+
+      const data = { character: selectedCharacter, name };
+
+      db.ref("characters").push(data)
+        .then(() => {
+          localStorage.setItem('characterData', JSON.stringify(data));
+          window.location.href = "page9.html";
+        })
+        .catch(error => {
+          console.error("Firebase Error:", error);
+          alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+        });
+    }
   </script>
 </body>
 </html>
