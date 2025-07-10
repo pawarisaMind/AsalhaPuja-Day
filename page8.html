@@ -161,8 +161,8 @@
       document.getElementById('wish-text').textContent = offeringData.wish;
     }
 
-    // โหลดตัวละครจาก Google Sheet (แก้ URL เป็น Script ของคุณเอง)
-    const sheetURL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+    // โหลดตัวละครจาก Google Sheet
+    const sheetURL = 'https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec';
     fetch(sheetURL)
       .then(res => res.json())
       .then(data => {
