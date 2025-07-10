@@ -61,10 +61,13 @@
   transition: transform 0.3s ease;
   margin-left: 60px;
 }
-  .menu h1:hover,
-  .menu h2:hover,
-  .menu h3:hover {
-    transform: scale(1.05);
+    @media screen and (min-width: 1025px) {
+  .menu h1,
+  .menu h2,
+  .menu h3 {
+    margin-left: 60px;
+  }
+}
   }
 
  /* มือถือแนวตั้ง */
