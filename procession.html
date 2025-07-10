@@ -90,14 +90,13 @@
       z-index: 1;
     }
 
-   .character-wrapper {
+.character-wrapper {
   position: absolute;
   bottom: 6px;
-  left: -20%;
-  animation: walk 15s linear infinite;
+  right: -20%; /* เปลี่ยนจาก left เป็น right */
+  animation: walk-left 15s linear infinite;
   will-change: transform;
-  z-index: 2;
-}
+  
     .character-img {
       width: 150px;
       height: auto;
@@ -127,9 +126,9 @@
       z-index: 3;
     }
 
-   @keyframes walk {
+@keyframes walk-left {
   0% { transform: translateX(0); }
-  100% { transform: translateX(140vw); }
+  100% { transform: translateX(-140vw); } /* ไปทางซ้าย */
 }
 
     .circle-timer {
@@ -194,8 +193,9 @@
       }
 
       .flower {
-        width: 150px;
-      }
+  left: auto;
+  right: 50px;
+}
 
       .circle-timer {
         transform: scale(0.6);
@@ -269,10 +269,10 @@
     };
 
     const flowerMap = {
-      'flower1.png': 'ดอก1.png',
-      'flower2.png': 'ดอก2.png',
-      'flower3.png': 'ดอก3.png',
-      'flower4.png': 'ดอก4.png',
+      'flower1.png': 'flower1.png',
+      'flower2.png': 'flower2.png',
+      'flower3.png': 'flower3.png',
+      'flower4.png': 'flower4.png,
     };
 
     const container = document.getElementById('characterDisplay');
