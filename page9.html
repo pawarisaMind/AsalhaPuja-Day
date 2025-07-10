@@ -124,35 +124,41 @@
       object-fit: contain;
       border-radius: 10px;
     }
-    /* ✅ สำหรับหน้าจอเล็ก เช่น มือถือ */
     @media (max-width: 768px) {
-    .temple {
+  .temple {
     flex: 1 1 80%;
     max-width: 300px;
-    }
+  }
 
-    .button-container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-    }
+  .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
 
-    button {
-      font-family: 'FCMinimal';
-      font-size: 2rem;
-      padding: 0.8rem 2rem;
-      background: #ffa500;
-      border: none;
-      border-radius: 20px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
+  button {
+    font-family: 'FCMinimal';
+    font-size: 2rem;
+    padding: 0.8rem 2rem;
+    background: #ffa500;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
 
-    button:hover {
-      background: #ff6600;
-    }
+  button:hover {
+    background: #ff6600;
+  }
+      /* สำหรับมือถือโดยเฉพาะ (เฉพาะ temple เท่านั้น) */
+@media (max-width: 768px) {
+  .temple {
+    flex: 1 1 80%;
+    max-width: 300px;
+  }
+}
   </style>
 </head>
 <body>
