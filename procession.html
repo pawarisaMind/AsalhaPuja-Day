@@ -20,11 +20,11 @@
     }
 
     body {
-      background: url('images/View1.png') no-repeat center center;
-      background-size: cover;
-      min-height: 100vh;
-      position: relative;
-    }
+  background: url('images/View1.png') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  position: relative;
+}
 
     h1 {
       text-align: center;
@@ -169,10 +169,50 @@
       border-color: #fff;
     }
 
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
+    /* มือถือแนวตั้ง */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+  body {
+ const measureImages = {
+      'วัดบัวขวัญ': 'images/วัดยักษ์โทร.png',
+      'วัดกู้': 'images/วัดกู้เต็มโทร1.png',
+      'วัดสะพานสูง': 'images/วัดสะพานโทร.png',
+    };
+    bac
+}
+
+/* แท็บเล็ตแนวตั้ง */
+@media screen and (min-width: 600px) and (max-width: 1024px) and (orientation: portrait) {
+  body {
+    const measureImages = {
+      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
+      'วัดกู้': 'images/วัดกู้เต็ม.png',
+      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
+    };
+    bac
+}
+
+/* แท็บเล็ตแนวนอน */
+@media screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  body {
+   const measureImages = {
+      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
+      'วัดกู้': 'images/วัดกู้เต็ม.png',
+      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
+    };
+    bac
+}
+
+/* เดสก์ท็อป */
+@media screen and (min-width: 1025px) {
+  body {
+     const measureImages = {
+      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
+      'วัดกู้': 'images/วัดกู้เต็ม.png',
+      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
+    };
+    background-attachment: fixed;
+  }
+}
       .wish-box {
         font-size: 1.2rem;
         width: 90%;
@@ -237,13 +277,6 @@
       const templeData = JSON.parse(templeDataString);
       measure = templeData.temple;
     }
-
-    const measureImages = {
-      'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
-      'วัดกู้': 'images/วัดกู้เต็ม.png',
-      'วัดสะพานสูง': 'images/วัดสะพานเต็ม.png',
-    };
-
     const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
