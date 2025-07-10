@@ -91,6 +91,47 @@
 
     const sheetAPI = "https://script.google.com/macros/s/AKfycbznG67SZ0HGAiJXrXBoPZcIIlC46-kuYo6pix8kLr4gXUxxAvx_ON1YEiB1GhluFp34qA/exec";
 
+    // อ่านค่าของผู้ใช้จาก localStorage
+    const myCharacter = {
+      name: localStorage.getItem('myName') || 'ฉันเอง',
+      wish: localStorage.getItem('myWish') || 'ขอให้โชคดี',
+      character: localStorage.getItem('myCharacter') || 'boyblue',
+      offering: localStorage.getItem('myFlower') || 'ดอก1'
+    };
+
+    function showMyCharacter(character) {
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'absolute';
+      wrapper.style.bottom = '20px';
+      wrapper.style.left = '50%';
+      wrapper.style.transform = 'translateX(-50%)';
+      wrapper.style.zIndex = '10'; // อยู่ด้านหน้าสุด
+
+      const charImg = document.createElement('img');
+      charImg.src = `images/${gifMap[character.character] || 'boy1.gif'}`;
+      charImg.className = 'character-img';
+
+      const wishBox = document.createElement('div');
+      wishBox.className = 'wish-box';
+      wishBox.innerHTML = `🌟 ${character.name}: ${character.wish}`;
+
+      const flowerImg = document.createElement('img');
+      flowerImg.src = `images/${flowerMap[character.offering] || 'flower1.png'}`;
+      flowerImg.className = 'flower';
+
+      const inner = document.createElement('div');
+      inner.style.display = 'flex';
+      inner.style.flexDirection = 'column';
+      inner.style.alignItems = 'center';
+
+      inner.appendChild(wishBox);
+      inner.appendChild(charImg);
+      inner.appendChild(flowerImg);
+
+      wrapper.appendChild(inner);
+      document.body.appendChild(wrapper);
+    }
+
     async function loadCharacters() {
       try {
         const res = await fetch(sheetAPI);
@@ -132,8 +173,13 @@
           wrapper.appendChild(inner);
           characterDisplay.appendChild(wrapper);
         });
+
+        // 👉 เพิ่มตัวเราหลังโหลดตัวอื่นเสร็จ
+        showMyCharacter(myCharacter);
+
       } catch (err) {
         console.error("⚠️ โหลดข้อมูลล้มเหลว:", err);
+        showMyCharacter(myCharacter); // แสดงตัวเราด้วยแม้โหลดล้มเหลว
       }
     }
 
