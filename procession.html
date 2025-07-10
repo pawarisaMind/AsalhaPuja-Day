@@ -25,10 +25,10 @@
       text-align: center;
       color: white;
       text-shadow: 0 0 5px gold;
-      z-index: 3;
       font-size: 3rem;
       margin-top: 1rem;
       position: relative;
+      z-index: 3;
     }
 
     .chant-scroll-box {
@@ -76,12 +76,8 @@
     }
 
     @keyframes marquee {
-      from {
-        transform: translateX(0%);
-      }
-      to {
-        transform: translateX(-100%);
-      }
+      from { transform: translateX(0%); }
+      to { transform: translateX(-100%); }
     }
 
     .temple-layer {
@@ -132,12 +128,8 @@
     }
 
     @keyframes walk {
-      0% {
-        right: -200px;
-      }
-      100% {
-        right: 120vw;
-      }
+      0% { right: -200px; }
+      100% { right: 120vw; }
     }
 
     .circle-timer {
@@ -145,6 +137,29 @@
       bottom: 20px;
       left: 20px;
       z-index: 10;
+      transform: scale(0.8);
+    }
+
+    .skip-button {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      padding: 1rem 2rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border: 2px solid gold;
+      border-radius: 12px;
+      font-family: 'FCMinimal', sans-serif;
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .skip-button:hover {
+      background-color: gold;
+      color: white;
+      border-color: #fff;
     }
 
     @media (max-width: 768px) {
@@ -183,7 +198,12 @@
       }
 
       .circle-timer {
-        transform: scale(0.7);
+        transform: scale(0.6);
+      }
+
+      .skip-button {
+        font-size: 1.2rem;
+        padding: 0.6rem 1.2rem;
       }
     }
   </style>
@@ -194,7 +214,7 @@
   <div class="chant-scroll-box">
     <h2>บทสวดเวียนเทียน</h2>
     <div class="chant-content">
-      <p>"อิติปิโส ภะคะวา อะระหัง สัมมาสัมพุทโธ วิชชาจะระณะสัมปันโน สุคะโต โลกะวิทู อะนุตตะโร ปุริสะทัมมะสาระถิ สัตถา เทวะมะนุสสานัง พุทโธ ภะคะวาติ สวากขาโต ภะคะวาตา ธัมโม สันทิฏฐิโก อะกาลิโก เอหิปัสสิโก โอปะนะยิโก ปัจจัตตัง เวทิตัพโพ วิญญูหิติ สุปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ อุชุปะฏิปันโน ญายะปะฏิปันโน สามีจิปะฏิปันโน ยะทิทัง จัตตาริ ปุริสะยุคานิ อัฏฐะ ปุริสะปุคคะลา เอสะ ภะคะวะโต สาวะกะสังโฆ อาหุเนยโย ปาหุเนยโย ทักขิเกยโย อัญชลีกะระณีโย อะนุตตะรัง ปุญญักเขตตัง โลกัสสาติ สาธุ สาธุ สาธุ 🙏"</p>
+      <p>"อิติปิโส... สาธุ สาธุ สาธุ 🙏"</p>
     </div>
   </div>
 
@@ -216,33 +236,31 @@
         transform="rotate(-90 150 150)"
       />
       <text id="circleTime" x="150" y="160" text-anchor="middle" fill="#99FF33" font-size="60px">0</text>
-      <text x="150" y="210" text-anchor="middle" fill="#99FF33" font-size="45px">เดินครบ 3 รอบ</text>
+      <text id="circleLabel" x="150" y="215" text-anchor="middle" fill="#FFD700" font-size="28px" font-family="FCMinimal">เดินครบ 3 รอบ</text>
     </svg>
   </div>
+
+  <button class="skip-button" onclick="skipToPage()">⏭️ ข้ามไปหน้าถัดไป</button>
 
   <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
 
   <script>
-    // ดึงข้อมูล character, วัด, สิ่งของ จาก localStorage
     const characterData = JSON.parse(localStorage.getItem('characterData'));
     const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-    // ดึงชื่อวัดจาก templeData (ถ้ามี)
     let measure = null;
     if (templeDataString) {
       const templeData = JSON.parse(templeDataString);
       measure = templeData.temple;
     }
 
-    // ภาพพื้นหลังของแต่ละวัด
     const measureImages = {
       'วัดบัวขวัญ': 'images/View1111.png',
       'วัดกู้': 'images/พื้นโปร่งแสงวัดกู้223.png',
       'วัดสะพานสูง': 'images/พื้นโปร่งวัดสะพานสูง444.png',
     };
 
-    // ตัวละคร gif
     const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
@@ -250,7 +268,6 @@
       girlblue: 'girl2.gif',
     };
 
-    // ดอกไม้
     const flowerMap = {
       'flower1.png': 'ดอก1.png',
       'flower2.png': 'ดอก2.png',
@@ -260,7 +277,6 @@
 
     const container = document.getElementById('characterDisplay');
 
-    // แสดงภาพพื้นหลังวัดถ้ามีข้อมูล
     if (measure && measureImages[measure]) {
       const templeImg = document.createElement('img');
       templeImg.src = measureImages[measure];
@@ -268,7 +284,6 @@
       container.appendChild(templeImg);
     }
 
-    // แสดงตัวละคร ถ้ามีข้อมูล
     if (characterData) {
       const wrapper = document.createElement('div');
       wrapper.className = 'character-wrapper';
@@ -278,15 +293,13 @@
       characterImg.className = 'character-img';
       wrapper.appendChild(characterImg);
 
-      // แสดงคำอธิษฐาน ถ้ามี
       if (offeringData && offeringData.wish) {
         const wishBox = document.createElement('div');
         wishBox.className = 'wish-box';
-        wishBox.innerHTML = `🫗 <strong>${offeringData.wish}</strong> 🙏`;
+        wishBox.innerHTML = <strong>${offeringData.wish}</strong> ;
         wrapper.appendChild(wishBox);
       }
 
-      // แสดงดอกไม้ ถ้ามี
       if (offeringData && offeringData.offering) {
         const flowerImg = document.createElement('img');
         flowerImg.src = 'images/' + (flowerMap[offeringData.offering] || offeringData.offering);
@@ -297,9 +310,8 @@
       container.appendChild(wrapper);
     }
 
-    // ตัวจับเวลาวงกลม
     let timePassed = 0;
-    const maxTime = 30; // วินาที
+    const maxTime = 30;
     const circleProgress = document.getElementById('progressCircle');
     const circleText = document.getElementById('circleTime');
     const circumference = 2 * Math.PI * 140;
@@ -319,6 +331,10 @@
     }
 
     const timer = setInterval(updateCircleUI, 1000);
+
+    function skipToPage() {
+      window.location.href = 'page8.html';
+    }
   </script>
 </body>
 </html>
