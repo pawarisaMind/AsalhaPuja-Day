@@ -9,42 +9,85 @@
       src: url('fonts/CopyofJunkshopjanchai.ttf') format('truetype');
     }
 
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'CopyofJunkshopjanchai', sans-serif;
       background: url('images/พื้นหลัง3.gif') no-repeat center center fixed;
       background-size: cover;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      color: white;
-      text-align: center;
+      flex-direction: row;
+      color: #fff;
     }
 
-    h1 {
-      font-size: 10rem;
-      margin-bottom: 2rem;
-      text-shadow: 0 0 10px gold;
+    .sidebar {
+      width: 150px;
+      background: rgba(255,255,255,0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 1rem;
+      gap: 2rem;
+      box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 60px;
+      font-size: 1.5rem;
+      color: #333;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: #ffd700;
+      color: white;
+    }
+
+    .main {
+      flex: 1;
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      position: relative;
     }
 
     .offering-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 5rem;
-      width: 90%;
-      max-width: 3000px;
-      margin-bottom: 3rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+      justify-items: end;
     }
 
     .offering-card {
-      border: 5px solid transparent;
+      width: 160px;
+      height: 160px;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
-      padding: 0.5rem;
+      padding: 1rem;
       cursor: pointer;
-      transition: transform 0.3s, border 0.3s;
-      background-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid transparent;
     }
 
     .offering-card:hover {
@@ -61,54 +104,68 @@
       border-radius: 10px;
     }
 
+    .input-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
     input[type="text"] {
-      font-size: 5rem;
-      padding: 2.5rem 1rem;
-      border-radius: 10px;
-      border: none;
-      width: 80%;
-      max-width: 800px;
-      margin-bottom: 2rem;
+      font-family: 'CopyofJunkshopjanchai';
+      font-size: 2rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #ffa500;
+      width: 350px;
     }
 
     button {
-      font-size: 5rem;
+      font-family: 'CopyofJunkshopjanchai';
+      font-size: 2rem;
       padding: 0.8rem 2rem;
-      border-radius: 20px;
-      background: linear-gradient(to right, #ffd700, #ffa500);
+      background: #ffa500;
       border: none;
+      border-radius: 20px;
       color: white;
       cursor: pointer;
-      box-shadow: 0 0 10px #ffa500;
       transition: background 0.3s;
     }
 
     button:hover {
-      background: linear-gradient(to right, #ffa500, #ff4500);
+      background: #ff6600;
     }
   </style>
 </head>
 <body>
 
-  <h1>เลือกดอกไม้ธูปเทียน</h1>
-
-  <div class="offering-container">
-    <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก1">
-      <img src="images/1.png" alt="ดอก1">
-    </div>
-    <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก2">
-      <img src="images/2.png" alt="ดอก2">
-    </div>
-    <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก3">
-      <img src="images/3.png" alt="ดอก3">
-    </div>
-    <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก4">
-      <img src="images/4.png" alt="ดอก4">
-    </div>
+  <div class="sidebar">
+    <a href="register.html">เลือกตัวละคร</a>
+    <a href="page9.html">เลือกวัด</a>
+    <a href="page10.html">คำอธิษฐาน</a>
   </div>
 
-  <input type="text" id="name" placeholder="กรอกคำอธิษฐานของคุณ">
-  <button onclick="submitForm()">ยืนยัน</button>
+  <div class="main">
+    <div class="offering-container">
+      <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก1">
+        <img src="images/ดอก1.png" alt="ดอก1">
+      </div>
+      <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก2">
+        <img src="images/ดอก2.png" alt="ดอก2">
+      </div>
+      <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก3">
+        <img src="images/ดอก3.png" alt="ดอก3">
+      </div>
+      <div class="offering-card" onclick="selectOffering(this)" data-offering="ดอก4">
+        <img src="images/ดอก4.png" alt="ดอก4">
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="name" placeholder="กรอกคำอธิษฐานของคุณ">
+      <button onclick="submitForm()">ยืนยัน</button>
+    </div>
+  </div>
 
   <script>
     let selectedOffering = null;
@@ -131,11 +188,13 @@
         alert("กรุณากรอกคำอธิษฐานของคุณ");
         return;
       }
-       const data = {
-  offering: selectedOffering,  // ✅ เปลี่ยนชื่อให้เหมาะสม
-  wish: name
-};
-localStorage.setItem('offeringData', JSON.stringify(data));
+
+      const data = {
+        offering: selectedOffering,
+        wish: name
+      };
+
+      localStorage.setItem('offeringData', JSON.stringify(data));
       window.location.href = "procession.html";
     }
   </script>
