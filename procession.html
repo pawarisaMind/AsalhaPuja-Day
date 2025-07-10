@@ -26,63 +26,10 @@
       text-align: center;
       color: white;
       text-shadow: 0 0 5px gold;
-      z-index: 3;
       font-size: 3rem;
       margin-top: 1rem;
       position: relative;
-    }
-
-    .chant-scroll-box {
-      position: relative;
-      margin: 1rem auto 0 auto;
-      width: 90vw;
-      max-width: 900px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid gold;
-      border-radius: 20px;
-      padding: 1rem;
-      z-index: 9;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      overflow: hidden;
-    }
-
-    .chant-scroll-box h2 {
-      background: none;
-      color: navy;
-      margin: 0;
-      padding: 0;
-      font-size: 1.8rem;
-      white-space: nowrap;
-    }
-
-    .chant-content {
-      flex: 1;
-      overflow: hidden;
-      white-space: nowrap;
-      box-sizing: border-box;
-      position: relative;
-      height: 2.5rem;
-    }
-
-    .chant-content p {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 100%;
-      animation: marquee 40s linear infinite;
-      font-size: 1.8rem;
-      color: saddlebrown;
-      margin: 0;
-    }
-
-    @keyframes marquee {
-      from {
-        transform: translateX(0%);
-      }
-      to {
-        transform: translateX(-100%);
-      }
+      z-index: 3;
     }
 
     .character-wrapper {
@@ -93,17 +40,22 @@
       z-index: 2;
     }
 
+    .character-img-container {
+      position: relative;
+      display: inline-block;
+    }
+
     .character-img {
       width: 150px;
       height: auto;
     }
 
-    .flower {
+    .character-flower {
       position: absolute;
       bottom: 30px;
-      left: 50px;
-      width: 300px;
-      z-index: 3;
+      left: 60px;
+      width: 50px;
+      z-index: 5;
     }
 
     .wish-box {
@@ -123,101 +75,21 @@
     }
 
     @keyframes walk {
-      0% {
-        right: -200px;
-      }
-      100% {
-        right: 120vw;
-      }
-    }
-
-    .circle-timer {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
-      z-index: 10;
-    }
-
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .wish-box {
-        font-size: 1.5rem;
-        width: 90%;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .chant-scroll-box {
-        width: 90%;
-        font-size: 1.5rem;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .chant-scroll-box h2 {
-        margin-bottom: 0.5rem;
-      }
-
-      .chant-content {
-        height: 2rem;
-      }
-
-      .chant-content p {
-        font-size: 1.4rem;
-      }
-
-      .flower {
-        width: 150px;
-      }
-
-      .circle-timer {
-        transform: scale(0.7);
-      }
+      0% { right: -200px; }
+      100% { right: 120vw; }
     }
   </style>
 </head>
 <body id="mainBody">
   <h1>ยินดีต้อนรับสู่การเวียนเทียน</h1>
 
-  <div class="chant-scroll-box">
-    <h2>บทสวดเวียนเทียน</h2>
-    <div class="chant-content">
-      <p>"อิติปิโส ภะคะวา อะระหัง สัมมาสัมพุทโธ ... 🙏"</p>
-    </div>
-  </div>
-
   <div id="characterDisplay"></div>
 
-  <div class="circle-timer">
-    <svg width="300" height="300">
-      <circle cx="150" cy="150" r="140" stroke="#444" stroke-width="12" fill="none" />
-      <circle
-        id="progressCircle"
-        cx="150"
-        cy="150"
-        r="140"
-        stroke="#99FF33"
-        stroke-width="12"
-        fill="none"
-        stroke-dasharray="880"
-        stroke-dashoffset="880"
-        transform="rotate(-90 150 150)"
-      />
-      <text id="circleTime" x="150" y="160" text-anchor="middle" fill="#99FF33" font-size="60px">0</text>
-      <text x="150" y="210" text-anchor="middle" fill="#99FF33" font-size="45px">เดินครบ 3 รอบ</text>
-    </svg>
-  </div>
-
-  <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
-
   <script>
-    // ดึงข้อมูลจาก localStorage
+    // โหลดข้อมูลจาก localStorage
     const characterData = JSON.parse(localStorage.getItem('characterData'));
-    const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+    const templeDataString = localStorage.getItem('templeData');
 
     let measure = null;
     if (templeDataString) {
@@ -225,19 +97,18 @@
       measure = templeData.temple;
     }
 
-    // ภาพพื้นหลังของวัด (เต็มจอ)
+    // พื้นหลังวัด
     const bgImages = {
       'วัดบัวขวัญ': 'images/วัดยักษ์เต็ม.png',
       'วัดกู้': 'images/bg-wat-ku.jpg',
       'วัดสะพานสูง': 'images/bg-wat-saphansung.jpg',
     };
 
-    // ตั้งค่าพื้นหลังตามวัดที่เลือก
     if (measure && bgImages[measure]) {
       document.getElementById('mainBody').style.backgroundImage = `url('${bgImages[measure]}')`;
     }
 
-    // ตัวละคร gif
+    // ตัวละคร
     const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
@@ -255,15 +126,27 @@
 
     const container = document.getElementById('characterDisplay');
 
-    // แสดงตัวละคร
+    // แสดงตัวละครพร้อมดอกไม้
     if (characterData) {
       const wrapper = document.createElement('div');
       wrapper.className = 'character-wrapper';
 
+      const characterContainer = document.createElement('div');
+      characterContainer.className = 'character-img-container';
+
       const characterImg = document.createElement('img');
       characterImg.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
       characterImg.className = 'character-img';
-      wrapper.appendChild(characterImg);
+      characterContainer.appendChild(characterImg);
+
+      if (offeringData && offeringData.offering) {
+        const flowerImg = document.createElement('img');
+        flowerImg.src = 'images/' + (flowerMap[offeringData.offering] || offeringData.offering);
+        flowerImg.className = 'character-flower';
+        characterContainer.appendChild(flowerImg);
+      }
+
+      wrapper.appendChild(characterContainer);
 
       if (offeringData && offeringData.wish) {
         const wishBox = document.createElement('div');
@@ -272,38 +155,8 @@
         wrapper.appendChild(wishBox);
       }
 
-      if (offeringData && offeringData.offering) {
-        const flowerImg = document.createElement('img');
-        flowerImg.src = 'images/' + (flowerMap[offeringData.offering] || offeringData.offering);
-        flowerImg.className = 'flower';
-        wrapper.appendChild(flowerImg);
-      }
-
       container.appendChild(wrapper);
     }
-
-    // ตัวจับเวลาวงกลม
-    let timePassed = 0;
-    const maxTime = 30;
-    const circleProgress = document.getElementById('progressCircle');
-    const circleText = document.getElementById('circleTime');
-    const circumference = 2 * Math.PI * 140;
-
-    function updateCircleUI() {
-      timePassed++;
-      if (timePassed <= maxTime) {
-        const offset = circumference - (circumference * timePassed) / maxTime;
-        circleProgress.setAttribute('stroke-dashoffset', offset);
-        circleText.textContent = timePassed;
-      }
-      if (timePassed >= maxTime) {
-        clearInterval(timer);
-        alert('🙏 ครบ 3 รอบแล้ว สาธุ');
-        window.location.href = 'page8.html';
-      }
-    }
-
-    const timer = setInterval(updateCircleUI, 1000);
   </script>
 </body>
 </html>
