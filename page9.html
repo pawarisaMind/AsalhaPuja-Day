@@ -37,22 +37,22 @@
       gap: 2rem;
       box-shadow: 4px 0 10px rgba(0,0,0,0.1);
     }
-    
-   .sidebar a {
-  display: flex;                 /* จัดให้อยู่กลางด้วย flex */
-  align-items: center;          /* กึ่งกลางแนวตั้ง */
-  justify-content: center;      /* กึ่งกลางแนวนอน */
-  width: 180px;                 /* กำหนดความกว้างให้เท่ากันทุกปุ่ม */
-  height: 60px;                 /* กำหนดความสูงให้เท่ากันทุกปุ่ม */
-  font-size: 1.5rem;
-  color: #333;
-  text-decoration: none;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transition: 0.3s;
-  box-sizing: border-box;       /* รวม padding ในขนาดกรอบ */
-}
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 60px;
+      font-size: 1.5rem;
+      color: #333;
+      text-decoration: none;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
     .sidebar a:hover {
       background: #ffd700;
       color: white;
@@ -68,7 +68,7 @@
       position: relative;
     }
 
-    .temple {
+    .temple-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
@@ -76,47 +76,32 @@
       justify-items: end;
     }
 
-  .temple {
-  width: 160px;              /* ความกว้างของกล่อง */
-  height: 160px;             /* ความสูง = ความกว้าง → จัตุรัส */
-  background: #fff;
-  border-radius: 15px;
-  padding: 1rem;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: transform 0.3s;
-  display: flex;             /* จัดภาพให้อยู่กลางกล่อง */
-  align-items: center;
-  justify-content: center;
-}
+    .temple {
+      width: 160px;
+      height: 160px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid transparent;
+    }
 
     .temple:hover {
       transform: scale(1.05);
     }
 
     .temple.selected {
-      border: 3px solid gold;
+      border-color: gold;
       box-shadow: 0 0 15px gold;
     }
 
     .temple img {
       width: 200px;
-    }
-
-    .input-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    input[type="text"] {
-      font-family: 'FCMinimal';
-      font-size: 2 rem;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      border: 2px solid #ffa500;
-      width: 300px;
     }
 
     button {
@@ -128,7 +113,6 @@
       border-radius: 20px;
       color: white;
       cursor: pointer;
-      /*box-shadow: 0 0 10px #ffa500;*/
       transition: background 0.3s;
     }
 
@@ -144,31 +128,43 @@
     <a href="page10.html">คำอธิษฐาน</a>
   </div>
 
-  <div class="temples" onclick="selectTemple(this)" data-measure="วัดบัวขวัญ" >
-  <img src="images/wat1.png" alt="วัดบัวขวัญ">
-</div>
+  <div class="main">
+    <div class="temple-container">
+      <div class="temple" onclick="selectTemple(this)" data-temple="วัดบัวขวัญ">
+        <img src="images/wat1.png" alt="วัดบัวขวัญ">
+      </div>
+      <div class="temple" onclick="selectTemple(this)" data-temple="วัดกู้">
+        <img src="images/wat2.png" alt="วัดกู้">
+      </div>
+      <div class="temple" onclick="selectTemple(this)" data-temple="วัดสะพานสูง">
+        <img src="images/wat3.png" alt="วัดสะพานสูง">
+      </div>
+      <div class="temple" onclick="selectTemple(this)" data-temple="วัดชลอ">
+        <img src="images/wat4.png" alt="วัดชลอ">
+      </div>
+    </div>
 
-<div class="temples" onclick="selectTemple(this)" data-measure="วัดกู้" >
-  <img src="images/wat2.png" alt="วัดกู้">
-</div>
-
-<div class="temples" onclick="selectTemple(this)" >
-  <img src="images/wat3.png" alt="วัดสะพานสูง">
-</div>
+    <button onclick="submitForm()">ยืนยัน</button>
+  </div>
 
   <script>
-    let selectTemple = null;
+    let selectedTemple = null;
 
-   function selectTemple(el) {
-  document.querySelectorAll('.temple').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedCharacter = el.getAttribute('data-measure');
-     
+    function selectTemple(element) {
+      document.querySelectorAll('.temple').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      selectedTemple = element.getAttribute('data-temple');
+    }
+
     function submitForm() {
-      const name = document.getElementById('name').value.trim();
-      const data = { temple: selectedtemple, name };
+      if (!selectedTemple) {
+        alert("กรุณาเลือกวัดก่อน");
+        return;
+      }
+
+      const data = { temple: selectedTemple };
       localStorage.setItem('templeData', JSON.stringify(data));
-      window.location.href = "page9.html";
+      window.location.href = "page10.html";
     }
   </script>
 </body>
