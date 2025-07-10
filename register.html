@@ -128,22 +128,28 @@
     }
 
     /* เพิ่มส่วนแสดงภาพตรงกลาง */
-    #preview {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
+#preview {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.7); /* กล่องมีพื้นหลังจางๆ */
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
 
-    #preview img {
-      max-width: 200px;
-      display: none;
-      border: 5px solid #fff;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-      background: white;
-    }
+#preview img {
+  width: 300px;      /* ปรับตามที่ต้องการ */
+  height: auto;
+  display: none;
+  border: 4px solid #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  background: white;
+}
   </style>
 </head>
 <body>
@@ -155,16 +161,16 @@
 
   <div class="main">
     <div class="characters">
-      <div class="character" onclick="selectCharacter(this)" data-character="boyblue">
-        <img src="images/boyblue.png" alt="ชาย1">
-      </div>
-      <div class="character" onclick="selectCharacter(this)" data-character="girlred">
+    <div class="character" onclick="selectCharacter(this)" data-character="boyblue" data-preview="images/boyjing1.png">
+    <img src="images/boyblue.png" alt="ชาย1">
+    </div>
+      <div class="character" onclick="selectCharacter(this)" data-character="girlred" data-preview="images/girljing2.png">
         <img src="images/girlred.png" alt="หญิง1">
       </div>
-      <div class="character" onclick="selectCharacter(this)" data-character="boybrow">
+      <div class="character" onclick="selectCharacter(this)" data-character="boybrow" data-preview="images/boyjing2.png">
         <img src="images/boybrow.png" alt="ชาย2">
       </div>
-      <div class="character" onclick="selectCharacter(this)" data-character="girlblue">
+      <div class="character" onclick="selectCharacter(this)" data-character="girlblue" data-preview="images/girljing1.png">
         <img src="images/girlblue.png" alt="หญิง2">
       </div>
     </div>
@@ -183,17 +189,17 @@
   <script>
     let selectedCharacter = null;
 
-    function selectCharacter(el) {
-      document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedCharacter = el.getAttribute('data-character');
+   function selectCharacter(el) {
+  document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedCharacter = el.getAttribute('data-character');
 
-      // แสดงรูปตัวละครที่เลือกตรงกลาง
-      const imgSrc = el.querySelector('img').getAttribute('src');
-      const previewImg = document.getElementById('preview-img');
-      previewImg.src = imgSrc;
-      previewImg.style.display = 'block';
-    }
+  // ใช้ภาพพิเศษจาก data-preview
+  const previewSrc = el.getAttribute('data-preview');
+  const previewImg = document.getElementById('preview-img');
+  previewImg.src = previewSrc;
+  previewImg.style.display = 'block';
+}
 
     function submitForm() {
       const name = document.getElementById('name').value.trim();
