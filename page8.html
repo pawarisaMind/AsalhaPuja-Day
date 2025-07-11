@@ -248,32 +248,32 @@
 
     // main character
     if (characterData) {
-      const main = document.createElement('div');
-      main.className = 'main-character';
+  const main = document.createElement('div');
+  main.className = 'other-character'; // <== เปลี่ยนจาก 'main-character'
 
-      const img = document.createElement('img');
-      img.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
-      img.className = 'character-img';
-      main.appendChild(img);
+  const img = document.createElement('img');
+  img.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
+  img.className = 'character-img';
+  img.loading = 'lazy';
+  main.appendChild(img);
 
-      if (characterData.wish) {
-        const wishBox = document.createElement('div');
-        wishBox.className = 'wish-box';
-        wishBox.textContent = characterData.wish;
-        main.appendChild(wishBox);
-      }
+  if (characterData.wish) {
+    const wishBox = document.createElement('div');
+    wishBox.className = 'wish-box';
+    wishBox.textContent = characterData.wish;
+    main.appendChild(wishBox);
+  }
 
-      if (offeringData?.offering) {
-        const flowerImg = document.createElement('img');
-        flowerImg.src = flowerMap[offeringData.offering] || 'images/default-flower.png';
-        flowerImg.className = 'flower';
-        main.appendChild(flowerImg);
-      }
+  if (offeringData?.offering) {
+    const flowerImg = document.createElement('img');
+    flowerImg.src = flowerMap[offeringData.offering] || 'images/default-flower.png';
+    flowerImg.className = 'flower';
+    main.appendChild(flowerImg);
+  }
 
-      document.body.appendChild(main);
-    }
-
-    // other characters
+  // เพิ่มตัวละครหลักไว้ใน #otherCharactersArea เหมือนตัวอื่น
+  document.getElementById('otherCharactersArea').appendChild(main);
+}
     const otherArea = document.getElementById('otherCharactersArea');
     get(child(ref(db), 'characters')).then((snapshot) => {
       if (snapshot.exists()) {
