@@ -37,13 +37,13 @@
     }
 
     .temple-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: 0;
+      position: absolute;
+      bottom: -5.7%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      z-index: 1;
     }
 
     .main-character {
@@ -53,7 +53,6 @@
       transform: translateX(-50%);
       z-index: 5;
       text-align: center;
-      pointer-events: none;
     }
 
     .main-character img.character-img {
@@ -64,18 +63,11 @@
       position: absolute;
       bottom: 30px;
       left: 50%;
-      transform: translateX(-50%) rotate(-25deg);
+      transform: translateX(-50%);
       width: 100px;
-      height: auto;
-      transform-origin: bottom center;
-      z-index: 4;
     }
 
     .main-character .wish-box {
-      position: absolute;
-      bottom: 230px;
-      left: 50%;
-      transform: translateX(-50%);
       background: rgba(255,255,255,0.9);
       color: #333;
       font-size: 1.5rem;
@@ -83,53 +75,59 @@
       border-radius: 20px;
       border: 2px solid gold;
       white-space: nowrap;
-      z-index: 6;
+      margin-bottom: 10px;
     }
 
-    .other-character {
-      position: absolute;
-      bottom: 6px;
-      right: -150px;
-      animation: walk-left 20s linear forwards;
-      z-index: 3;
-      pointer-events: none;
-    }
+   .other-character {
+  position: absolute;
+  bottom: 6px;
+  right: -150px; /* เริ่มจากขอบขวานอกจอ */
+  animation: walk-left 20s linear forwards;
+  z-index: 3;
+  pointer-events: none;
+}
 
     .other-character img {
       width: 150px;
     }
 
-    .other-character .wish-box {
+    @keyframes walk-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-120vw); /* ให้เดินออกไปทางซ้ายให้พ้นจอ */
+  }
+}
+
+    .wish-box {
       position: absolute;
-      bottom: 170px;
+      bottom: 80%;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       color: #333;
-      font-size: 1rem;
+      font-size: 1.2rem;
       padding: 0.5rem 1rem;
       border-radius: 15px;
       border: 2px solid gold;
+      text-align: center;
       white-space: nowrap;
-      z-index: 4;
-    }
-
-    .other-character .flower {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-25deg);
-      width: 70px;
-      height: auto;
-      transform-origin: bottom center;
       z-index: 3;
     }
 
-    @keyframes walk-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-120vw); }
+    .flower {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    height: auto;
+    transform: rotate(-25deg); /* เอียงเข้าหาตัว */
+    transform-origin: bottom center;
+    z-index: 3;
     }
 
+    /* ปุ่มแชร์ */
     .share-buttons {
       text-align: center;
       margin-top: 2rem;
@@ -154,100 +152,146 @@
     }
 
     @media screen and (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      .main-character img.character-img { width: 150px; }
-      .main-character .flower { width: 70px; }
-      .main-character .wish-box { font-size: 1rem; bottom: 180px; }
+      h1 {
+        font-size: 2rem;
+      }
+      .main-character img.character-img {
+        width: 150px;
+      }
+      .main-character .flower {
+        width: 70px;
+      }
+      .main-character .wish-box {
+        font-size: 1rem;
+      }
+      .wish-box {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .f{
+        width: 60px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>เวียนเทียนออนไลน์</h1>
-  <img id="templeBg" class="temple-layer" alt="bg temple">
-  <div id="mainCharacter" class="main-character">
-    <div id="mainWish" class="wish-box"></div>
-    <img id="mainCharacterImg" class="character-img" src="" alt="ตัวละครของฉัน">
-    <img id="mainFlower" class="flower" src="" alt="ดอกไม้ของฉัน">
-  </div>
-  <div id="otherCharactersArea"></div>
+
+ <div id="templeArea"></div>
+<div id="otherCharactersArea"></div>
+
   <div class="share-buttons">
     <button onclick="copyLink()">📋 คัดลอกลิงก์</button>
     <button onclick="shareToFacebook()">🔗 แชร์ Facebook</button>
   </div>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    const firebaseConfig = { /* config เหมือนเดิม */ };
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+  <!-- แชร์ลิงก์ -->
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    const characterData = JSON.parse(localStorage.getItem('characterData'));
-    const templeData = JSON.parse(localStorage.getItem('templeData'));
-    const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+  const firebaseConfig = {
+    apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
+    authDomain: "asalhapuja-day.firebaseapp.com",
+    databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "asalhapuja-day",
+    storageBucket: "asalhapuja-day.appspot.com",
+    messagingSenderId: "776082602779",
+    appId: "1:776082602779:web:76551ef38442ed8d9b1be"
+  };
 
-    const imgMap = {
-      boyblue: 'boyjing1.png', boybrow: 'boyjing.png', girlred: 'girljing2.png', girlblue: 'girljing1.png'
-    };
-    const gifMap = {
-      boyblue: 'boy1.gif', boybrow: 'boy2.gif', girlred: 'girl2.gif', girlblue: 'girl1.gif'
-    };
-    const flowerMap = {
-      'ดอก1': 'images/f1.png', 'ดอก2': 'images/f2.png', 'ดอก3': 'images/f3.png', 'ดอก4': 'images/f4.png'
-    };
-    const measureImages = {
-      'วัดบัวขวัญ': { desktop: 'images/วัดยักษ์เต็ม.png', mobile: 'images/วัดยักษ์โทร.png' },
-      'วัดกู้': { desktop: 'images/วัดกู้เต็ม.png', mobile: 'images/วัดกู้เต็มโทร1.png' },
-      'วัดสะพานสูง': { desktop: 'images/วัดสะพานเต็ม.png', mobile: 'images/วัดสะพานโทร.png' }
-    };
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-    const measure = templeData?.temple;
-    const isMobile = window.innerWidth <= 480;
-    const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
-    if (bgImage) {
-      document.getElementById('templeBg').src = bgImage;
+  const characterData = JSON.parse(localStorage.getItem('characterData'));
+  const templeData = JSON.parse(localStorage.getItem('templeData'));
+  const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+
+  const gifMap = {
+    boyblue: 'boy1.gif',
+    boybrow: 'boy2.gif',
+    girlred: 'girl2.gif',
+    girlblue: 'girl1.gif'
+  };
+
+ const flowerMap = {
+  'ดอก1': 'images/f1.png',
+  'ดอก2': 'images/f2.png',
+  'ดอก3': 'images/f3.png',
+  'ดอก4': 'images/f4.png',
+};
+
+  const measureImages = {
+    'วัดบัวขวัญ': {
+      desktop: 'images/วัดยักษ์เต็ม.png',
+      mobile: 'images/วัดยักษ์โทร.png'
+    },
+    'วัดกู้': {
+      desktop: 'images/วัดกู้เต็ม.png',
+      mobile: 'images/วัดกู้เต็มโทร1.png'
+    },
+    'วัดสะพานสูง': {
+      desktop: 'images/วัดสะพานเต็ม.png',
+      mobile: 'images/วัดสะพานโทร.png'
     }
+  };
 
-    document.getElementById('mainCharacterImg').src = 'images/' + (imgMap[characterData.character] || characterData.character + '.png');
-    document.getElementById('mainWish').textContent = offeringData?.wish || '';
-    const flowerKey = offeringData?.offering;
-    document.getElementById('mainFlower').src = flowerMap[flowerKey] || 'images/default-f.png';
+  const measure = templeData?.temple;
+  const isMobile = window.innerWidth <= 480;
+  const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
+  if (bgImage) {
+    document.body.style.backgroundImage = `url('${bgImage}')`;
+    const templeImg = document.createElement('img');
+    templeImg.src = bgImage;
+    templeImg.className = 'temple-layer';
+    document.getElementById('templeArea').appendChild(templeImg);
+  }
 
-    const otherArea = document.getElementById('otherCharactersArea');
-    get(child(ref(db), 'users')).then(snapshot => {
-      if (snapshot.exists()) {
-        const data = Object.values(snapshot.val());
-        let delay = 0;
-        data.forEach(user => {
-          if (user.name === characterData.name) return;
+  // โหลดผู้ใช้งานทั้งหมดจาก Firebase
+  const otherArea = document.getElementById('otherCharactersArea');
+  get(child(ref(db), 'users')).then(snapshot => {
+    if (snapshot.exists()) {
+      const data = Object.values(snapshot.val());
+      let delay = 0;
 
-          const wrapper = document.createElement('div');
-          wrapper.className = 'other-character';
-          wrapper.style.animationDelay = `${delay}s`;
+      data.forEach((user, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'other-character';
+        wrapper.style.animationDelay = `${delay}s`;
 
-          const img = document.createElement('img');
-          img.src = 'images/' + (gifMap[user.character] || user.character + '.gif');
-          wrapper.appendChild(img);
+        const img = document.createElement('img');
+        img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
+        img.loading = 'lazy';
+        wrapper.appendChild(img);
 
-          if (user.wish) {
-            const wishBox = document.createElement('div');
-            wishBox.className = 'wish-box';
-            wishBox.textContent = user.wish;
-            wrapper.appendChild(wishBox);
-          }
+        if (user.wish) {
+          const wishBox = document.createElement('div');
+          wishBox.className = 'wish-box';
+          wishBox.textContent = user.wish;
+          wrapper.appendChild(wishBox);
+        }
+function cleanFilename(name) {
+  if (name?.includes('58b8434d')) return 'f1.png';
+  if (name?.includes('c95fcca8')) return 'f2.png';
+  // เพิ่มอันอื่นได้ตามชื่อไฟล์ที่ดูใน GitHub
+  return name;
+}
 
-          if (user.offering) {
-            const flowerImg = document.createElement('img');
-            flowerImg.src = flowerMap[user.offering] || 'images/default-f.png';
-            flowerImg.className = 'flower';
-            wrapper.appendChild(flowerImg);
-          }
+if (user.offering) {
+  const flowerImg = document.createElement('img');
+  const cleanName = cleanFilename(user.offering);
+  flowerImg.src = flowerMap[cleanName] || 'images/default-f.png';
+  flowerImg.className = 'flower';
+  flowerImg.loading = 'lazy';
+  wrapper.appendChild(flowerImg);
+}
 
-          otherArea.appendChild(wrapper);
-          delay += 2;
-        });
-      }
-    });
-  </script>
+
+        otherArea.appendChild(wrapper);
+        delay += 2; // เดินตามกันทุก 2 วิ
+      });
+    }
+  });
+</script>
 </body>
-</html>
+</html> 
