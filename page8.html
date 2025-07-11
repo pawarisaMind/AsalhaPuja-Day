@@ -63,8 +63,11 @@
       position: absolute;
       bottom: 30px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) rotate(-25deg);
       width: 100px;
+      height: auto;
+      transform-origin: bottom center;
+      z-index: 3;
     }
 
     .main-character .wish-box {
@@ -246,6 +249,18 @@
     templeImg.className = 'temple-layer';
     document.getElementById('templeArea').appendChild(templeImg);
   }
+    // แสดงตัวละครของผู้ใช้ตรงกลางจอ
+    const mainCharacterImg = document.getElementById('mainCharacterImg');
+    mainCharacterImg.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
+
+    const mainWish = document.getElementById('mainWish');
+    if (offeringData?.wish) {
+      mainWish.textContent = offeringData.wish;
+    }
+
+    const mainFlower = document.getElementById('mainFlower');
+    const flowerKey = offeringData?.offering;
+    mainFlower.src = flowerMap[flowerKey] || 'images/default-f.png';
 
   // โหลดผู้ใช้งานทั้งหมดจาก Firebase
   const otherArea = document.getElementById('otherCharactersArea');
