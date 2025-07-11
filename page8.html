@@ -18,54 +18,7 @@
       font-family: 'FCMinimal', sans-serif;
       overflow-x: hidden;
     }
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "asalhapuja-day.firebaseapp.com",
-    databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "asalhapuja-day",
-    storageBucket: "asalhapuja-day.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-</script>
 
-<!-- ดึงข้อมูลจาก Firebase และแสดงตัวละคร -->
-<script>
-  db.ref("users").once("value", (snapshot) => {
-    const users = snapshot.val();
-    const container = document.getElementById("characters");
-
-    for (const id in users) {
-      const user = users[id];
-
-      const wrapper = document.createElement("div");
-      wrapper.className = "character-wrapper";
-
-      const img = document.createElement("img");
-      img.src = `images/${user.character}.png`;
-      img.className = "character-img";
-
-      const nameTag = document.createElement("div");
-      nameTag.className = "character-name";
-      nameTag.innerText = user.name;
-
-      const wishTag = document.createElement("div");
-      wishTag.className = "character-wish";
-      wishTag.innerText = user.wish || "";
-
-      wrapper.appendChild(img);
-      wrapper.appendChild(nameTag);
-      wrapper.appendChild(wishTag);
-
-      container.appendChild(wrapper);
-    }
-  });
     body {
       background: no-repeat center center fixed;
       background-size: cover;
@@ -277,7 +230,7 @@
     const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
 
     if (bgImage) {
-      document.body.style.backgroundImage = `url('${bgImage}')`;
+      document.body.style.backgroundImage = url('${bgImage}');
      /* const templeImg = document.createElement('img');
       templeImg.src = bgImage;
       templeImg.className = 'temple-layer';
@@ -345,7 +298,7 @@
         data.forEach((user) => {
           const wrapper = document.createElement('div');
           wrapper.className = 'other-character';
-          wrapper.style.animationDelay = `${delay}s`;
+          wrapper.style.animationDelay = ${delay}s;
 
           const img = document.createElement('img');
           img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
@@ -410,7 +363,7 @@
 
     function shareToFacebook() {
       const url = encodeURIComponent(window.location.href);
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+      window.open(https://www.facebook.com/sharer/sharer.php?u=${url}, '_blank');
     }
   </script>
 </body>
