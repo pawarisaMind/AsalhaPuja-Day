@@ -235,43 +235,63 @@
     }
 
     // ตัวละครอื่น ๆ เดินเวียน
-    const otherArea = document.getElementById('otherCharactersArea');
-    const others = ['boyblue', 'girlblue', 'boybrow', 'girlred']; // ใส่ทั้งหมดก่อน
-    const othersFiltered = others.filter(c => c !== characterData.character);
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    othersFiltered.forEach((char, i) => {
-      const otherWrapper = document.createElement('div');
-      otherWrapper.className = 'other-character';
-      otherWrapper.style.animationDelay = `${i * 4}s`;
+// ✅ Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
+  authDomain: "asalhapuja-day.firebaseapp.com",
+  databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "asalhapuja-day",
+  storageBucket: "asalhapuja-day.appspot.com",
+  messagingSenderId: "776082602779",
+  appId: "1:776082602779:web:76551ef38442ed8d9b1be"
+};
 
-      const img = document.createElement('img');
-      img.src = 'images/' + gifMap[char];
-      otherWrapper.appendChild(img);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-      otherArea.appendChild(otherWrapper);
+// ✅ ตัวละครเคลื่อนไหวทุกคน (ยกเว้น user ปัจจุบัน)
+const currentCharacter = characterData?.character;
+const otherArea = document.getElementById("otherCharactersArea");
+
+get(child(ref(db), 'users')).then(snapshot => {
+  if (snapshot.exists()) {
+    const data = Object.values(snapshot.val());
+    let delay = 0;
+
+    data.forEach(user => {
+      if (user.character !== currentCharacter) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'other-character';
+        wrapper.style.animationDelay = `${delay}s`;
+
+        const img = document.createElement('img');
+        img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
+        wrapper.appendChild(img);
+
+        if (user.wish) {
+          const wishBox = document.createElement('div');
+          wishBox.className = 'wish-box';
+          wishBox.textContent = user.wish;
+          wrapper.appendChild(wishBox);
+        }
+
+        if (user.offering) {
+          const flowerImg = document.createElement('img');
+          flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
+          flowerImg.className = 'flower';
+          wrapper.appendChild(flowerImg);
+        }
+
+        otherArea.appendChild(wrapper);
+        delay += 4; // 👉 หน่วงเวลาให้เดินต่อกัน
+      }
     });
-    // ส่งข้อมูลไปยังฐานข้อมูล
-if (characterData && templeData && offeringData) {
-  fetch('save_page8.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      character: characterData.character,
-      name: characterData.name,
-      temple: templeData.temple,
-      offering: offeringData.offering,
-      wish: offeringData.wish
-    })
-  })
-  .then(res => res.json())
-  .then(response => {
-    console.log("📦 ส่งข้อมูล page8:", response);
-  })
-  .catch(err => {
-    console.error("❌ ส่งข้อมูล page8 ล้มเหลว:", err);
-  });
-}
-
-  </script>
+  }
+});
+</script>
 </body>
 </html>
