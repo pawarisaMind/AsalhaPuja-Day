@@ -164,22 +164,17 @@
 </head>
 <body>
   <h1>เวียนเทียนออนไลน์</h1>
-
   <img id="templeLayer" class="temple-layer" src="" alt="background">
-
   <div id="mainCharacter" class="main-character">
     <div id="mainWish" class="wish-box"></div>
     <img id="mainCharacterImg" class="character-img" src="" alt="ตัวละครของฉัน">
     <img id="mainFlower" class="flower" src="" alt="ดอกไม้ของฉัน">
   </div>
-
   <div id="otherCharactersArea"></div>
-
   <div class="share-buttons">
     <button onclick="copyLink()">📋 คัดลอกลิงก์</button>
     <button onclick="shareToFacebook()">🔗 แชร์ Facebook</button>
   </div>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
