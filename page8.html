@@ -269,14 +269,22 @@
           wishBox.textContent = user.wish;
           wrapper.appendChild(wishBox);
         }
+function cleanFilename(name) {
+  if (name?.includes('58b8434d')) return 'flower1.png';
+  if (name?.includes('c95fcca8')) return 'flower2.png';
+  // เพิ่มอันอื่นได้ตามชื่อไฟล์ที่ดูใน GitHub
+  return name;
+}
 
-        if (user.offering) {
-          const flowerImg = document.createElement('img');
-          flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
-          flowerImg.className = 'flower';
-          flowerImg.loading = 'lazy';
-          wrapper.appendChild(flowerImg);
-        }
+if (user.offering) {
+  const flowerImg = document.createElement('img');
+  const cleanName = cleanFilename(user.offering);
+  flowerImg.src = flowerMap[cleanName] || 'images/default-flower.png';
+  flowerImg.className = 'flower';
+  flowerImg.loading = 'lazy';
+  wrapper.appendChild(flowerImg);
+}
+
 
         otherArea.appendChild(wrapper);
         delay += 2; // เดินตามกันทุก 2 วิ
