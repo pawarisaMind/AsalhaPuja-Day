@@ -238,7 +238,7 @@
   const isMobile = window.innerWidth <= 480;
   const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
   if (bgImage) {
-    document.body.style.backgroundImage = url('${bgImage}');
+    document.body.style.backgroundImage = `url('${bgImage}')`;
     const templeImg = document.createElement('img');
     templeImg.src = bgImage;
     templeImg.className = 'temple-layer';
@@ -247,7 +247,7 @@
 
   // โหลดผู้ใช้งานทั้งหมดจาก Firebase
   const otherArea = document.getElementById('otherCharactersArea');
-  get(child(ref(db), 'users')).then(snapshot => {
+  get(child(ref(db), 'characters')) {
     if (snapshot.exists()) {
       const data = Object.values(snapshot.val());
       let delay = 0;
