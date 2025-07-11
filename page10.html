@@ -15,24 +15,25 @@
       box-sizing: border-box;
     }
 
-    body {
+  body {
       font-family: 'FCMinimal', sans-serif;
       background: url('images/ppi.png') no-repeat center center fixed;
       background-size: cover;
       height: 100vh;
       display: flex;
       flex-direction: row;
-      color: #fff;
+      color: #333;
     }
 
     .sidebar {
       width: 210px;
-      height: 100vh; /* สูงเต็มหน้าจอ */
+      min-width: 210px;
+      height: 100vh;
       background: rgba(255,255,255,0.6);
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       padding: 2rem 1rem;
       gap: 2rem;
       box-shadow: 4px 0 10px rgba(0,0,0,0.1);
