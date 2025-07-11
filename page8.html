@@ -22,8 +22,9 @@
     body {
       background: no-repeat center center fixed;
       background-size: cover;
-      position: relative;
-      min-height: 100vh;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
     }
 
     h1 {
@@ -92,12 +93,8 @@
     }
 
     @keyframes walk-left {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-120vw);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-120vw); }
     }
 
     .wish-box {
@@ -117,12 +114,12 @@
     }
 
     .flower {
-  position: absolute;
-  bottom: 85px;
-  right: -50px;
-  width: 300px;
-  height: auto;
-  z-index: 6;
+      position: absolute;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      z-index: 6;
     }
 
     .share-buttons {
@@ -136,18 +133,11 @@
       padding: 0.7rem 1.5rem;
       font-size: 1.2rem;
       border-radius: 10px;
-      /*border: 2px solid gold;*/
       cursor: pointer;
       margin: 0.5rem;
       font-family: 'FCMinimal', sans-serif;
     }
 
-    /*.share-buttons button:hover {
-      background-color: gold;
-      color: white;
-      border-color: #fff;
-    }
-*/
     @media screen and (max-width: 480px) {
       h1 {
         font-size: 2rem;
@@ -166,7 +156,8 @@
         padding: 0.4rem 0.8rem;
       }
       .flower {
-        width: 60px;
+        bottom: 60px;
+        width: 50px;
       }
     }
   </style>
@@ -180,8 +171,8 @@
   <div class="share-buttons">
     <button onclick="copyLink()">📋 คัดลอกลิงก์</button>
     <button onclick="shareToFacebook()">
-  <img src="images/facebook-icon.png" alt="Facebook" style="width:40px; vertical-align:middle;">
-</button>
+      <img src="images/facebook-icon.png" alt="Facebook" style="width:40px; vertical-align:middle;">
+    </button>
   </div>
 
   <script type="module">
@@ -248,32 +239,56 @@
 
     // main character
     if (characterData) {
-  const main = document.createElement('div');
-  main.className = 'other-character'; // <== เปลี่ยนจาก 'main-character'
+      const main = document.createElement('div');
+      main.className = 'other-character';
 
-  const img = document.createElement('img');
-  img.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
-  img.className = 'character-img';
-  img.loading = 'lazy';
-  main.appendChild(img);
+      const img = document.createElement('img');
+      img.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
+      img.className = 'character-img';
+      img.loading = 'lazy';
+      main.appendChild(img);
 
-  if (characterData.wish) {
-    const wishBox = document.createElement('div');
-    wishBox.className = 'wish-box';
-    wishBox.textContent = characterData.wish;
-    main.appendChild(wishBox);
-  }
+      if (characterData.wish) {
+        const wishBox = document.createElement('div');
+        wishBox.className = 'wish-box';
+        wishBox.textContent = characterData.wish;
+        main.appendChild(wishBox);
+      }
 
-  if (offeringData?.offering) {
-    const flowerImg = document.createElement('img');
-    flowerImg.src = flowerMap[offeringData.offering] || 'images/default-flower.png';
-    flowerImg.className = 'flower';
-    main.appendChild(flowerImg);
-  }
+      if (offeringData?.offering) {
+        const flowerImg = document.createElement('img');
+        flowerImg.src = flowerMap[offeringData.offering] || 'images/default-flower.png';
+        flowerImg.className = 'flower';
 
-  // เพิ่มตัวละครหลักไว้ใน #otherCharactersArea เหมือนตัวอื่น
-  document.getElementById('otherCharactersArea').appendChild(main);
-}
+        // 🌸 ตำแหน่งดอกไม้ตามตัวละคร
+        switch (characterData.character) {
+          case 'boyblue':
+            flowerImg.style.bottom = '90px';
+            flowerImg.style.transform = 'translateX(-45%)';
+            break;
+          case 'boybrow':
+            flowerImg.style.bottom = '85px';
+            flowerImg.style.transform = 'translateX(-52%)';
+            break;
+          case 'girlred':
+            flowerImg.style.bottom = '88px';
+            flowerImg.style.transform = 'translateX(-48%)';
+            break;
+          case 'girlblue':
+            flowerImg.style.bottom = '92px';
+            flowerImg.style.transform = 'translateX(-47%)';
+            break;
+          default:
+            flowerImg.style.bottom = '85px';
+            flowerImg.style.transform = 'translateX(-50%)';
+        }
+
+        main.appendChild(flowerImg);
+      }
+
+      document.getElementById('otherCharactersArea').appendChild(main);
+    }
+
     const otherArea = document.getElementById('otherCharactersArea');
     get(child(ref(db), 'characters')).then((snapshot) => {
       if (snapshot.exists()) {
@@ -301,6 +316,30 @@
             const flowerImg = document.createElement('img');
             flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
             flowerImg.className = 'flower';
+
+            // 🌸 ตำแหน่งดอกไม้ตามตัวละคร
+            switch (user.character) {
+              case 'boyblue':
+                flowerImg.style.bottom = '90px';
+                flowerImg.style.transform = 'translateX(-45%)';
+                break;
+              case 'boybrow':
+                flowerImg.style.bottom = '85px';
+                flowerImg.style.transform = 'translateX(-52%)';
+                break;
+              case 'girlred':
+                flowerImg.style.bottom = '88px';
+                flowerImg.style.transform = 'translateX(-48%)';
+                break;
+              case 'girlblue':
+                flowerImg.style.bottom = '92px';
+                flowerImg.style.transform = 'translateX(-47%)';
+                break;
+              default:
+                flowerImg.style.bottom = '85px';
+                flowerImg.style.transform = 'translateX(-50%)';
+            }
+
             wrapper.appendChild(flowerImg);
           }
 
