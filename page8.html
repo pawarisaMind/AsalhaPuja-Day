@@ -255,7 +255,7 @@
       data.forEach((user, index) => {
         const wrapper = document.createElement('div');
         wrapper.className = 'other-character';
-        wrapper.style.animationDelay = ${delay}s;
+        wrapper.style.animationDelay = `${delay}s`;
 
         const img = document.createElement('img');
         img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
