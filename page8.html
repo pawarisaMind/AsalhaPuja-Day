@@ -98,7 +98,8 @@
 
 
     
-   
+    }
+
     .other-character {
       position: absolute;
       bottom: 6px;
@@ -252,19 +253,19 @@
       document.getElementById('templeLayer').src = bgImage;
     }
 
-    // ตัวละครของผู้ใช้ (png หยุดนิ่งตรงกลาง)
+    // แสดงตัวละครของผู้ใช้ตรงกลาง
     document.getElementById('mainCharacterImg').src = 'images/' + (pngMap[characterData.character] || characterData.character + '.png');
     document.getElementById('mainWish').textContent = offeringData?.wish || '';
     document.getElementById('mainFlower').src = flowerMap[offeringData?.offering] || 'images/default-f.png';
 
-    // ตัวละครอื่น ๆ
+    // ตัวละครอื่น (ยกเว้นตัวเราที่อยู่ตรงกลาง)
     const otherArea = document.getElementById('otherCharactersArea');
     get(child(ref(db), 'users')).then(snapshot => {
       if (snapshot.exists()) {
         const data = Object.values(snapshot.val());
         let delay = 0;
         data.forEach(user => {
-          if (user.name === characterData.name) return;
+          if (user.name === characterData.name) return; // ข้ามตัวละครของเรา
 
           const wrapper = document.createElement('div');
           wrapper.className = 'other-character';
@@ -296,3 +297,4 @@
   </script>
 </body>
 </html>
+แก้โคดให้คำอธิษฐานอยู่บนหัวตัวละครและดอกไม้อยู่ตรงมือตัวละครพร้อมปรับขนาดดอกไม้ให้พอดีกับมือตัวละคร
