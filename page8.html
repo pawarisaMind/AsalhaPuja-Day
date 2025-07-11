@@ -183,6 +183,13 @@
   <div class="share-buttons">
     <button onclick="copyLink()">📋 คัดลอกลิงก์</button>
     <button onclick="shareToFacebook()">🔗 แชร์ Facebook</button>
+    <div id="mainCharacter" class="main-character">
+    <div id="templeArea"></div>
+    <div id="mainCharacter" class="main-character">
+    <div id="mainWish" class="wish-box"></div>
+    <img id="mainCharacterImg" class="character-img" src="" alt="ตัวละครของฉัน">
+    <img id="mainFlower" class="flower" src="" alt="ดอกไม้ของฉัน"></div>
+    <div id="otherCharactersArea"></div>
   </div>
 
   <!-- แชร์ลิงก์ -->
@@ -246,7 +253,21 @@
     templeImg.className = 'temple-layer';
     document.getElementById('templeArea').appendChild(templeImg);
   }
+   
 
+    // แสดงตัวละครของผู้ใช้ตรงกลางจอ
+    const mainCharacterImg = document.getElementById('mainCharacterImg');
+    mainCharacterImg.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
+
+    const mainWish = document.getElementById('mainWish');
+    if (offeringData?.wish) {
+      mainWish.textContent = offeringData.wish;
+    }
+
+    const mainFlower = document.getElementById('mainFlower');
+    const flowerKey = offeringData?.offering;
+    mainFlower.src = flowerMap[flowerKey] || 'images/default-f.png';
+   
   // โหลดผู้ใช้งานทั้งหมดจาก Firebase
   const otherArea = document.getElementById('otherCharactersArea');
   get(child(ref(db), 'users')).then(snapshot => {
