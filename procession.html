@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>เวียนเทียน - ตัวละครของคุณ</title>
+  <link rel="preload" as="image" href="images/วัดยักษ์เต็ม.png">
+  <link rel="preload" as="image" href="images/วัดยักษ์โทร.png">
+  <link rel="preload" as="image" href="images/วัดกู้เต็ม.png">
+  <link rel="preload" as="image" href="images/วัดกู้เต็มโทร1.png">
+  <link rel="preload" as="image" href="images/วัดสะพานเต็ม.png">
+  <link rel="preload" as="image" href="images/วัดสะพานโทร.png">
+  <link rel="preload" as="audio" href="sounds/chant.mp3" type="audio/mpeg">
   <style>
     @font-face {
       font-family: 'FCMinimal';
@@ -53,10 +60,8 @@
     }
 
     .chant-scroll-box h2 {
-      background: none;
       color: navy;
       margin: 0;
-      padding: 0;
       font-size: 1.8rem;
       white-space: nowrap;
     }
@@ -65,8 +70,6 @@
       flex: 1;
       overflow: hidden;
       white-space: nowrap;
-      box-sizing: border-box;
-      position: relative;
       height: 2.5rem;
     }
 
@@ -100,7 +103,6 @@
       bottom: 6px;
       right: -150px;
       animation: walk-left 15s linear infinite;
-      will-change: transform;
       z-index: 5;
       pointer-events: none;
     }
@@ -160,7 +162,6 @@
       font-size: 1.5rem;
       cursor: pointer;
       z-index: 20;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .skip-button:hover {
@@ -169,7 +170,7 @@
       border-color: #fff;
     }
 
-    /* ปรับขนาดตัวหนังสือและองค์ประกอบอื่นสำหรับมือถือ */
+    /* มือถือแนวตั้ง */
     @media screen and (max-width: 480px) and (orientation: portrait) {
       .wish-box {
         font-size: 1.2rem;
@@ -177,10 +178,9 @@
         left: 50%;
         transform: translateX(-50%);
       }
-       .character-img {
-      width: 150px;
-      height: auto;
-    }
+      .character-img {
+        width: 150px;
+      }
       .chant-scroll-box {
         flex-direction: column;
         align-items: flex-start;
@@ -190,7 +190,7 @@
         font-size: 1.2rem;
       }
       .flower {
-        left: auto;
+        left: auto !important;
         right: 10px;
         width: 80px;
       }
@@ -210,7 +210,7 @@
   <div class="chant-scroll-box">
     <h2>บทสวดเวียนเทียน</h2>
     <div class="chant-content">
-      <p>"อิติปิโส ภะคะวา อะระหัง สัมมาสัมพุทโธ วิชชาจะระณะสัมปันโน สุคะโต โลกะวิทู อะนุตตะโร ปุริสะทัมมะสาระถิ สัตถา เทวะมะนุสสานัง พุทโธ ภะคะวาติ สวากขาโต ภะคะวาตา ธัมโม สันทิฏฐิโก อะกาลิโก เอหิปัสสิโก โอปะนะยิโก ปัจจัตตัง เวทิตัพโพ วิญญูหิติ สุปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ อุชุปะฏิปันโน ญายะปะฏิปันโน สามีจิปะฏิปันโน ยะทิทัง จัตตาริ ปุริสะยุคานิ อัฏฐะ ปุริสะปุคคะลา เอสะ ภะคะวะโต สาวะกะสังโฆ อาหุเนยโย ปาหุเนยโย ทักขิเกยโย อัญชลีกะระณีโย อะนุตตะรัง ปุญญักเขตตัง โลกัสสาติ สาธุ สาธุ สาธุ 🙏"</p>
+      <p>"อิติปิโส ภะคะวา อะระหัง สัมมาสัมพุทโธ... สาธุ สาธุ สาธุ 🙏"</p>
     </div>
   </div>
 
@@ -227,40 +227,32 @@
 
   <button class="skip-button" onclick="skipToPage()">⏭️ ข้ามไปหน้าถัดไป</button>
 
-  <audio id="chantAudio" src="sounds/chant.mp3" autoplay loop></audio>
+  <audio id="chantAudio" src="sounds/chant.mp3" preload="auto"></audio>
 
   <script>
-    // แผนที่ภาพพื้นหลังตามชื่อวัด
-  const measureImages = {
-  'วัดบัวขวัญ': {
-    desktop: 'images/วัดยักษ์เต็ม.png',
-    mobile: 'images/วัดยักษ์โทร.png'
-  },
-  'วัดกู้': {
-    desktop: 'images/วัดกู้เต็ม.png',
-    mobile: 'images/วัดกู้เต็มโทร1.png'
-  },
-  'วัดสะพานสูง': {
-    desktop: 'images/วัดสะพานเต็ม.png',
-    mobile: 'images/วัดสะพานโทร.png'
-  }
-};
+    const measureImages = {
+      'วัดบัวขวัญ': {
+        desktop: 'images/วัดยักษ์เต็ม.png',
+        mobile: 'images/วัดยักษ์โทร.png'
+      },
+      'วัดกู้': {
+        desktop: 'images/วัดกู้เต็ม.png',
+        mobile: 'images/วัดกู้เต็มโทร1.png'
+      },
+      'วัดสะพานสูง': {
+        desktop: 'images/วัดสะพานเต็ม.png',
+        mobile: 'images/วัดสะพานโทร.png'
+      }
+    };
 
-    // ฟังก์ชันเปลี่ยนภาพพื้นหลังตามที่เลือก
-  function updateBackground(temple) {
-  const isMobile = window.innerWidth <= 480; // หรือจะเช็คแบบละเอียดก็ได้
-  const imageSet = measureImages[temple];
+    function updateBackground(temple) {
+      const isMobile = window.innerWidth <= 480;
+      const imageSet = measureImages[temple];
+      if (!imageSet) return;
+      const imageToShow = isMobile ? imageSet.mobile : imageSet.desktop;
+      document.body.style.backgroundImage = `url('${imageToShow}')`;
+    }
 
-  if (!imageSet) return;
-
-  const imageToShow = isMobile ? imageSet.mobile : imageSet.desktop;
-
-  document.body.style.backgroundImage = `url('${imageToShow}')`;
-  document.body.style.backgroundRepeat = 'no-repeat';
-  document.body.style.backgroundPosition = 'center center';
-  document.body.style.backgroundAttachment = 'fixed';
-  document.body.style.backgroundSize = 'cover';
-}
     const characterData = JSON.parse(localStorage.getItem('characterData'));
     const templeDataString = localStorage.getItem('templeData');
     const offeringData = JSON.parse(localStorage.getItem('offeringData'));
@@ -270,15 +262,13 @@
       const templeData = JSON.parse(templeDataString);
       measure = templeData.temple;
     }
-
-    // เรียกเปลี่ยนภาพพื้นหลังตามวัดที่เลือก
     updateBackground(measure);
 
     const gifMap = {
       boyblue: 'boy1.gif',
       boybrow: 'boy2.gif',
       girlred: 'girl1.gif',
-      girlblue: 'girl2.gif',
+      girlblue: 'girl2.gif'
     };
 
     const flowerMap = {
@@ -289,10 +279,9 @@
     };
 
     const container = document.getElementById('characterDisplay');
-
     if (measure && measureImages[measure]) {
       const templeImg = document.createElement('img');
-      templeImg.src = measureImages[measure];
+      templeImg.src = measureImages[measure].desktop;
       templeImg.className = 'temple-layer';
       container.appendChild(templeImg);
     }
@@ -348,6 +337,15 @@
     function skipToPage() {
       window.location.href = 'page8.html';
     }
+
+    // ✅ เล่นเสียงเมื่อผู้ใช้แตะหน้าจอ
+    document.addEventListener('click', function playAudioOnce() {
+      const audio = document.getElementById('chantAudio');
+      if (audio && audio.paused) {
+        audio.play().catch(err => console.log("ไม่สามารถเล่นเสียง:", err));
+      }
+      document.removeEventListener('click', playAudioOnce);
+    });
   </script>
 </body>
-</html> 
+</html>
