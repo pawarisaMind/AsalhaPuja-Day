@@ -235,9 +235,16 @@
       if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
       if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
 
-      const data = { character: selectedCharacter, name };
+      const characterData = JSON.parse(localStorage.getItem('characterData'));
+      const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-      push(ref(db, "characters"), data)
+const allData = {
+  name: characterData.name,
+  character: characterData.character,
+  wish: offeringData?.wish || "",
+  offering: offeringData?.offering || ""
+};
+      push(ref(db, "users"), allData)
         .then(() => {
           localStorage.setItem('characterData', JSON.stringify(data));
           window.location.href = "page9.html";
