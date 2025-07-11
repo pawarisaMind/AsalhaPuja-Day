@@ -5,37 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>เวียนเทียนสำเร็จ</title>
   <style>
-    body {
+    @font-face {
+      font-family: 'FCMinimal';
+      src: url('fonts/FC_Minimal_Regular.ttf') format('truetype');
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
+      height: 100%;
+      width: 100%;
+      font-family: 'FCMinimal', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
       background: no-repeat center center fixed;
       background-size: cover;
-      font-family: sans-serif;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      text-shadow: 0 0 5px gold;
+      font-size: 3rem;
+      margin-top: 1rem;
+      z-index: 3;
+      position: relative;
+    }
+
+    .temple-layer {
+      position: absolute;
+      bottom: -5.7%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      z-index: 1;
     }
 
     .main-character {
-      position: fixed;
-      bottom: 10px;
+      position: absolute;
+      bottom: 6px;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 5;
       text-align: center;
-      z-index: 10;
+    }
+
+    .main-character img.character-img {
       width: 200px;
     }
 
-    .main-character .character-img {
-      width: 200px;
-      display: block;
-      margin: 0 auto;
+    .main-character .flower {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
     }
 
     .main-character .wish-box {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-bottom: 10px;
       background: rgba(255,255,255,0.9);
       color: #333;
       font-size: 1.5rem;
@@ -43,91 +75,213 @@
       border-radius: 20px;
       border: 2px solid gold;
       white-space: nowrap;
+      margin-bottom: 10px;
     }
 
-    .main-character .flower {
+   .other-character {
+  position: absolute;
+  bottom: 6px;
+  right: -150px; /* เริ่มจากขอบขวานอกจอ */
+  animation: walk-left 20s linear forwards;
+  z-index: 3;
+  pointer-events: none;
+}
+
+    .other-character img {
+      width: 150px;
+    }
+
+    @keyframes walk-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-120vw); /* ให้เดินออกไปทางซ้ายให้พ้นจอ */
+  }
+}
+
+    .wish-box {
       position: absolute;
-      bottom: 55px;
-      left: 65%;
-      width: 70px;
-      transform: rotate(-25deg);
-      transform-origin: bottom center;
+      bottom: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 15px;
+      border: 2px solid gold;
+      text-align: center;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    .flower {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      z-index: 3;
+    }
+
+    /* ปุ่มแชร์ */
+    .share-buttons {
+      text-align: center;
+      margin-top: 2rem;
+      z-index: 10;
+      position: relative;
+    }
+
+    .share-buttons button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      border: 2px solid gold;
+      cursor: pointer;
+      margin: 0.5rem;
+      font-family: 'FCMinimal', sans-serif;
+    }
+
+    .share-buttons button:hover {
+      background-color: gold;
+      color: white;
+      border-color: #fff;
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .main-character img.character-img {
+        width: 150px;
+      }
+      .main-character .flower {
+        width: 70px;
+      }
+      .main-character .wish-box {
+        font-size: 1rem;
+      }
+      .wish-box {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+      }
+      .flower {
+        width: 60px;
+      }
     }
   </style>
 </head>
 <body>
+  <h1>เวียนเทียนออนไลน์</h1>
 
-  <!-- ✅ ฉากหลัง -->
-  <img id="templeLayer" src="" alt="background" style="position:fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; object-fit:cover;" />
+ <div id="templeArea"></div>
+<div id="otherCharactersArea"></div>
 
-  <!-- ✅ ตัวละครของผู้ใช้ -->
-  <div class="main-character">
-    <div class="wish-box" id="mainWish">...</div>
-    <img class="character-img" id="mainCharacterImg" src="" alt="ตัวละครของฉัน" />
-    <img class="flower" id="mainFlower" src="" alt="ดอกไม้ของฉัน" />
+  <div class="share-buttons">
+    <button onclick="copyLink()">📋 คัดลอกลิงก์</button>
+    <button onclick="shareToFacebook()">🔗 แชร์ Facebook</button>
   </div>
 
-  <script>
-    // ✅ โหลดข้อมูลจาก localStorage
-    const characterData = JSON.parse(localStorage.getItem('characterData'));
-    const templeData = JSON.parse(localStorage.getItem('templeData'));
-    const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+  <!-- แชร์ลิงก์ -->
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // ✅ แผนที่ภาพตัวละคร
-    const pngMap = {
-      boyblue: 'boy1.png',
-      boybrow: 'boy2.png',
-      girlred: 'girl2.png',
-      girlblue: 'girl1.png'
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
+    authDomain: "asalhapuja-day.firebaseapp.com",
+    databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "asalhapuja-day",
+    storageBucket: "asalhapuja-day.appspot.com",
+    messagingSenderId: "776082602779",
+    appId: "1:776082602779:web:76551ef38442ed8d9b1be"
+  };
 
-    // ✅ แผนที่ดอกไม้
-    const flowerMap = {
-      'ดอก1': 'images/f1.png',
-      'ดอก2': 'images/f2.png',
-      'ดอก3': 'images/f3.png',
-      'ดอก4': 'images/f4.png'
-    };
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-    // ✅ แผนที่ฉากวัด
-    const measureImages = {
-      'วัดบัวขวัญ': {
-        desktop: 'images/วัดยักษ์เต็ม.png',
-        mobile: 'images/วัดยักษ์โทร.png'
-      },
-      'วัดกู้': {
-        desktop: 'images/วัดกู้เต็ม.png',
-        mobile: 'images/วัดกู้เต็มโทร1.png'
-      },
-      'วัดสะพานสูง': {
-        desktop: 'images/วัดสะพานเต็ม.png',
-        mobile: 'images/วัดสะพานโทร.png'
-      }
-    };
+  const characterData = JSON.parse(localStorage.getItem('characterData'));
+  const templeData = JSON.parse(localStorage.getItem('templeData'));
+  const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-    // ✅ กำหนดฉากหลัง
-    const isMobile = window.innerWidth <= 480;
-    const bgImage = isMobile
-      ? measureImages[templeData?.temple]?.mobile
-      : measureImages[templeData?.temple]?.desktop;
+  const gifMap = {
+    boyblue: 'boy1.gif',
+    boybrow: 'boy2.gif',
+    girlred: 'girl2.gif',
+    girlblue: 'girl1.gif'
+  };
 
-    if (bgImage) {
-      document.getElementById('templeLayer').src = bgImage;
-    } else {
-      document.getElementById('templeLayer').src = 'images/default-bg.png';
+  const flowerMap = {
+    'flower1.png': 'images/flower1.png',
+    'flower2.png': 'images/flower2.png',
+    'flower3.png': 'images/flower3.png',
+    'flower4.png': 'images/flower4.png'
+  };
+
+  const measureImages = {
+    'วัดบัวขวัญ': {
+      desktop: 'images/วัดยักษ์เต็ม.png',
+      mobile: 'images/วัดยักษ์โทร.png'
+    },
+    'วัดกู้': {
+      desktop: 'images/วัดกู้เต็ม.png',
+      mobile: 'images/วัดกู้เต็มโทร1.png'
+    },
+    'วัดสะพานสูง': {
+      desktop: 'images/วัดสะพานเต็ม.png',
+      mobile: 'images/วัดสะพานโทร.png'
     }
+  };
 
-    // ✅ ตั้งค่าภาพตัวละคร
-    const characterImg = 'images/' + (pngMap[characterData?.character] || 'default.png');
-    document.getElementById('mainCharacterImg').src = characterImg;
+  const measure = templeData?.temple;
+  const isMobile = window.innerWidth <= 480;
+  const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
+  if (bgImage) {
+    document.body.style.backgroundImage = `url('${bgImage}')`;
+    const templeImg = document.createElement('img');
+    templeImg.src = bgImage;
+    templeImg.className = 'temple-layer';
+    document.getElementById('templeArea').appendChild(templeImg);
+  }
 
-    // ✅ ตั้งค่าคำอธิษฐาน
-    document.getElementById('mainWish').textContent = offeringData?.wish || 'ขอให้มีความสุข';
+  // โหลดผู้ใช้งานทั้งหมดจาก Firebase
+  const otherArea = document.getElementById('otherCharactersArea');
+  get(child(ref(db), 'users')).then(snapshot => {
+    if (snapshot.exists()) {
+      const data = Object.values(snapshot.val());
+      let delay = 0;
 
-    // ✅ ตั้งค่าดอกไม้
-    const flowerImg = flowerMap[offeringData?.offering] || 'images/default-f.png';
-    document.getElementById('mainFlower').src = flowerImg;
-  </script>
+      data.forEach((user, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'other-character';
+        wrapper.style.animationDelay = `${delay}s`;
 
+        const img = document.createElement('img');
+        img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
+        img.loading = 'lazy';
+        wrapper.appendChild(img);
+
+        if (user.wish) {
+          const wishBox = document.createElement('div');
+          wishBox.className = 'wish-box';
+          wishBox.textContent = user.wish;
+          wrapper.appendChild(wishBox);
+        }
+
+        if (user.offering) {
+          const flowerImg = document.createElement('img');
+          flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
+          flowerImg.className = 'flower';
+          flowerImg.loading = 'lazy';
+          wrapper.appendChild(flowerImg);
+        }
+
+        otherArea.appendChild(wrapper);
+        delay += 2; // เดินตามกันทุก 2 วิ
+      });
+    }
+  });
+</script>
 </body>
-</html>
+</html> 
