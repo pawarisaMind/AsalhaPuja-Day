@@ -117,15 +117,16 @@
       height: auto;
     }
 
-  .flower {
+.flower {
   position: absolute;
   bottom: 30px;
   left: 50px;
-  z-index: 3;
-  width: auto;
   height: auto;
-  object-fit: contain;
+  width: auto;
+  max-width: 100px; /* กำหนดขนาดสูงสุดเพื่อไม่ให้ใหญ่เกินไป */
+  z-index: 3;
 }
+
 
 
     .wish-box {
@@ -279,9 +280,9 @@
       girlblue: 'girl1.gif'
     };
 const flowerMap = {
-  'ดอกบัวเบียว' : 'imagesf1.png',
+  'ดอกบัวเบียว' : 'images/f1.png',
   'ดอกชมพูเบียว' : 'images/f2.png',
-  'ดอกเหลืองเบียว' : 'imagesf3.png',
+  'ดอกเหลืองเบียว' : 'images/f3.png',
   'ดอกขาวเบียว': 'images/f4.png'
 };
 
