@@ -46,58 +46,49 @@
       z-index: 0;
     }
 
-     .main-character {
-  position: fixed;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  text-align: center;
-  pointer-events: none;
-  /* เพิ่ม */
-  width: 200px; /* กำหนดขนาด container เพื่ออ้างอิงตำแหน่ง */
-  height: auto;
-  position: fixed;
-  /* เพิ่ม relative สำหรับอ้างอิงตำแหน่งภายใน */
-  position: fixed;
-}
+    .main-character {
+      position: fixed;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      text-align: center;
+      pointer-events: none;
+      width: 200px;
+    }
 
-.main-character img.character-img {
-  width: 200px;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
+    .main-character img.character-img {
+      width: 200px;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
 
-.main-character .wish-box {
-  position: absolute;
-  bottom: 100%; /* อยู่เหนือหัว */
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.9);
-  color: #333;
-  font-size: 1.5rem;
-  padding: 1rem 2rem;
-  border-radius: 20px;
-  border: 2px solid gold;
-  white-space: nowrap;
-  z-index: 10;
-}
+    .main-character .wish-box {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 15px;
+      background: rgba(255,255,255,0.95);
+      color: #333;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      border: 2px solid gold;
+      white-space: nowrap;
+      z-index: 10;
+    }
 
-.main-character .flower {
-  position: absolute;
-  bottom: 55px; /* ปรับตำแหน่งให้ขึ้นมาใกล้มือ */
-  left: 65%; /* ปรับตำแหน่งให้ขยับไปขวาหน่อย */
-  width: 70px; /* ปรับขนาดดอกไม้ให้เล็กลง */
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  z-index: 9;
-}
-
-
-    
+    .main-character .flower {
+      position: absolute;
+      bottom: 35px;
+      left: 65%;
+      width: 60px;
+      transform: rotate(-25deg);
+      transform-origin: bottom center;
+      z-index: 9;
     }
 
     .other-character {
@@ -171,8 +162,8 @@
     @media screen and (max-width: 480px) {
       h1 { font-size: 2rem; }
       .main-character img.character-img { width: 150px; }
-      .main-character .flower { width: 70px; }
-      .main-character .wish-box { font-size: 1rem; }
+      .main-character .flower { width: 50px; }
+      .main-character .wish-box { font-size: 1rem; padding: 0.6rem 1.2rem; }
       .other-character .wish-box { font-size: 1rem; padding: 0.4rem 0.8rem; }
     }
   </style>
@@ -180,16 +171,20 @@
 <body>
   <h1>เวียนเทียนออนไลน์</h1>
   <img id="templeLayer" class="temple-layer" src="" alt="background">
+  
   <div id="mainCharacter" class="main-character">
     <div id="mainWish" class="wish-box"></div>
     <img id="mainCharacterImg" class="character-img" src="" alt="ตัวละครของฉัน">
     <img id="mainFlower" class="flower" src="" alt="ดอกไม้ของฉัน">
   </div>
+  
   <div id="otherCharactersArea"></div>
+  
   <div class="share-buttons">
     <button onclick="copyLink()">📋 คัดลอกลิงก์</button>
     <button onclick="shareToFacebook()">🔗 แชร์ Facebook</button>
   </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -253,19 +248,21 @@
       document.getElementById('templeLayer').src = bgImage;
     }
 
-    // แสดงตัวละครของผู้ใช้ตรงกลาง
-    document.getElementById('mainCharacterImg').src = 'images/' + (pngMap[characterData.character] || characterData.character + '.png');
+    // ✅ แสดงตัวละครของผู้ใช้ตรงกลาง
+    document.getElementById('mainCharacterImg').src =
+      characterData.preview || 'images/' + (pngMap[characterData.character] || characterData.character + '.png');
+
     document.getElementById('mainWish').textContent = offeringData?.wish || '';
     document.getElementById('mainFlower').src = flowerMap[offeringData?.offering] || 'images/default-f.png';
 
-    // ตัวละครอื่น (ยกเว้นตัวเราที่อยู่ตรงกลาง)
+    // ✅ แสดงตัวละครอื่น (ยกเว้นตัวเรา)
     const otherArea = document.getElementById('otherCharactersArea');
     get(child(ref(db), 'users')).then(snapshot => {
       if (snapshot.exists()) {
         const data = Object.values(snapshot.val());
         let delay = 0;
         data.forEach(user => {
-          if (user.name === characterData.name) return; // ข้ามตัวละครของเรา
+          if (user.name === characterData.name) return;
 
           const wrapper = document.createElement('div');
           wrapper.className = 'other-character';
@@ -294,7 +291,20 @@
         });
       }
     });
+
+    // ฟังก์ชันแชร์ลิงก์
+    function copyLink() {
+      navigator.clipboard.writeText(window.location.href);
+      alert("คัดลอกลิงก์แล้ว!");
+    }
+
+    function shareToFacebook() {
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    }
+
+    window.copyLink = copyLink;
+    window.shareToFacebook = shareToFacebook;
   </script>
 </body>
 </html>
-แก้โคดให้คำอธิษฐานอยู่บนหัวตัวละครและดอกไม้อยู่ตรงมือตัวละครพร้อมปรับขนาดดอกไม้ให้พอดีกับมือตัวละคร
