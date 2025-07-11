@@ -138,6 +138,37 @@
     button:hover {
       background: #ff6600;
     }
+    @media screen and (max-width: 480px) {
+  body {
+    font-size: 14px; /* 🔸 ปรับขนาดพื้นฐานของมือถือ */
+  }
+
+  .sidebar a {
+    font-size: 1.2rem;
+    width: 160px;
+    height: 50px;
+  }
+
+  input[type="text"] {
+    font-size: 1.5rem;
+    width: 90%; /* ทำให้ responsive */
+  }
+
+  button {
+    font-size: 1.5rem;
+    padding: 0.6rem 1.5rem;
+  }
+
+  .offering-card {
+    width: 150px;
+    height: 150px;
+  }
+
+  .offering-card img {
+    width: 60%;
+  }
+}
+
   </style>
 </head>
 <body>
