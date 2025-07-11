@@ -47,7 +47,7 @@
     }
 
     .main-character {
-      position: absolute;
+      position: fixed;
       bottom: 6px;
       left: 50%;
       transform: translateX(-50%);
@@ -243,12 +243,12 @@
       document.getElementById('templeLayer').src = bgImage;
     }
 
-    // ตัวละครของผู้ใช้
+    // ตัวละครของผู้ใช้ (png หยุดนิ่งตรงกลาง)
     document.getElementById('mainCharacterImg').src = 'images/' + (pngMap[characterData.character] || characterData.character + '.png');
     document.getElementById('mainWish').textContent = offeringData?.wish || '';
     document.getElementById('mainFlower').src = flowerMap[offeringData?.offering] || 'images/default-f.png';
 
-    // ตัวละครอื่น
+    // ตัวละครอื่น ๆ
     const otherArea = document.getElementById('otherCharactersArea');
     get(child(ref(db), 'users')).then(snapshot => {
       if (snapshot.exists()) {
