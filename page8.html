@@ -249,8 +249,7 @@
     }
 
     // ✅ แสดงตัวละครของผู้ใช้ตรงกลาง
-    document.getElementById('mainCharacterImg').src =
-      characterData.preview || 'images/' + (pngMap[characterData.character] || characterData.character + '.png');
+    <img id="mainCharacterImg" class="character-img" src="images/boyjing1.png, boyjing2.png, girljing1.png, girljing2.png" alt="ตัวละครของฉัน">
 
     document.getElementById('mainWish').textContent = offeringData?.wish || '';
     document.getElementById('mainFlower').src = flowerMap[offeringData?.offering] || 'images/default-f.png';
