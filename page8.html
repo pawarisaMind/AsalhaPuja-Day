@@ -213,10 +213,10 @@
   };
 
  const flowerMap = {
-  'flower1.png': 'images/flower1.png',
-  'flower2.png': 'images/flower2.png',
-  'flower3.png': 'images/flower3.png',
-  'flower4.png': 'images/flower4.png',
+  'f1.png': 'images/f1.png',
+  'f2.png': 'images/f2.png',
+  'f3.png': 'images/f3.png',
+  'f4.png': 'images/f4.png',
   '58b8434d-578d-4787-a13e-60bafb2dd28c.png': 'images/58b8434d-578d-4787-a13e-60bafb2dd28c.png'
 };
 
@@ -270,8 +270,8 @@
           wrapper.appendChild(wishBox);
         }
 function cleanFilename(name) {
-  if (name?.includes('58b8434d')) return 'flower1.png';
-  if (name?.includes('c95fcca8')) return 'flower2.png';
+  if (name?.includes('58b8434d')) return 'f1.png';
+  if (name?.includes('c95fcca8')) return 'f2.png';
   // เพิ่มอันอื่นได้ตามชื่อไฟล์ที่ดูใน GitHub
   return name;
 }
