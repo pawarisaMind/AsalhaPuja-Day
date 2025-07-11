@@ -253,9 +253,9 @@
       let delay = 0;
 
       data.forEach((user, index) => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'other-character';
-        wrapper.style.animationDelay = `${delay}s`;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'other-character';
+    wrapper.style.animationDelay = `${delay}s`; // ✅ ใช้ backtick
 
         const img = document.createElement('img');
         img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
