@@ -170,78 +170,69 @@
       border-color: #fff;
     }
 
-    /* มือถือแนวตั้ง */
-   @media screen and (max-width: 480px) and (orientation: portrait) {
-  .wish-box {
-    font-size: 1rem;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .character-img {
-    width: 150px;
-  }
-  .chant-scroll-box {
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: 1.2rem;
-  }
-  .chant-content p {
-    font-size: 1.2rem;
-  }
-  .flower {
-    left: auto !important;
-    right: 10px;
-    width: 80px;
-  }
- .circle-timer {
-  bottom: 10px;
-  top: auto;
-  left: 10px;
-  transform: scale(0.5); /* เล็กลงชัดเจน */
-}
-  .skip-button {
-    font-size: 1rem;
-    padding: 0.6rem 1rem;
-  }
-
-  /* ✅ แก้ไขพื้นหลังยืด */
-  body {
-    background-size: contain !important;
-    background-repeat: no-repeat !important;
-    background-position: top center !important;
-  }
-}
+    @media screen and (max-width: 480px) and (orientation: portrait) {
+      .wish-box {
+        font-size: 1rem;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .character-img {
+        width: 150px;
+      }
+      .chant-scroll-box {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 1.2rem;
+      }
+      .chant-content p {
+        font-size: 1.2rem;
+      }
+      .flower {
+        left: auto !important;
+        right: 10px;
+        width: 80px;
+      }
+      .circle-timer {
+        bottom: 10px;
+        top: auto;
+        left: 10px;
+        transform: scale(0.5);
+      }
+      .skip-button {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+      }
+      body {
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background-position: top center !important;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>ยินดีต้อนรับสู่การเวียนเทียน</h1>
-
   <div class="chant-scroll-box">
     <h2>บทสวดเวียนเทียน</h2>
     <div class="chant-content">
-      <p>"อิติปิโส ภะคะวา อะระหัง สัมมาสัมพุทโธ วิชชาจะระณะสัมปันโน สุคะโต โลกะวิทู อะนุตตะโร ปุริสะทัมมะสาระถิ สัตถา เทวะมะนุสสานัง พุทโธ ภะคะวาติ สวากขาโต ภะคะวาตา ธัมโม สันทิฏฐิโก อะกาลิโก เอหิปัสสิโก โอปะนะยิโก ปัจจัตตัง เวทิตัพโพ วิญญูหิติ สุปะฏิปันโน ภะคะวะโต สาวะกะสังโฆ อุชุปะฏิปันโน ญายะปะฏิปันโน สามีจิปะฏิปันโน ยะทิทัง จัตตาริ ปุริสะยุคานิ อัฏฐะ ปุริสะปุคคะลา เอสะ ภะคะวะโต สาวะกะสังโฆ อาหุเนยโย ปาหุเนยโย ทักขิเกยโย อัญชลีกะระณีโย อะนุตตะรัง ปุญญักเขตตัง โลกัสสาติ สาธุ สาธุ สาธุ 🙏"</p>
+      <p>"อิติปิโส ภะคะวา ... สาธุ สาธุ สาธุ 🙏"</p>
     </div>
   </div>
-
   <div id="characterDisplay"></div>
-
- <div class="circle-timer">
-  <svg width="200" height="200">
-    <circle cx="100" cy="100" r="90" stroke="#444" stroke-width="10" fill="none" />
-    <circle id="progressCircle" cx="100" cy="100" r="90" stroke="#99FF33" stroke-width="10" fill="none"
-      stroke-dasharray="565.48" stroke-dashoffset="565.48" transform="rotate(-90 100 100)" />
-    <text id="circleTime" x="100" y="110" text-anchor="middle" fill="#99FF33" font-size="30px">0</text>
-    <text id="circleLabel" x="100" y="140" text-anchor="middle" fill="#FFD700" font-size="16px" font-family="FCMinimal">
-      เดินครบ 3 รอบ
-    </text>
-  </svg>
-</div>
-
+  <div class="circle-timer">
+    <svg width="200" height="200">
+      <circle cx="100" cy="100" r="90" stroke="#444" stroke-width="10" fill="none" />
+      <circle id="progressCircle" cx="100" cy="100" r="90" stroke="#99FF33" stroke-width="10" fill="none"
+        stroke-dasharray="565.48" stroke-dashoffset="565.48" transform="rotate(-90 100 100)" />
+      <text id="circleTime" x="100" y="110" text-anchor="middle" fill="#99FF33" font-size="30px">0</text>
+      <text id="circleLabel" x="100" y="140" text-anchor="middle" fill="#FFD700" font-size="16px" font-family="FCMinimal">
+        เดินครบ 3 รอบ
+      </text>
+    </svg>
+  </div>
   <button class="skip-button" onclick="skipToPage()">⏭️ ข้ามไปหน้าถัดไป</button>
-
   <audio id="chantAudio" src="sounds/chant.mp3" preload="auto"></audio>
-
   <script>
     const measureImages = {
       'วัดบัวขวัญ': {
@@ -275,6 +266,7 @@
       const templeData = JSON.parse(templeDataString);
       measure = templeData.temple;
     }
+
     updateBackground(measure);
 
     const gifMap = {
@@ -292,13 +284,6 @@
     };
 
     const container = document.getElementById('characterDisplay');
-    if (measure && measureImages[measure]) {
-      const templeImg = document.createElement('img');
-      templeImg.src = measureImages[measure].desktop;
-      templeImg.className = 'temple-layer';
-      container.appendChild(templeImg);
-    }
-
     if (characterData) {
       const wrapper = document.createElement('div');
       wrapper.className = 'character-wrapper';
@@ -329,7 +314,7 @@
     const maxTime = 30;
     const circleProgress = document.getElementById('progressCircle');
     const circleText = document.getElementById('circleTime');
-    const circumference = 2 * Math.PI * 140;
+    const circumference = 2 * Math.PI * 90;
 
     function updateCircleUI() {
       timePassed++;
@@ -351,7 +336,6 @@
       window.location.href = 'page8.html';
     }
 
-    // ✅ เล่นเสียงเมื่อผู้ใช้แตะหน้าจอ
     document.addEventListener('click', function playAudioOnce() {
       const audio = document.getElementById('chantAudio');
       if (audio && audio.paused) {
