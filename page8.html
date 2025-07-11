@@ -230,8 +230,8 @@
     const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
 
     if (bgImage) {
-      document.body.style.backgroundImage = url('${bgImage}');
-     /* const templeImg = document.createElement('img');
+      document.body.style.backgroundImage = `url('${bgImage}')`;
+    /*  const templeImg = document.createElement('img');
       templeImg.src = bgImage;
       templeImg.className = 'temple-layer';
       document.getElementById('templeArea').appendChild(templeImg);*/
@@ -298,7 +298,7 @@
         data.forEach((user) => {
           const wrapper = document.createElement('div');
           wrapper.className = 'other-character';
-          wrapper.style.animationDelay = ${delay}s;
+          wrapper.style.animationDelay = `${delay}s`;
 
           const img = document.createElement('img');
           img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
@@ -324,7 +324,7 @@
                 flowerImg.style.transform = 'translateX(-45%)';
                 break;
               case 'boybrow':
-                flowerImg.style.bottom = '95px';
+                flowerImg.style.bottom = '85px';
                 flowerImg.style.transform = 'translateX(-52%)';
                 break;
               case 'girlred':
@@ -363,7 +363,7 @@
 
     function shareToFacebook() {
       const url = encodeURIComponent(window.location.href);
-      window.open(https://www.facebook.com/sharer/sharer.php?u=${url}, '_blank');
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
     }
   </script>
 </body>
