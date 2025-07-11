@@ -116,7 +116,7 @@
       z-index: 3;
     }
 
-    .f {
+    .flower {
       position: absolute;
       bottom: 30px;
       left: 50%;
@@ -278,10 +278,10 @@ function cleanFilename(name) {
 if (user.offering) {
   const flowerImg = document.createElement('img');
   const cleanName = cleanFilename(user.offering);
-  fImg.src = fMap[cleanName] || 'images/default-f.png';
-  fImg.className = 'flower';
-  fImg.loading = 'lazy';
-  wrapper.appendChild(fImg);
+  flowerImg.src = flowerMap[cleanName] || 'images/default-f.png';
+  flowerImg.className = 'flower';
+  flowerImg.loading = 'lazy';
+  wrapper.appendChild(flowerImg);
 }
 
 
