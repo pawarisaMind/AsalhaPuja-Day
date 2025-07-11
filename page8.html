@@ -78,23 +78,27 @@
       margin-bottom: 10px;
     }
 
-    .other-character {
-      position: absolute;
-      bottom: 6px;
-      right: -200px;
-      animation: walk-left 20s linear infinite;
-      z-index: 3;
-      pointer-events: none;
-    }
+   .other-character {
+  position: absolute;
+  bottom: 6px;
+  right: -150px; /* เริ่มจากขอบขวานอกจอ */
+  animation: walk-left 20s linear forwards;
+  z-index: 3;
+  pointer-events: none;
+}
 
     .other-character img {
       width: 150px;
     }
 
     @keyframes walk-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-160vw); }
-    }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-120vw); /* ให้เดินออกไปทางซ้ายให้พ้นจอ */
+  }
+}
 
     .wish-box {
       position: absolute;
@@ -169,7 +173,7 @@
   </style>
 </head>
 <body>
-  <h1>เวียนเทียนสำเร็จ</h1>
+  <h1>เวียนเทียนออนไลน์</h1>
 
   <div id="templeArea"></div>
   <div id="mainCharacterArea"></div>
