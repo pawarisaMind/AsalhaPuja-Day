@@ -239,21 +239,21 @@
       const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
 const allData = {
-  name: characterData.name,
-  character: characterData.character,
+  name: name, // ✅ เก็บชื่อที่ผู้ใช้กรอก
+  character: selectedCharacter,
   wish: offeringData?.wish || "",
   offering: offeringData?.offering || ""
 };
-      push(ref(db, "users"), allData)
-        .then(() => {
-          localStorage.setItem('characterData', JSON.stringify(data));
-          window.location.href = "page9.html";
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-        });
-    };
+
+push(ref(db, "users"), allData)
+  .then(() => {
+    localStorage.setItem('characterData', JSON.stringify(allData));
+    window.location.href = "page9.html";
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+    alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+  });
   </script>
 </body>
 </html>
