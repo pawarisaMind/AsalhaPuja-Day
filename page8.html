@@ -290,7 +290,7 @@
     }
 
     const otherArea = document.getElementById('otherCharactersArea');
-    get(child(ref(db), 'characters')).then((snapshot) => {
+   get(child(ref(db), 'users')).then((snapshot) => {
       if (snapshot.exists()) {
         const data = Object.values(snapshot.val());
         let delay = 0;
