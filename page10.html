@@ -139,24 +139,53 @@
     button:hover {
       background: #ff6600;
     }
-  @media (max-width: 768px) {
-      .temple {
-        flex: 1 1 80%;
-        max-width: 300px;
-      }
-
-      .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        height: 100vh;
-        z-index: 999;
-      }
-
-      .main {
-        margin-left: 210px; /* เพื่อเว้นที่ sidebar ไม่ทับเนื้อหา */
-      }
+  @@media screen and (max-width: 480px) {
+  html, body {
+    font-size: 14px; /* ปรับ rem พื้นฐาน */
   }
+
+  h1 {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .main-character img.character-img,
+  .other-character img {
+    width: 140px;
+  }
+
+  .main-character .flower {
+    width: 60px;
+    bottom: 20px;
+  }
+
+  .main-character .wish-box {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    margin-bottom: 6px;
+  }
+
+  .wish-box {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .flower {
+    width: 50px;
+    bottom: 60px;
+  }
+
+  .share-buttons button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.3rem;
+  }
+
+  .share-buttons img {
+    width: 30px !important;
+  }
+}
+
   </style>
 </head>
 <body>
