@@ -139,52 +139,75 @@
     button:hover {
       background: #ff6600;
     }
-  @@media screen and (max-width: 480px) {
-  html, body {
-    font-size: 14px; /* ปรับ rem พื้นฐาน */
+ @media screen and (max-width: 480px) {
+  body {
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center center;
   }
 
-  h1 {
-    font-size: 2rem;
-    margin-top: 0.5rem;
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: none;
+    background: rgba(255,255,255,0.8);
   }
 
-  .main-character img.character-img,
-  .other-character img {
-    width: 140px;
-  }
-
-  .main-character .flower {
-    width: 60px;
-    bottom: 20px;
-  }
-
-  .main-character .wish-box {
+  .sidebar a {
+    width: auto;
+    height: 50px;
     font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-    margin-bottom: 6px;
+    padding: 0 1rem;
   }
 
-  .wish-box {
-    font-size: 1rem;
-    padding: 0.4rem 0.8rem;
+  .main {
+    padding: 1rem;
+    align-items: center;
   }
 
-  .flower {
-    width: 50px;
-    bottom: 60px;
+  .offering-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
   }
 
-  .share-buttons button {
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-    margin: 0.3rem;
+  .offering-card {
+    width: 120px;
+    height: 120px;
+    padding: 0.5rem;
   }
 
-  .share-buttons img {
-    width: 30px !important;
+  .offering-card img {
+    width: 80%;
+  }
+
+  .input-area {
+    width: 100%;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 0.6rem 1rem;
+  }
+
+  button {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+    width: 100%;
   }
 }
+
 
   </style>
 </head>
