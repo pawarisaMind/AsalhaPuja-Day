@@ -295,8 +295,36 @@
     get(child(ref(db), 'users')).then(snapshot => {
       if (snapshot.exists()) {
         const data = Object.values(snapshot.val());
-        let delay = 0;
+        data.forEach((user, index) => {
+  setTimeout(() => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'other-character';
+    wrapper.style.animationDelay = '0s'; // ไม่ต้องหน่วงซ้ำใน CSS แล้ว
 
+    const img = document.createElement('img');
+    img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
+    img.loading = 'lazy'; // เพิ่ม lazy load
+    wrapper.appendChild(img);
+
+    if (user.wish) {
+      const wishBox = document.createElement('div');
+      wishBox.className = 'wish-box';
+      wishBox.textContent = user.wish;
+      wrapper.appendChild(wishBox);
+    }
+
+    if (user.offering) {
+      const flowerImg = document.createElement('img');
+      flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
+      flowerImg.className = 'flower';
+      flowerImg.loading = 'lazy';
+      wrapper.appendChild(flowerImg);
+    }
+
+    otherArea.appendChild(wrapper);
+
+  }, index * 1000); // หน่วงทีละ 1 วิ
+});
         data.forEach(user => {
           if (user.character !== currentCharacter) {
             const wrapper = document.createElement('div');
