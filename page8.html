@@ -1,4 +1,3 @@
-ใช้ภษาhtml แก้จากโคดนี้
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -47,58 +46,43 @@
       z-index: 0;
     }
 
-     .main-character {
-  position: fixed;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  text-align: center;
-  pointer-events: none;
-  /* เพิ่ม */
-  width: 200px; /* กำหนดขนาด container เพื่ออ้างอิงตำแหน่ง */
-  height: auto;
-  position: fixed;
-  /* เพิ่ม relative สำหรับอ้างอิงตำแหน่งภายใน */
-  position: fixed;
-}
+    .main-character {
+      position: fixed;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      text-align: center;
+      pointer-events: none;
+    }
 
-.main-character img.character-img {
-  width: 200px;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
+    .main-character img.character-img {
+      width: 200px;
+    }
 
-.main-character .wish-box {
-  position: absolute;
-  bottom: 100%; /* อยู่เหนือหัว */
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 10px;
-  background: rgba(255,255,255,0.9);
-  color: #333;
-  font-size: 1.5rem;
-  padding: 1rem 2rem;
-  border-radius: 20px;
-  border: 2px solid gold;
-  white-space: nowrap;
-  z-index: 10;
-}
+    .main-character .flower {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-25deg);
+      width: 100px;
+      transform-origin: bottom center;
+      z-index: 3;
+    }
 
-.main-character .flower {
-  position: absolute;
-  bottom: 55px; /* ปรับตำแหน่งให้ขึ้นมาใกล้มือ */
-  left: 65%; /* ปรับตำแหน่งให้ขยับไปขวาหน่อย */
-  width: 70px; /* ปรับขนาดดอกไม้ให้เล็กลง */
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  z-index: 9;
-}
-
-
-    
+    .main-character .wish-box {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      font-size: 1.5rem;
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      border: 2px solid gold;
+      white-space: nowrap;
+      margin-bottom: 10px;
     }
 
     .other-character {
