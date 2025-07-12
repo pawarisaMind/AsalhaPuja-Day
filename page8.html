@@ -141,6 +141,8 @@
     @media screen and (max-width: 480px) {
       h1 {
         font-size: 2rem;
+        text-align: center;
+        margin: 0.5rem auto;
       }
       .main-character img.character-img {
         width: 150px;
@@ -267,11 +269,11 @@
             flowerImg.style.transform = 'translateX(-45%)';
             break;
           case 'boybrow':
-            flowerImg.style.bottom = '85px';
+            flowerImg.style.bottom = '90px';
             flowerImg.style.transform = 'translateX(-52%)';
             break;
           case 'girlred':
-            flowerImg.style.bottom = '88px';
+            flowerImg.style.bottom = '90px';
             flowerImg.style.transform = 'translateX(-48%)';
             break;
           case 'girlblue':
@@ -299,6 +301,7 @@
           const wrapper = document.createElement('div');
           wrapper.className = 'other-character';
           wrapper.style.animationDelay = `${delay}s`;
+          delay += 2; 
 
           const img = document.createElement('img');
           img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
