@@ -83,7 +83,7 @@
       position: absolute;
       bottom: 6px;
       right: -150px;
-      animation: walk-left 20s linear forwards;
+      animation: walk-left 20s linear;
       z-index: 3;
       pointer-events: none;
     }
@@ -302,7 +302,9 @@
           wrapper.className = 'other-character';
           wrapper.style.animationDelay = `${delay}s`;
           delay += 2; 
-
+          wrapper.addEventListener('animationend', () => {
+         wrapper.remove(); 
+          });
           const img = document.createElement('img');
           img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
           img.loading = 'lazy';
