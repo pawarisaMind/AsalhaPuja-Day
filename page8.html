@@ -289,6 +289,8 @@ if (characterData) {
 // ✅ ดึงข้อมูลจาก Firebase แล้วสร้างตัวละครอื่น ๆ
 const otherArea = document.getElementById('otherCharactersArea');
 let delay = 0;
+const isMobile = window.innerWidth <= 480;
+const step = isMobile ? 4 : 2;
 
 get(child(ref(db), 'users')).then((snapshot) => {
   if (snapshot.exists()) {
@@ -355,7 +357,7 @@ get(child(ref(db), 'users')).then((snapshot) => {
         }, delay * 1000);
       }
 
-      delay += 2;
+      delay += step;
     });
   } else {
     console.warn("ไม่พบข้อมูล characters");
