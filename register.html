@@ -222,13 +222,14 @@
 
       const previewSrc = el.getAttribute('data-preview');
       const previewImg = document.getElementById('preview-img');
-      if (window.innerWidth > 768) {
-        previewImg.src = previewSrc;
-        previewImg.style.display = 'block';
+
+      const isTabletPortrait = window.matchMedia('(min-width: 600px) and (max-width: 1024px) and (orientation: portrait)').matches;
+      if (window.innerWidth > 768 && !isTabletPortrait) {
+      previewImg.src = previewSrc;
+      previewImg.style.display = 'block';
       } else {
-        previewImg.style.display = 'none';
+      previewImg.style.display = 'none';
       }
-    };
 
     window.submitForm = function() {
       const name = document.getElementById('name').value.trim();
