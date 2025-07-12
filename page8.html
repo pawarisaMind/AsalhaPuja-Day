@@ -291,32 +291,52 @@
       document.getElementById('otherCharactersArea').appendChild(main);
     }
 
-    const otherArea = document.getElementById('otherCharactersArea');
-   get(child(ref(db), 'users')).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = Object.values(snapshot.val());
-        let delay = 0;
+      const otherArea = document.getElementById('otherCharactersArea');
+get(child(ref(db), 'users')).then((snapshot) => {
+  if (snapshot.exists()) {
+    const data = Object.values(snapshot.val());
+    let delay = 0;
 
-        data.forEach((user) => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'other-character';
-          wrapper.style.animationDelay = `${delay}s`;
-          delay += 2; 
-          wrapper.addEventListener('animationend', () => {
-         wrapper.remove(); 
-          });
-          const img = document.createElement('img');
-          img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
-          img.loading = 'lazy';
-          wrapper.appendChild(img);
+    data.forEach((user) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'other-character';
+      wrapper.style.animationDelay = `${delay}s`;
 
-          if (user.wish) {
-            const wishBox = document.createElement('div');
-            wishBox.className = 'wish-box';
-            wishBox.textContent = user.wish;
-            wrapper.appendChild(wishBox);
-          }
+      // ลบตัวละครหลังเดินจบ
+      wrapper.addEventListener('animationend', () => {
+        wrapper.remove(); 
+      });
 
+      // สร้างรูปตัวละคร
+      const img = document.createElement('img');
+      img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
+      img.loading = 'lazy';
+      wrapper.appendChild(img);
+
+      // ✅ สร้าง wishBox แต่ "ซ่อนไว้ก่อน"
+      let wishBox;
+      if (user.wish) {
+        wishBox = document.createElement('div');
+        wishBox.className = 'wish-box';
+        wishBox.textContent = user.wish;
+        wishBox.style.display = 'none'; // 🔥 ซ่อนก่อน
+        wrapper.appendChild(wishBox);
+      }
+
+      // ✅ ใส่ตัวละครเข้าหน้าจอ
+      otherArea.appendChild(wrapper);
+
+      // ✅ แสดง wishBox หลัง delay (คือตอนตัวละครเริ่มเดิน)
+      if (wishBox) {
+        setTimeout(() => {
+          wishBox.style.display = 'block';
+        }, delay * 1000); // delay เป็นวินาที → ms
+      }
+
+      delay += 2; // เพิ่ม delay ให้ตัวต่อไปไม่ชนกัน
+    });
+  }
+});
           if (user.offering) {
             const flowerImg = document.createElement('img');
             flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
