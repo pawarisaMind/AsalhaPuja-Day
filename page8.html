@@ -177,121 +177,116 @@
     </button>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
-      authDomain: "asalhapuja-day.firebaseapp.com",
-      databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "asalhapuja-day",
-      storageBucket: "asalhapuja-day.appspot.com",
-      messagingSenderId: "776082602779",
-      appId: "1:776082602779:web:76551ef38442ed8d9b1be"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyChb0EHeLkSneWo7BYwWT_njrU-jZgw_GM",
+  authDomain: "asalhapuja-day.firebaseapp.com",
+  databaseURL: "https://asalhapuja-day-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "asalhapuja-day",
+  storageBucket: "asalhapuja-day.appspot.com",
+  messagingSenderId: "776082602779",
+  appId: "1:776082602779:web:76551ef38442ed8d9b1be"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-    const characterData = JSON.parse(localStorage.getItem('characterData'));
-    const templeData = JSON.parse(localStorage.getItem('templeData'));
-    const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+const characterData = JSON.parse(localStorage.getItem('characterData'));
+const templeData = JSON.parse(localStorage.getItem('templeData'));
+const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-    const gifMap = {
-      boyblue: 'boy1.gif',
-      boybrow: 'ไอ่เด็กเบียว.gif',
-      girlred: 'girl2.gif',
-      girlblue: 'girl1.gif'
-    };
+const gifMap = {
+  boyblue: 'boy1.gif',
+  boybrow: 'ไอ่เด็กเบียว.gif',
+  girlred: 'girl2.gif',
+  girlblue: 'girl1.gif'
+};
 
-    const flowerMap = {
-      f1: 'images/ดอกบัวเบียว.png',
-      f2: 'images/ดอกชมพูเบียว.png',
-      f3: 'images/ดอกเหลืองเบียว.png',
-      f4: 'images/ดอกขาวเบียว.png'
-    };
+const flowerMap = {
+  f1: 'images/ดอกบัวเบียว.png',
+  f2: 'images/ดอกชมพูเบียว.png',
+  f3: 'images/ดอกเหลืองเบียว.png',
+  f4: 'images/ดอกขาวเบียว.png'
+};
 
-    const measureImages = {
-      'วัดบัวขวัญ': {
-        desktop: 'images/watyak.png',
-        mobile: 'images/watlek.png'
-      },
-      'วัดกู้': {
-        desktop: 'images/watku.png',
-        mobile: 'images/watkuja.png'
-      },
-      'วัดสะพานสูง': {
-        desktop: 'images/watsapan.png',
-        mobile: 'images/watsapantom.png'
-      }
-    };
+const measureImages = {
+  'วัดบัวขวัญ': {
+    desktop: 'images/watyak.png',
+    mobile: 'images/watlek.png'
+  },
+  'วัดกู้': {
+    desktop: 'images/watku.png',
+    mobile: 'images/watkuja.png'
+  },
+  'วัดสะพานสูง': {
+    desktop: 'images/watsapan.png',
+    mobile: 'images/watsapantom.png'
+  }
+};
 
-    const measure = templeData?.temple;
-    const isMobile = window.innerWidth <= 480;
-    const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
+const measure = templeData?.temple;
+const isMobile = window.innerWidth <= 480;
+const bgImage = isMobile ? measureImages[measure]?.mobile : measureImages[measure]?.desktop;
 
-    if (bgImage) {
-      document.body.style.backgroundImage = `url('${bgImage}')`;
-    /*  const templeImg = document.createElement('img');
-      templeImg.src = bgImage;
-      templeImg.className = 'temple-layer';
-      document.getElementById('templeArea').appendChild(templeImg);*/
+if (bgImage) {
+  document.body.style.backgroundImage = `url('${bgImage}')`;
+}
+
+// ✅ main character
+if (characterData) {
+  const main = document.createElement('div');
+  main.className = 'other-character';
+
+  const img = document.createElement('img');
+  img.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
+  img.className = 'character-img';
+  img.loading = 'lazy';
+  main.appendChild(img);
+
+  if (characterData.wish) {
+    const wishBox = document.createElement('div');
+    wishBox.className = 'wish-box';
+    wishBox.textContent = characterData.wish;
+    main.appendChild(wishBox);
+  }
+
+  if (offeringData?.offering) {
+    const flowerImg = document.createElement('img');
+    flowerImg.src = flowerMap[offeringData.offering] || 'images/default-flower.png';
+    flowerImg.className = 'flower';
+
+    switch (characterData.character) {
+      case 'boyblue':
+        flowerImg.style.bottom = '90px';
+        flowerImg.style.transform = 'translateX(-50%)';
+        break;
+      case 'boybrow':
+        flowerImg.style.bottom = '95px';
+        flowerImg.style.transform = 'translateX(-52%)';
+        break;
+      case 'girlred':
+        flowerImg.style.bottom = '90px';
+        flowerImg.style.transform = 'translateX(-55%)';
+        break;
+      case 'girlblue':
+        flowerImg.style.bottom = '92px';
+        flowerImg.style.transform = 'translateX(-55%)';
+        break;
+      default:
+        flowerImg.style.bottom = '85px';
+        flowerImg.style.transform = 'translateX(-50%)';
     }
 
-    // main character
-    if (characterData) {
-      const main = document.createElement('div');
-      main.className = 'other-character';
+    main.appendChild(flowerImg);
+  }
 
-      const img = document.createElement('img');
-      img.src = 'images/' + (gifMap[characterData.character] || characterData.character + '.png');
-      img.className = 'character-img';
-      img.loading = 'lazy';
-      main.appendChild(img);
+  document.getElementById('otherCharactersArea').appendChild(main);
+}
 
-      if (characterData.wish) {
-        const wishBox = document.createElement('div');
-        wishBox.className = 'wish-box';
-        wishBox.textContent = characterData.wish;
-        main.appendChild(wishBox);
-      }
-
-      if (offeringData?.offering) {
-        const flowerImg = document.createElement('img');
-        flowerImg.src = flowerMap[offeringData.offering] || 'images/default-flower.png';
-        flowerImg.className = 'flower';
-
-        // 🌸 ตำแหน่งดอกไม้ตามตัวละคร
-        switch (characterData.character) {
-          case 'boyblue':
-            flowerImg.style.bottom = '90px';
-            flowerImg.style.transform = 'translateX(-50%)';
-            break;
-          case 'boybrow':
-            flowerImg.style.bottom = '95px';
-            flowerImg.style.transform = 'translateX(-52%)';
-            break;
-          case 'girlred':
-            flowerImg.style.bottom = '90px';
-            flowerImg.style.transform = 'translateX(-55%)';
-            break;
-          case 'girlblue':
-            flowerImg.style.bottom = '92px';
-            flowerImg.style.transform = 'translateX(-55%)';
-            break;
-          default:
-            flowerImg.style.bottom = '85px';
-            flowerImg.style.transform = 'translateX(-50%)';
-        }
-
-        main.appendChild(flowerImg);
-      }
-
-      document.getElementById('otherCharactersArea').appendChild(main);
-    }
-
-  data.forEach((user) => {
+// ✅ ดึงข้อมูลจาก Firebase แล้วสร้างตัวละครอื่น ๆ
 const otherArea = document.getElementById('otherCharactersArea');
 let delay = 0;
 
@@ -368,8 +363,7 @@ get(child(ref(db), 'users')).then((snapshot) => {
 }).catch((error) => {
   console.error("เกิดข้อผิดพลาดในการโหลด Firebase:", error);
 });
-
-  </script>
+</script>
 
   <script>
     function copyLink() {
