@@ -292,112 +292,83 @@
     }
 
   data.forEach((user) => {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'other-character';
-  wrapper.style.animationDelay = `${delay}s`;
+const otherArea = document.getElementById('otherCharactersArea');
+let delay = 0;
 
-  // ลบตัวละครหลังเดินจบ
-  wrapper.addEventListener('animationend', () => {
-    wrapper.remove();
-  });
+get(child(ref(db), 'users')).then((snapshot) => {
+  if (snapshot.exists()) {
+    const data = Object.values(snapshot.val());
 
-  const img = document.createElement('img');
-  img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
-  img.loading = 'lazy';
-  wrapper.appendChild(img);
+    data.forEach((user) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'other-character';
+      wrapper.style.animationDelay = `${delay}s`;
 
-  // ซ่อนไว้ก่อน
-  let wishBox;
-  if (user.wish) {
-    wishBox = document.createElement('div');
-    wishBox.className = 'wish-box';
-    wishBox.textContent = user.wish;
-    wishBox.style.display = 'none';
-    wrapper.appendChild(wishBox);
+      wrapper.addEventListener('animationend', () => {
+        wrapper.remove();
+      });
+
+      const img = document.createElement('img');
+      img.src = 'images/' + (gifMap[user.character] || user.character + '.png');
+      img.loading = 'lazy';
+      wrapper.appendChild(img);
+
+      let wishBox;
+      if (user.wish) {
+        wishBox = document.createElement('div');
+        wishBox.className = 'wish-box';
+        wishBox.textContent = user.wish;
+        wishBox.style.display = 'none';
+        wrapper.appendChild(wishBox);
+      }
+
+      if (user.offering) {
+        const flowerImg = document.createElement('img');
+        flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
+        flowerImg.className = 'flower';
+
+        switch (user.character) {
+          case 'boyblue':
+            flowerImg.style.bottom = '90px';
+            flowerImg.style.transform = 'translateX(-45%)';
+            break;
+          case 'boybrow':
+            flowerImg.style.bottom = '85px';
+            flowerImg.style.transform = 'translateX(-52%)';
+            break;
+          case 'girlred':
+            flowerImg.style.bottom = '88px';
+            flowerImg.style.transform = 'translateX(-48%)';
+            break;
+          case 'girlblue':
+            flowerImg.style.bottom = '92px';
+            flowerImg.style.transform = 'translateX(-47%)';
+            break;
+          default:
+            flowerImg.style.bottom = '85px';
+            flowerImg.style.transform = 'translateX(-50%)';
+        }
+
+        wrapper.appendChild(flowerImg);
+      }
+
+      otherArea.appendChild(wrapper);
+
+      if (wishBox) {
+        setTimeout(() => {
+          wishBox.style.display = 'block';
+        }, delay * 1000);
+      }
+
+      delay += 2;
+    });
+  } else {
+    console.warn("ไม่พบข้อมูล characters");
   }
-
-  // ✅ ย้าย flowerImg มาตรงนี้
-  if (user.offering) {
-    const flowerImg = document.createElement('img');
-    flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
-    flowerImg.className = 'flower';
-
-    switch (user.character) {
-      case 'boyblue':
-        flowerImg.style.bottom = '90px';
-        flowerImg.style.transform = 'translateX(-45%)';
-        break;
-      case 'boybrow':
-        flowerImg.style.bottom = '85px';
-        flowerImg.style.transform = 'translateX(-52%)';
-        break;
-      case 'girlred':
-        flowerImg.style.bottom = '88px';
-        flowerImg.style.transform = 'translateX(-48%)';
-        break;
-      case 'girlblue':
-        flowerImg.style.bottom = '92px';
-        flowerImg.style.transform = 'translateX(-47%)';
-        break;
-      default:
-        flowerImg.style.bottom = '85px';
-        flowerImg.style.transform = 'translateX(-50%)';
-    }
-
-    wrapper.appendChild(flowerImg);
-  }
-
-  otherArea.appendChild(wrapper);
-
-  if (wishBox) {
-    setTimeout(() => {
-      wishBox.style.display = 'block';
-    }, delay * 1000);
-  }
-
-  delay += 2;
+}).catch((error) => {
+  console.error("เกิดข้อผิดพลาดในการโหลด Firebase:", error);
 });
 
-          if (user.offering) {
-            const flowerImg = document.createElement('img');
-            flowerImg.src = flowerMap[user.offering] || 'images/default-flower.png';
-            flowerImg.className = 'flower';
-
-            // 🌸 ตำแหน่งดอกไม้ตามตัวละคร
-            switch (user.character) {
-              case 'boyblue':
-                flowerImg.style.bottom = '90px';
-                flowerImg.style.transform = 'translateX(-45%)';
-                break;
-              case 'boybrow':
-                flowerImg.style.bottom = '85px';
-                flowerImg.style.transform = 'translateX(-52%)';
-                break;
-              case 'girlred':
-                flowerImg.style.bottom = '88px';
-                flowerImg.style.transform = 'translateX(-48%)';
-                break;
-              case 'girlblue':
-                flowerImg.style.bottom = '92px';
-                flowerImg.style.transform = 'translateX(-47%)';
-                break;
-              default:
-                flowerImg.style.bottom = '85px';
-                flowerImg.style.transform = 'translateX(-50%)';
-            }
-
-            wrapper.appendChild(flowerImg);
-          }
-
-          otherArea.appendChild(wrapper);
-          delay += 2;
-        });
-      } else {
-        console.warn("ไม่พบข้อมูล characters");
-      }
-    }).catch((error) => {
-      console.error("เกิดข้อผิดพลาดในการโหลด Firebase:", error);
-    });
   </script>
 
   <script>
