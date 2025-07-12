@@ -215,47 +215,50 @@
 
     let selectedCharacter = null;
 
-    window.selectCharacter = function(el) {
-      document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
-      el.classList.add('selected');
-      selectedCharacter = el.getAttribute('data-character');
+window.selectCharacter = function(el) {
+  document.querySelectorAll('.character').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedCharacter = el.getAttribute('data-character');
 
-      const previewSrc = el.getAttribute('data-preview');
-      const previewImg = document.getElementById('preview-img');
+  const previewSrc = el.getAttribute('data-preview');
+  const previewImg = document.getElementById('preview-img');
 
-      const isTabletPortrait = window.matchMedia('(min-width: 600px) and (max-width: 1024px) and (orientation: portrait)').matches;
-      if (window.innerWidth > 768 && !isTabletPortrait) {
-      previewImg.src = previewSrc;
-      previewImg.style.display = 'block';
-      } else {
-      previewImg.style.display = 'none';
-      }
+  const isTabletPortrait = window.matchMedia('(min-width: 600px) and (max-width: 1024px) and (orientation: portrait)').matches;
+  if (window.innerWidth > 768 && !isTabletPortrait) {
+    previewImg.src = previewSrc;
+    previewImg.style.display = 'block';
+  } else {
+    previewImg.style.display = 'none';
+  }
+}; // ✅ ปิด function นี้ให้เรียบร้อย
 
-    window.submitForm = function() {
-      const name = document.getElementById('name').value.trim();
-      if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
-      if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
+// ✅ ย้ายออกมาอยู่นอก selectCharacter
+window.submitForm = function() {
+  const name = document.getElementById('name').value.trim();
+  if (!selectedCharacter) return alert("กรุณาเลือกตัวละครก่อน");
+  if (!name) return alert("กรุณากรอกชื่อตัวละครของคุณ");
 
-      const characterData = JSON.parse(localStorage.getItem('characterData'));
-      const offeringData = JSON.parse(localStorage.getItem('offeringData'));
+  const characterData = JSON.parse(localStorage.getItem('characterData'));
+  const offeringData = JSON.parse(localStorage.getItem('offeringData'));
 
-const allData = {
-  name: name, // ✅ เก็บชื่อที่ผู้ใช้กรอก
-  character: selectedCharacter,
-  wish: offeringData?.wish || "",
-  offering: offeringData?.offering || ""
+  const allData = {
+    name: name,
+    character: selectedCharacter,
+    wish: offeringData?.wish || "",
+    offering: offeringData?.offering || ""
+  };
+
+  push(ref(db, "users"), allData)
+    .then(() => {
+      localStorage.setItem('characterData', JSON.stringify(allData));
+      window.location.href = "page9.html";
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+    });
 };
 
-push(ref(db, "users"), allData)
-  .then(() => {
-    localStorage.setItem('characterData', JSON.stringify(allData));
-    window.location.href = "page9.html";
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-    alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
-  });
- };
   </script>
 </body>
 </html>
